@@ -10,3 +10,6 @@ dialog on the Setup menu of the application.
 
 https://raw.githubusercontent.com/ksx0330/FVTT-Shinobigami-System/master/system.json
 
+Images
+------------
+![image](https://user-images.githubusercontent.com/15700174/129000289-937124fc-0fa1-4dd1-a287-ee7aad3b6e04.png)
