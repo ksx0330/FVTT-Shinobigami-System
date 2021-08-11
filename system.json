@@ -1,0 +1,23 @@
+{
+  "name": "shinobigami",
+  "title": "Shinobigami System",
+  "description": "Shinobigami system",
+  "version": "0.0.5",
+  "minimumCoreVersion": "0.8.6",
+  "compatibleCoreVersion": "0.8.7",
+  "templateVersion": 1,
+  "author": "ltaeng",
+  "esmodules": ["module/init.js"],
+  "styles": ["styles/style.css"],
+  "packs": [],
+  "languages": [
+    { "lang": "ko", "name": "Korean", "path": "lang/ko.json" }
+  ],
+  "gridDistance": 5,
+  "gridUnits": "ft",
+  "primaryTokenAttribute": "health",
+  "url": "https://github.com/ksx0330/FVTT-Insane-System",
+  "manifest": "https://raw.githubusercontent.com/ksx0330/FVTT-Insane-System/main/system.json",
+  "download": "https://codeload.github.com/ksx0330/FVTT-Insane-System/zip/main",
+  "license": "LICENSE.txt"
+}

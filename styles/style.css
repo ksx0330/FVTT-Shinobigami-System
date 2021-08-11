@@ -1,0 +1,274 @@
+.shinobigami {
+  /* Sheet Tabs */
+  /* Items List */
+  /* Attributes */
+}
+.shinobigami .window-content {
+  height: 100%;
+  padding: 5px;
+  overflow-y: hidden;
+}
+.shinobigami .sheet-header {
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+.shinobigami .sheet-header .profile-img {
+  flex: 0 0 100px;
+  height: 100px;
+  margin-right: 10px;
+}
+.shinobigami .sheet-header .header-fields {
+  flex: 1;
+}
+.shinobigami .sheet-header h1.charname {
+  height: 50px;
+  padding: 0px;
+  margin: 5px 0;
+  border-bottom: 0;
+}
+.shinobigami .sheet-header h1.charname input {
+  width: 92%;
+  height: 100%;
+  margin: 0;
+}
+.shinobigami .quater-width {
+  width: 25%;
+}
+.shinobigami .double-width {
+  width: 50%;
+}
+.shinobigami .resource {
+  height: 40px;
+  margin-top: 10px;
+  float: left;
+  text-align: center;
+}
+.shinobigami .resource input {
+  height: 28px;
+}
+.shinobigami .resource input[type=checkbox] {
+  height: 20px;
+}
+.shinobigami .resource span {
+  font-weight: bold;
+}
+.shinobigami .resource .number-input {
+  width: 50px;
+}
+.shinobigami .resource .string-input {
+  width: 100px;
+}
+.shinobigami .resource .check-span {
+  position: relative;
+  top: -8px;
+}
+.shinobigami .tabs {
+  height: 40px;
+  border-top: 1px solid #AAA;
+  border-bottom: 1px solid #AAA;
+}
+.shinobigami .tabs .item {
+  line-height: 40px;
+  font-weight: bold;
+}
+.shinobigami .tabs .item.active {
+  text-decoration: underline;
+  text-shadow: none;
+}
+.shinobigami .sheet-body {
+  overflow: auto;
+}
+.shinobigami .sheet-body .tab {
+  height: 100%;
+  overflow-y: auto;
+}
+.shinobigami .editor,
+.shinobigami .editor-content {
+  height: 100%;
+}
+.shinobigami .item-list {
+  list-style: none;
+  margin: 7px 0;
+  padding: 0;
+  overflow-y: auto;
+}
+.shinobigami .item-list .item {
+  height: 30px;
+  line-height: 24px;
+  padding: 3px 0;
+  border-bottom: 1px solid #BBB;
+}
+.shinobigami .item-list .item img {
+  flex: 0 0 24px;
+  margin-right: 5px;
+}
+.shinobigami .item-list .item-name {
+  margin: 0;
+}
+.shinobigami .item-list .item-controls {
+  flex: 0 0 36px;
+}
+.shinobigami .attributes-header {
+  padding: 5px;
+  margin: 5px 0;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid #AAA;
+  border-radius: 2px;
+  text-align: center;
+  font-weight: bold;
+}
+.shinobigami .attributes-header .attribute-label {
+  flex: 1.5;
+}
+.shinobigami .attributes-header .attribute-control {
+  flex: 0 0 20px;
+}
+.shinobigami .attributes-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.shinobigami .attributes-list li > * {
+  margin: 0 3px;
+  height: 28px;
+  line-height: 24px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid #AAA;
+}
+.shinobigami .attributes-list a.attribute-control {
+  flex: 0 0 20px;
+  text-align: center;
+  line-height: 28px;
+  border: none;
+}
+.shinobigami.sheet.actor {
+  min-width: 560px;
+  min-height: 420px;
+}
+.shinobigami.sheet.item {
+  min-width: 460px;
+  min-height: 400px;
+}
+.shinobigami .talent-table table, th, td {
+  border: 1px solid black;
+}
+
+.shinobigami .talent-table .active {
+  background-color: #454545;
+}
+
+.shinobigami .talent-table .checked {
+    background-color: #e06060;
+    color: white;
+    font-weight: bold;
+}
+
+.shinobigami .talent-table .stop .talent-name {
+    text-decoration: line-through;
+}
+
+.shinobigami .talent-checkbox {
+    width: 15px;
+    height: 15px;
+}
+
+.shinobigami .talent-name {
+    height: 15px;
+}
+
+.shinobigami #talent-description {
+    padding: 2px 8px;
+    border: 2px solid black;
+    background-color: #efefef;
+    text-align: center;
+    font-weight: bold;
+    position: fixed;
+    display: none;
+    z-index: 50;
+    border-radius: 15%;
+}
+
+.shinobigami .cell .cell--title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-flex: 100%;
+  -ms-flex: 100%;
+  flex: 100%;
+  color: #2d3748;
+  padding: 5px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.shinobigami .item-controls {
+  text-align: right;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 40px;
+  flex: 0 0 40px;
+}
+
+.shinobigami .item-form .sheet-header {
+  margin-bottom: 10px;
+}
+
+.shinobigami .item-form .sheet-header, .shinobigami .item-form .sheet-navigation {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 30px;
+  flex: 0 0 30px;
+}
+
+.shinobigami .items-list .item {
+  padding: 10px 0;
+}
+
+.shinobigami .item-description {
+  display: none;
+  -webkit-box-flex: 0;
+  -ms-flex: none;
+  flex: none;
+  width: 100%;
+}
+
+.shinobigami .item-name {
+  font-size: 18px;
+  font-weight: bold;
+  -webkit-box-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
+  margin: 0;
+}
+
+.shinobigami .item-label:hover::after {
+  width: 100%;
+}
+
+.shinobigami .item-label::after {
+  display: block;
+  content: '';
+  width: 0;
+  height: 0;
+  margin-top: 2px;
+  border-bottom: 2px solid;
+  -webkit-transition: all ease-in-out 0.25s;
+  -o-transition: all ease-in-out 0.25s;
+  transition: all ease-in-out 0.25s;
+}

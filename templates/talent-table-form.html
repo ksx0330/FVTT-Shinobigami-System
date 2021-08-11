@@ -1,0 +1,19 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <table>
+        {{#each tables}} 
+        <tr>
+            <td><input type="text" id="{{this.[0].id}}" placeholder="{{this.[0].title}}" value="{{this.[0].value}}"></td>
+            <td><input type="text" id="{{this.[1].id}}" placeholder="{{this.[1].title}}" value="{{this.[1].value}}"></td>
+            <td><input type="text" id="{{this.[2].id}}" placeholder="{{this.[2].title}}" value="{{this.[2].value}}"></td>
+            <td><input type="text" id="{{this.[3].id}}" placeholder="{{this.[3].title}}" value="{{this.[3].value}}"></td>
+            <td><input type="text" id="{{this.[4].id}}" placeholder="{{this.[4].title}}" value="{{this.[4].value}}"></td>
+            <td><input type="text" id="{{this.[5].id}}" placeholder="{{this.[5].title}}" value="{{this.[5].value}}"></td>
+        </tr>
+        {{/each}}
+    </table>
+    
+    <footer class="sheet-footer flexrow">
+        <button type="button" name="reset">Reset</button>
+        <button type="submit" name="submit">Confirm</button>
+    </footer>
+</form>
