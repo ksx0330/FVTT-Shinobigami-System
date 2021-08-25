@@ -35,6 +35,15 @@
   height: 100%;
   margin: 0;
 }
+.shinobigami .gap {
+  text-align: center;
+}
+
+.shinobigami .gap input {
+  margin: 1px;
+  margin-top: 2px;
+}
+
 .shinobigami .quater-width {
   width: 25%;
 }

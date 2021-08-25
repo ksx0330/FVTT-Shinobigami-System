@@ -17,6 +17,7 @@
             [{"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}], 
             [{"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}] 
         ],
+        "gap": [false, false, false, false, false, false],
         "curiosity": 0,
         "overflowX": false,
         "overflowY": false
@@ -35,7 +36,7 @@
   }
 },
 "Item": {
-    "types": ["bond", "ability", "item", "finish"],
+    "types": ["bond", "ability", "item", "finish", "background"],
     "bond": {
         "residence": false,
         "secret": false,
@@ -52,6 +53,11 @@
     },
     "finish": {
         "type": "",
+        "description": ""
+    },
+    "background": {
+        "type": "pros",
+        "exp": 0,
         "description": ""
     },
     "item": {

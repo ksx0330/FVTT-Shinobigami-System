@@ -60,6 +60,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
     actorData.bondList = [];
     actorData.itemList = [];
     actorData.finishList = [];
+    actorData.backgroundList = [];
 
     for (let i of data.actor.items) {
         if (i.type === 'ability')
@@ -70,6 +71,8 @@ export class ShinobigamiActorSheet extends ActorSheet {
             actorData.itemList.push(i);
         else if (i.type == 'finish')
             actorData.finishList.push(i);
+        else if (i.type == 'background')
+            actorData.backgroundList.push(i);
     }
 
     return data;
@@ -361,6 +364,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
     let health = this.actor.data.data.health.state;
     let table = JSON.parse(JSON.stringify(this.actor.data.data.talent.table));
     let curiosity = this.actor.data.data.talent.curiosity;
+    let gap = this.actor.data.data.talent.gap;
     let nodes = [];
     
     let overflowX = this.actor.data.data.talent.overflowX;
@@ -401,11 +405,9 @@ export class ShinobigamiActorSheet extends ActorSheet {
           if (nx < 0 || nx >= 6 || ny < 0 || ny >= 11)
             continue;
 
-          if (m == 2 && (nx == curiosity - 1 || now.x == curiosity - 1))
+          let g = ( (now.x == 0 && nx == 5) || (now.x == 5 && nx == 0) ) ? gap[0] : gap[(nx > now.x) ? nx : now.x];
+          if (m == 2 && g)
             m = 1;
-            
-          if (curiosity == 6 && ( (now.x == 0 && nx == 5) || (now.x == 5 && nx == 0) ) )
-            m = 2;
 
           if (Number(table[nx][ny].num) > Number(table[now.x][now.y].num) + m) {
             table[nx][ny].num = String(Number(table[now.x][now.y].num) + m);

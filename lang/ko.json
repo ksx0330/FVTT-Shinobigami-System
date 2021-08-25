@@ -38,6 +38,10 @@
     "Shinobigami.ItemsList": "닌자 도구 리스트",
     "Shinobigami.UseItem": "닌자 도구 사용",
     "Shinobigami.Quantity": "개수",
+    "Shinobigami.Background": "배경",
+    "Shinobigami.Pros": "장점",
+    "Shinobigami.Cons": "단점",
+    "Shinobigami.RequireEXP": "필요 공적점",
     
     "Shinobigami.A1": "1. 기술",
     "Shinobigami.A2": "장치술",
