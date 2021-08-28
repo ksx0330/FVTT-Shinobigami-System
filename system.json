@@ -11,7 +11,7 @@
   "styles": ["styles/style.css"],
   "packs": [],
   "languages": [
-    { "lang": "ko", "name": "Korean", "path": "lang/ko.json" }
+    { "lang": "ko", "name": "Korean", "path": "lang/ko.json" }, { "lang": "ja", "name": "日本語", "path": "lang/ja.json" }
   ],
   "gridDistance": 5,
   "gridUnits": "ft",
