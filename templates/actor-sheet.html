@@ -228,7 +228,7 @@
           </h2>
           <ol class="items-list">
           {{#each actor.abilityList as |item id|}}
-            <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
+            <li class="item flexrow" data-item-id="{{item.id}}" draggable="true">
               
               <h4 class="item-name">
                   <span class="echo-item" style="float:left;">
@@ -272,7 +272,7 @@
           </h2>
           <ol class="items-list">
           {{#each actor.bondList as |item id|}}
-            <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
+            <li class="item flexrow" data-item-id="{{item.id}}" draggable="true">
               
               <h4 class="item-name">
                   <span class="echo-item" style="float:left;">
@@ -320,7 +320,7 @@
           </h2>
           <ol class="items-list">
           {{#each actor.backgroundList as |item id|}}
-            <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
+            <li class="item flexrow" data-item-id="{{item.id}}" draggable="true">
               <h4 class="item-name">
                   <span class="echo-item"><img src="{{item.img}}" title="{{item.name}}" width="37" height="37" style="vertical-align : middle;margin-right:10px;"></i></span> 
                   <span class="item-label">{{item.name}} {{#ifEquals item.data.type "pros"}} <i class="fas fa-grin-alt"></i> {{else}} <i class="fas fa-frown"></i> {{/ifEquals}}
@@ -359,7 +359,7 @@
           </h2>
           <ol class="items-list">
           {{#each actor.itemList as |item id|}}
-            <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
+            <li class="item flexrow" data-item-id="{{item.id}}" draggable="true">
               <h4 class="item-name">
                   <span class="echo-item"><img src="{{item.img}}" title="{{item.name}}" width="37" height="37" style="vertical-align : middle;margin-right:10px;"></i></span> 
                   <span class="item-label">{{item.name}} X {{item.data.quantity}}
@@ -398,7 +398,7 @@
           </h2>
           <ol class="items-list">
           {{#each actor.finishList as |item id|}}
-            <li class="item flexrow" data-item-id="{{item._id}}" draggable="true">
+            <li class="item flexrow" data-item-id="{{item.id}}" draggable="true">
               <h4 class="item-name">
                   <span class="echo-item"><img src="{{item.img}}" title="{{item.name}}" width="37" height="37" style="vertical-align : middle;margin-right:10px;"></i></span> 
                   <span class="item-label">{{item.name}}

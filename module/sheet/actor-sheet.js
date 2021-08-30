@@ -37,13 +37,11 @@ export class ShinobigamiActorSheet extends ActorSheet {
     data.data.isOwner = isOwner;
 
     // Owned Items
-    data.items = actorData.items;
-    for ( let i of data.items ) {
-      const item = this.actor.items.get(i._id);
-      i.labels = item.labels;
-    }
-    data.items.sort((a, b) => (a.sort || 0) - (b.sort || 0));
-    
+    data.items = Array.from(this.actor.items.values());
+    data.items = data.items.map( i => {
+      i.data.id = i.id;
+      return i.data;
+    });
     
     data.dtypes = ["String", "Number", "Boolean"];
 
@@ -62,7 +60,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
     actorData.finishList = [];
     actorData.backgroundList = [];
 
-    for (let i of data.actor.items) {
+    for (let i of data.items) {
         if (i.type === 'ability')
             actorData.abilityList.push(i);
         else if (i.type == 'bond')
@@ -158,8 +156,6 @@ export class ShinobigamiActorSheet extends ActorSheet {
   /** @override */
   async _updateObject(event, formData) {
     let target = event.currentTarget;
-    
-    console.log(target);
 
     if (target == undefined || (target.name.indexOf("data.talent") == -1 && target.name.indexOf("data.health.state") == -1) )
       return await this.object.update(formData);
@@ -204,14 +200,14 @@ export class ShinobigamiActorSheet extends ActorSheet {
     
     // GM rolls.
     let chatData = {
-        user: game.user._id,
+        user: game.user.id,
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: "<h2><b>" + title + "</b></h2>"
     };
 
     let rollMode = game.settings.get("core", "rollMode");
     if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
-    if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
+    if (rollMode === "selfroll") chatData["whisper"] = [game.user.id];
     if (rollMode === "blindroll") chatData["blind"] = true;
 
     let roll = new Roll("2d6");
@@ -219,7 +215,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
     chatData.content = await renderTemplate("systems/shinobigami/templates/roll.html", {
         formula: roll.formula,
         flavor: null,
-        user: game.user._id,
+        user: game.user.id,
         tooltip: await roll.getTooltip(),
         total: Math.round(roll.total * 100) / 100,
         num: num
@@ -279,12 +275,16 @@ export class ShinobigamiActorSheet extends ActorSheet {
 
       description = `<table style="text-align: center;">
                       <tr>
-                        <th>${game.i18n.localize("INSANE.Type")}</th>
-                        <th>${game.i18n.localize("INSANE.Talent")}</th>
+                        <th>${game.i18n.localize("Shinobigami.Type")}</th>
+                        <th>${game.i18n.localize("Shinobigami.Gap")}</th>
+                        <th>${game.i18n.localize("Shinobigami.Cost")}</th>
+                        <th>${game.i18n.localize("Shinobigami.Talent")}</th>
                       </tr>
 
                       <tr>
                         <td>${item.data.data.type}</td>
+                        <td>${item.data.data.gap}</td>
+                        <td>${item.data.data.cost}</td>
                         <td>${item.data.data.talent}</td>
                       </tr>
                     </table>${description}`
@@ -296,17 +296,54 @@ export class ShinobigamiActorSheet extends ActorSheet {
 
       description = `<table style="text-align: center;">
                       <tr>
-                        <th>${game.i18n.localize("INSANE.Residence")}</th>
-                        <th>${game.i18n.localize("INSANE.Secret")}</th>
-                        <th>${game.i18n.localize("INSANE.Feeling")}</th>
+                        <th>${game.i18n.localize("Shinobigami.Residence")}</th>
+                        <th>${game.i18n.localize("Shinobigami.Secret")}</th>
+                        <th>${game.i18n.localize("Shinobigami.Finish")}</th>
+                        <th>${game.i18n.localize("Shinobigami.Feeling")}</th>
                       </tr>
 
                       <tr>
                         <td>${(item.data.data.residence) ? "O" : "X"}</td>
                         <td>${(item.data.data.secret) ? "O" : "X"}</td>
+                        <td>${(item.data.data.finish) ? "O" : "X"}</td>
                         <td>${item.data.data.feeling}</td>
                       </tr>
                     </table>${description}`
+    }
+    
+    else if (item.data.type == 'background') {
+      if (item.data.img != 'icons/svg/mystery-man.svg')
+        title = `<img src="${item.data.img}" width="40" height="40">&nbsp&nbsp<b>${title}</b>` 
+
+      description = `<table style="text-align: center;">
+                      <tr>
+                        <th>${game.i18n.localize("Shinobigami.Type")}</th>
+                        <th>${game.i18n.localize("Shinobigami.RequireEXP")}</th>
+                      </tr>
+
+                      <tr>
+                        <td>${(item.data.data.type == "pros") ? '<i class="fas fa-grin-alt"></i>' : '<i class="fas fa-frown"></i>'}</td>
+                        <td>${item.data.data.exp}</td>
+                      </tr>
+                    </table>${description}`
+    }
+    
+    else if (item.data.type == 'finish') {
+      if (item.data.img != 'icons/svg/mystery-man.svg')
+        title = `<img src="${item.data.img}" width="40" height="40">&nbsp&nbsp<b>${title}</b>` 
+
+      description = `<table style="text-align: center;">
+                      <tr>
+                        <th>${game.i18n.localize("Shinobigami.Type")}</th>
+                        <th>${game.i18n.localize("Shinobigami.Talent")}</th>
+                      </tr>
+
+                      <tr>
+                        <td>${item.data.data.type}</td>
+                        <td>${item.data.data.talent}</td>
+                      </tr>
+                    </table>${description}`
+      
     }
     
     else if (item.data.type == "item") {
@@ -335,14 +372,14 @@ export class ShinobigamiActorSheet extends ActorSheet {
   
       // GM rolls.
       let chatData = {
-        user: game.user._id,
+        user: game.user.id,
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         content: "<h3>" + game.i18n.localize("Shinobigami.UseItem") + ": " + item.data.name + "</h3>"
       };
   
       let rollMode = game.settings.get("core", "rollMode");
       if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
-      if (rollMode === "selfroll") chatData["whisper"] = [game.user._id];
+      if (rollMode === "selfroll") chatData["whisper"] = [game.user.id];
       if (rollMode === "blindroll") chatData["blind"] = true;
   
       ChatMessage.create(chatData);

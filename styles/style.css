@@ -281,3 +281,56 @@
   -o-transition: all ease-in-out 0.25s;
   transition: all ease-in-out 0.25s;
 }
+
+
+.shinobigami .plot-header {
+  height: 35px;
+  font-weight: bold;
+}
+
+.shinobigami .dice-controls {
+  float: right;
+}
+
+.shinobigami .dice-controls button{
+  width: 30px;
+  height:  30px;
+}
+
+.shinobigami .dice-select {
+   filter: invert(20%) sepia(85%) saturate(415%) hue-rotate(94deg) brightness(70%) contrast(100%);
+   width:45px;
+   height:45px;
+}
+
+.dice-lists {
+  text-align: center;
+}
+
+.dice-lists * {
+  display: inline-block;
+  font-size: 16px;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+  border: 3px solid #00395a;
+  margin: 1px;
+  background-color: white;
+  border-radius: 15%;
+}
+
+.dice-lists-md * {
+  width: 45px;
+  height: 45px;
+  line-height: 40px;
+}
+
+.dice-lists-sm * {
+  width: 30px;
+  height: 30px;
+  line-height: 25px;
+}
+
+.dice-lists .random {
+  background-color: #ffe2e2;
+}

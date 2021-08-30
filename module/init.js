@@ -5,10 +5,12 @@
  */
 
 // Import Modules
-import { ShinobigamiItemSheet } from "./item-sheet.js";
-import { ShinobigamiActorSheet } from "./actor-sheet.js";
+import { ShinobigamiItemSheet } from "./sheet/item-sheet.js";
+import { ShinobigamiActorSheet } from "./sheet/actor-sheet.js";
 import { SecretJournalSheet } from "./secret-journal.js";
 import { ShinobigamiSettings } from "./settings.js";
+import { ActorListDialog } from "./dialog/actor-list-dialog.js";
+import { PlotDialog } from "./dialog/plot-dialog.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -26,9 +28,31 @@ Hooks.once("init", async function() {
     CONFIG.JournalEntry.sheetClass = SecretJournalSheet;
     ShinobigamiSettings.init();
     
-    console.log(Actors);
+    game.socket.on("system.shinobigami", ({share, data}) => {
+        if (game.user.id === share) {
+            new PlotDialog(game.actors.get(data.actorId), data.actors).render(true);
+        }
+    });
     
 });
 
+Hooks.on("getSceneControlButtons", function(controls) {
+    controls[0].tools.push({
+        name: "setPlot",
+        title: "Set Plot",
+        icon: "fas fa-dice",
+        visible: game.user.isGM,
+        onClick: () => setPlot(),
+        button: true
+    });
+
+});
+
+function setPlot() {
+    var actors = game.data.actors.filter(element => (element.permission['default'] == 3 || element.permission[game.user.id] == 3) );
+
+    let dialog = new ActorListDialog(actors)
+    dialog.render(true);
+}
 
 

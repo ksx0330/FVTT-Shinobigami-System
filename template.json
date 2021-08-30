@@ -53,6 +53,7 @@
     },
     "finish": {
         "type": "",
+        "talent": "",
         "description": ""
     },
     "background": {
