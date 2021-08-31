@@ -303,6 +303,16 @@
    height:45px;
 }
 
+.shinobigami .ready {
+    background-color: #3ec33e;
+    color: white;
+}
+
+.shinobigami .await {
+    background-color: #ff4b4b;
+    color: white;
+}
+
 .dice-lists {
   text-align: center;
 }

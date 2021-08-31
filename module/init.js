@@ -9,9 +9,8 @@ import { ShinobigamiItemSheet } from "./sheet/item-sheet.js";
 import { ShinobigamiActorSheet } from "./sheet/actor-sheet.js";
 import { SecretJournalSheet } from "./secret-journal.js";
 import { ShinobigamiSettings } from "./settings.js";
-import { ActorListDialog } from "./dialog/actor-list-dialog.js";
-import { PlotDialog } from "./dialog/plot-dialog.js";
 import { PlotCombat } from "./combat.js";
+import { PlotSettings } from "./plot.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -30,47 +29,11 @@ Hooks.once("init", async function() {
     CONFIG.Combat.initiative.formula = "1d6";
     CONFIG.JournalEntry.sheetClass = SecretJournalSheet;
     ShinobigamiSettings.init();
-
-    game.socket.on("system.shinobigami", ({share, data}) => {
-        if (game.user.id === share) {
-            let actor = null;
-            let actors = null;
-            if (data.combat) {
-                let combatants = game.combat.combatants;
-                actor = combatants.get(data.combatId).actor;
-                actors = data.actors.map(i => {
-                    let actor = combatants.get(i.combatId).actor
-                    actor.combatId = i.combatId;
-                    return actor;
-                });
-            } else {
-                actor = game.actors.get(data.actorId);
-                actors = data.actors.map(i => game.actors.get(i));
-            }
-
-            new PlotDialog(actor, actors, data.combat).render(true);
-        }
-    });
+    
+    PlotSettings.initPlot();
     
 });
 
-Hooks.on("getSceneControlButtons", function(controls) {
-    controls[0].tools.push({
-        name: "setPlot",
-        title: "Set Plot",
-        icon: "fas fa-dice",
-        visible: game.user.isGM,
-        onClick: () => setPlot(),
-        button: true
-    });
 
-});
-
-function setPlot() {
-    var actors = game.data.actors.filter(element => (element.permission['default'] == 3 || element.permission[game.user.id] == 3) );
-
-    let dialog = new ActorListDialog(actors)
-    dialog.render(true);
-}
 
 

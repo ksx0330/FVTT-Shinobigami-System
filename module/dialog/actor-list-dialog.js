@@ -51,21 +51,11 @@ export class ActorListDialog extends Dialog {
     async _submit() {
         let selected = $("#actor-select-dialog").val();
         let actors = selected.map(i => game.actors.get(i));
-        for (let actor of actors) {
-            await actor.setFlag("shinobigami", "plot", {state: false, dice: []});
-
-            let share = game.user.id;
-            for (let user of game.users)
-                if (user.active && user.character != null && user.character.id === actor.id) {
-                    share = user.id;
-                    break;
-                }
-
-            if (share == game.user.id)
-                new PlotDialog(actor, actors, false).render(true);
-            else
-                game.socket.emit("system.shinobigami", {share, data: {actorId: actor.id, actors: selected, combat: false}});
-        }
+        let list = actors.map( i => ({ actorId: i.id, combatantId: null, name: i.name }));
+        
+        Hooks.call("initPlot", list);
+        Hooks.call("spreadPlot");
+        
     }
 
 }

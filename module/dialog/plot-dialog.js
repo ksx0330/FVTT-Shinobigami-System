@@ -1,24 +1,21 @@
 export class PlotDialog extends Dialog {
 
-  constructor(actor, actors, combat, options) {
+  constructor(actorId, combatantId, name, receiver, options) {
     super(options);
-    this.actor = actor;
-    this.actors = actors;
+    this.actorId = actorId;
+    this.combatantId = combatantId;
+    this.name = name;
+    this.receiver = receiver;
+    
+    this.ready = false;
 
-    this.combat = combat;
     this.plot = ["?"];
     this.select = null;
 
     this.data = {
       title: "Plot Dialog",
       content: this._getContent(),
-      buttons: {
-        "ready": {
-            icon: '<i class="fas fa-check"></i>',
-            label: "Ready",
-            callback: () => this._ready()
-        }
-      }
+      buttons: {}
     }
   }
 
@@ -39,11 +36,12 @@ export class PlotDialog extends Dialog {
     html.find(".select").click(this._swapDice.bind(this));
     html.find(".add-dice").click(this._addDice.bind(this));
     html.find(".remove-dice").click(this._removeDice.bind(this));
+    html.find("#ready").click(this._ready.bind(this));
   }
 
   _getContent() {
     var content = `
-    <h2 class="plot-header">${this.actor.name}
+    <h2 class="plot-header">${this.name}
       <div class="dice-controls" style="float: right">
         <button type="button" class="add-dice">
           <i class="fas fa-plus"></i>
@@ -60,7 +58,7 @@ export class PlotDialog extends Dialog {
     for (let d of range)
       content += `<div class="select" data-num="${d}">${d}</div>`;
 
-    content += `</div><hr>`
+    content += `</div><hr><button type="button" class="await" id="ready">Ready</button>`
 
     return content;
   }
@@ -109,46 +107,30 @@ export class PlotDialog extends Dialog {
     }
   }
 
-  async _ready() {
-    await this.actor.setFlag("shinobigami", "plot", {state: true, dice: this.plot});
-    let chatData = {"content": game.i18n.localize("Shinobigami.ReadyPlot"), "speaker": ChatMessage.getSpeaker({ actor: this.actor })};
-    ChatMessage.create(chatData);
-
-    console.log(this.actor);
-    console.log(this.actors);
-
-    let list = [];
-    for (let actor of this.actors) {
-      if (!actor.data.flags["shinobigami"].plot.state)
-        return;
-      else
-        list.push({actor: actor, dice: actor.data.flags["shinobigami"].plot.dice});
-    }
-
-    let content = `<table><colgroup><col style="width: 30%"><col style="width: 70%"></colgroup>`;
-    for (let l of list) {
-      content += `<tr><th>${l.actor.name}</th><td class="dice-lists dice-lists-sm">`;
-      for (let [index, d] of l.dice.entries()) {
-        if (d == "?") {
-          d = new Roll("1d6").roll().total;
-          l.dice[index] = d;
-          content += `<div class="random">${d}</div> `
-        } else
-          content += `<div>${d}</div> `
-      }
-      content += `</td></tr>`;
-    }
-    content += `</table>`;
+  async _ready(event) {
+    event.preventDefault();
+    this.ready = !this.ready;
     
-    chatData = {"content": content, "speaker": ChatMessage.getSpeaker({ alias: "PLOT" })};
-    ChatMessage.create(chatData);
-
-    if (this.combat) {
-      let updates = [];
-      for (let actor of this.actors)
-        updates.push({_id: actor.combatId, initiative: actor.data.flags["shinobigami"].plot.dice[0]});
-      await game.combat.updateEmbeddedDocuments("Combatant", updates);
+    if (this.ready) {
+      $(event.currentTarget).removeClass("await");
+      $(event.currentTarget).addClass("ready");
+      $(event.currentTarget).text("Cancel");
+    } else {
+      $(event.currentTarget).removeClass("ready");
+      $(event.currentTarget).addClass("await");
+      $(event.currentTarget).text("Ready");
     }
+  
+    if (game.user.id === this.receiver) {
+      let plot = game.shinobigami.plot.find(a => (a.actorId === this.actorId && a.combatant === this.combatantId));
+      plot.ready = this.ready;
+      plot.dice = this.plot;
+      
+      Hooks.call("checkPlot");
+      
+    } else
+      game.socket.emit("system.shinobigami", {id: "resp", sender: game.user.id, receiver: this.receiver, data: { actorId: this.actorId, combatantId: this.combatantId, dice: this.plot, ready: this.ready } });
+    
   }
 
 
