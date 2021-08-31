@@ -120,6 +120,9 @@ export class PlotDialog extends Dialog {
       $(event.currentTarget).addClass("await");
       $(event.currentTarget).text("Ready");
     }
+    
+    let chatData = {"content": (this.ready) ? game.i18n.localize("Shinobigami.ReadyPlot") : game.i18n.localize("Shinobigami.AwaitPlot"), "speaker": ChatMessage.getSpeaker({ alias: this.name })};
+    ChatMessage.create(chatData);
   
     if (game.user.id === this.receiver) {
       let plot = game.shinobigami.plot.find(a => (a.actorId === this.actorId && a.combatant === this.combatantId));
