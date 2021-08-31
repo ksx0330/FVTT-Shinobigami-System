@@ -1,9 +1,11 @@
 export class PlotDialog extends Dialog {
-  
-  constructor(actor, actors, options) {
+
+  constructor(actor, actors, combat, options) {
     super(options);
     this.actor = actor;
     this.actors = actors;
+
+    this.combat = combat;
     this.plot = ["?"];
     this.select = null;
 
@@ -65,10 +67,10 @@ export class PlotDialog extends Dialog {
 
   _addDice(event) {
     event.preventDefault();
-    
+
     $(event.currentTarget.closest(".dialog-content")).find("#plot-dices").append(`<div class="plot dice" data-index="${this.plot.length}">?</div> `);
     this.plot.push("?");
-    
+
     $(event.currentTarget.closest(".dialog-content")).find(".plot").last().click(this._selectDice.bind(this));
   }
 
@@ -106,28 +108,30 @@ export class PlotDialog extends Dialog {
       this.select = null;
     }
   }
-  
+
   async _ready() {
     await this.actor.setFlag("shinobigami", "plot", {state: true, dice: this.plot});
     let chatData = {"content": game.i18n.localize("Shinobigami.ReadyPlot"), "speaker": ChatMessage.getSpeaker({ actor: this.actor })};
     ChatMessage.create(chatData);
-    
+
+    console.log(this.actor);
+    console.log(this.actors);
+
     let list = [];
-    for (let a of this.actors) {
-      let actor = game.actors.get(a)
-      
+    for (let actor of this.actors) {
       if (!actor.data.flags["shinobigami"].plot.state)
         return;
       else
         list.push({actor: actor, dice: actor.data.flags["shinobigami"].plot.dice});
     }
-    
+
     let content = `<table><colgroup><col style="width: 30%"><col style="width: 70%"></colgroup>`;
     for (let l of list) {
       content += `<tr><th>${l.actor.name}</th><td class="dice-lists dice-lists-sm">`;
-      for (let d of l.dice) {
+      for (let [index, d] of l.dice.entries()) {
         if (d == "?") {
           d = new Roll("1d6").roll().total;
+          l.dice[index] = d;
           content += `<div class="random">${d}</div> `
         } else
           content += `<div>${d}</div> `
@@ -138,6 +142,13 @@ export class PlotDialog extends Dialog {
     
     chatData = {"content": content, "speaker": ChatMessage.getSpeaker({ alias: "PLOT" })};
     ChatMessage.create(chatData);
+
+    if (this.combat) {
+      let updates = [];
+      for (let actor of this.actors)
+        updates.push({_id: actor.combatId, initiative: actor.data.flags["shinobigami"].plot.dice[0]});
+      await game.combat.updateEmbeddedDocuments("Combatant", updates);
+    }
   }
 
 

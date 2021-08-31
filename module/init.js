@@ -11,6 +11,7 @@ import { SecretJournalSheet } from "./secret-journal.js";
 import { ShinobigamiSettings } from "./settings.js";
 import { ActorListDialog } from "./dialog/actor-list-dialog.js";
 import { PlotDialog } from "./dialog/plot-dialog.js";
+import { PlotCombat } from "./combat.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -24,13 +25,30 @@ Hooks.once("init", async function() {
     Actors.registerSheet("shinobigami", ShinobigamiActorSheet, { makeDefault: true });
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("shinobigami", ShinobigamiItemSheet, {makeDefault: true});
-    
+
+    CONFIG.Combat.documentClass = PlotCombat;
+    CONFIG.Combat.initiative.formula = "1d6";
     CONFIG.JournalEntry.sheetClass = SecretJournalSheet;
     ShinobigamiSettings.init();
-    
+
     game.socket.on("system.shinobigami", ({share, data}) => {
         if (game.user.id === share) {
-            new PlotDialog(game.actors.get(data.actorId), data.actors).render(true);
+            let actor = null;
+            let actors = null;
+            if (data.combat) {
+                let combatants = game.combat.combatants;
+                actor = combatants.get(data.combatId).actor;
+                actors = data.actors.map(i => {
+                    let actor = combatants.get(i.combatId).actor
+                    actor.combatId = i.combatId;
+                    return actor;
+                });
+            } else {
+                actor = game.actors.get(data.actorId);
+                actors = data.actors.map(i => game.actors.get(i));
+            }
+
+            new PlotDialog(actor, actors, data.combat).render(true);
         }
     });
     

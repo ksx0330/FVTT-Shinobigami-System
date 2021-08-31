@@ -82,26 +82,26 @@ export class ShinobigamiActorSheet extends ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
-    // Everything below here is only needed if the sheet is editable
-    if (!this.options.editable) return;
-
     html.find(".talent-name").parent().on('mouseenter', (event) => {
       event.preventDefault();
-      
+
       let name = $(event.currentTarget);
       let dialog = $("#talent-description");
       let nameData = name.find(".talent-name")[0].dataset;
       let num = nameData.num;
-      
+
       dialog.text(name.text() + " / " + num);
       dialog.css({"left": parseInt(name.offset().left)+10, "top": parseInt(name.offset().top)+28});
       dialog.show();
-      
+
     }).on('mouseleave', (event) => {
       $("#talent-description").hide();
-      
+
     });
-    
+
+    // Everything below here is only needed if the sheet is editable
+    if (!this.options.editable) return;
+
     html.find(".talent-name").on('mousedown', this._onRouteTalent.bind(this));
 
     // Owned Item management
