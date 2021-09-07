@@ -93,7 +93,7 @@ class SetDialog extends Dialog {
     }
 
     _getContent() {
-	var d = (this.journal.data.flags["shinobigami"].secret != undefined) ? this.journal.data.flags["shinobigami"].secret.journal.name : "";
+	var d = (this.journal.data.flags["shinobigami"] != undefined && this.journal.data.flags["shinobigami"].secret != undefined) ? this.journal.data.flags["shinobigami"].secret.journal.name : "";
         var content = "<p>Input Journal Name<br>";
         content += `<p><input type="text" id="setJournal" value="${d}"></p>Mode: <select id="mode"><option value="text">Text</option><option value="image">Image</option></select></p>`;
 
