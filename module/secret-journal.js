@@ -94,7 +94,7 @@ class SetDialog extends Dialog {
 
     _getContent() {
         var content = "<p>Input Journal Name<br>";
-        content += `<p><input type="text" id="setJournal" value="${this.journal.data.flags["insane"].secret.journal.name}"></p>Mode: <select id="mode"><option value="text">Text</option><option value="image">Image</option></select></p>`;
+        content += `<p><input type="text" id="setJournal" value="${this.journal.data.flags["shinobigami"].secret.journal.name}"></p>Mode: <select id="mode"><option value="text">Text</option><option value="image">Image</option></select></p>`;
 
         return content;
     }
