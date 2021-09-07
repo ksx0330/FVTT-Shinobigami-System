@@ -39,7 +39,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
     // Owned Items
     data.items = Array.from(this.actor.items.values());
     data.items = data.items.map( i => {
-      i.data.id = i.id;roll
+      i.data.id = i.id;
       return i.data;
     });
     
@@ -232,16 +232,18 @@ export class ShinobigamiActorSheet extends ActorSheet {
     if (rollMode === "selfroll") chatData["whisper"] = [game.user.id];
     if (rollMode === "blindroll") chatData["blind"] = true;
 
-    let roll = new Roll("2d6" + "+" + add);
-    roll.roll();
+    add = (add < 0) ? `${add}` : `+${add}`
+    let roll = new Roll("2d6" + add).roll();
+    let d = roll.terms[0].total;
+    
     chatData.content = await renderTemplate("systems/shinobigami/templates/roll.html", {
         formula: roll.formula,
         flavor: null,
         user: game.user.id,
         tooltip: await roll.getTooltip(),
         total: Math.round(roll.total * 100) / 100,
-        special: "12",
-        fumble: "2",
+        special: d == 12,
+        fumble: d == 2,
         num: num
     });
 

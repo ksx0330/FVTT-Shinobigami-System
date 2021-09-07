@@ -11,6 +11,15 @@ export class ShinobigamiSettings {
 			restricted: true
 		});
 		
+		game.settings.register("shinobigami", "rollAddon", {
+			name: "SETTINGS.RollAddon",
+			hint: "SETTINGS.RollAddonDesc",
+			scope: "client",
+			type: Boolean,
+			default: false,
+			config: true
+		});
+		
 		for (var i = 1; i <= 12; i++)
         for (var j = 0; j < 6; ++j) {			
             var name = String.fromCharCode(65 + j);
