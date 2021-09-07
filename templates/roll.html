@@ -8,11 +8,11 @@
         <h4 class="dice-total">
             {{total}}
             {{#ifSuccess total num}} 
-               {{#ifEquals total "12"}} <span style="color: #0f6f0f; font-size:0.7em;"> ▶ {{localize "Shinobigami.Special"}} </span>
+               {{#ifEquals total special}} <span style="color: #0f6f0f; font-size:0.7em;"> ▶ {{localize "Shinobigami.Special"}} </span>
                    {{else}}<span style="color: #0f6f0f; font-size:0.7em;"> ▶ {{localize "Shinobigami.Success"}}  </span>
                {{/ifEquals}}
             {{else}} 
-               {{#ifEquals total "2"}} <span style="color: #862020; font-size:0.7em;"> ▶ {{localize "Shinobigami.Fumble"}} </span>
+               {{#ifEquals total fumble}} <span style="color: #862020; font-size:0.7em;"> ▶ {{localize "Shinobigami.Fumble"}} </span>
                   {{else}}<span style="color: #862020;font-size:0.7em;"> ▶ {{localize "Shinobigami.Fail"}} </span>
                {{/ifEquals}} 
             {{/ifSuccess}}

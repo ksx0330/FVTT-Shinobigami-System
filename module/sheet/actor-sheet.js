@@ -39,7 +39,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
     // Owned Items
     data.items = Array.from(this.actor.items.values());
     data.items = data.items.map( i => {
-      i.data.id = i.id;
+      i.data.id = i.id;roll
       return i.data;
     });
     
@@ -86,7 +86,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
       event.preventDefault();
 
       let name = $(event.currentTarget);
-      let dialog = $("#talent-description");
+      let dialog = $(event.currentTarget.closest(".skill")).find("#talent-description");
       let nameData = name.find(".talent-name")[0].dataset;
       let num = nameData.num;
 
@@ -95,7 +95,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
       dialog.show();
 
     }).on('mouseleave', (event) => {
-      $("#talent-description").hide();
+      $(event.currentTarget.closest(".skill")).find("#talent-description").hide();
 
     });
 
@@ -191,12 +191,34 @@ export class ShinobigamiActorSheet extends ActorSheet {
     await this.object.update(formData);
     
   }
-
+  
   async _onRollTalent(event) {
     event.preventDefault();
     let dataset = event.currentTarget.dataset;
     let num = dataset.num;
     let title = dataset.title;
+    
+    if (!event.ctrlKey) {
+      this._onRollDice(title, 0, num); 
+      return;
+    }
+    
+    new Dialog({
+        title: "Please put the additional value",
+        content: `<p><input type='text' id='add'></p><script>$("#add").focus()</script>`,
+        buttons: {
+          confirm: {
+            icon: '<i class="fas fa-check"></i>',
+            label: "Confirm",
+            callback: () => this._onRollDice(title, $("#add").val(), num)
+          }
+        },
+        default: "confirm"
+    }).render(true);
+    
+  }
+
+  async _onRollDice(title, add, num) {
     
     // GM rolls.
     let chatData = {
@@ -210,7 +232,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
     if (rollMode === "selfroll") chatData["whisper"] = [game.user.id];
     if (rollMode === "blindroll") chatData["blind"] = true;
 
-    let roll = new Roll("2d6");
+    let roll = new Roll("2d6" + "+" + add);
     roll.roll();
     chatData.content = await renderTemplate("systems/shinobigami/templates/roll.html", {
         formula: roll.formula,
@@ -218,6 +240,8 @@ export class ShinobigamiActorSheet extends ActorSheet {
         user: game.user.id,
         tooltip: await roll.getTooltip(),
         total: Math.round(roll.total * 100) / 100,
+        special: "12",
+        fumble: "2",
         num: num
     });
 
