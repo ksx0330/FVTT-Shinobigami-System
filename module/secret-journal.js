@@ -43,7 +43,7 @@ export class SecretJournalSheet extends JournalSheet {
             var secretJournal = game.journal.get(id);
 
             if (secretJournal.owner || secretJournal.hasPerm(game.user, "OBSERVER"))
-                Journal._showEntry(secretJournal.uuid, mode, false);
+                await Journal._showEntry(secretJournal.uuid, mode, false);
             else 
                 throw new Error("You don't have permission");
 
