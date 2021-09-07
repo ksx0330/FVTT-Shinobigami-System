@@ -198,7 +198,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
     let num = dataset.num;
     let title = dataset.title;
     
-    if (!event.ctrlKey) {
+    if (!event.ctrlKey && !game.settings.get("shinobigami", "rollAddon")) {
       this._onRollDice(title, 0, num); 
       return;
     }
