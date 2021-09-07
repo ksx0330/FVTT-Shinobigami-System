@@ -105,6 +105,10 @@ class SetDialog extends Dialog {
         var secret = game.data.journal.find((item) => (item.name == set));
         var mode = $("#mode").val();
 
+	    console.log(set);
+	    console.log(secret);
+	    console.log(mode);
+	    
         if (secret == undefined) {
             await this.journal.unsetFlag("shinobigami", "secret");
             return;
