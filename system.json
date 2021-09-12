@@ -9,7 +9,15 @@
   "author": "ltaeng",
   "esmodules": ["module/init.js"],
   "styles": ["styles/style.css"],
-  "packs": [],
+  "packs": [
+    {
+      "label": "Chat Macro",
+      "entity": "Macro",
+      "name": "chat-macro",
+      "path": "./packs/chat-macro.db",
+      "system": "shinobigami"
+    }
+  ],
   "languages": [
     { "lang": "ko", "name": "Korean", "path": "lang/ko.json" }, { "lang": "ja", "name": "日本語", "path": "lang/ja.json" }
   ],
