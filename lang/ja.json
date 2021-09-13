@@ -27,8 +27,8 @@
     "Shinobigami.Attack": "攻撃",
     "Shinobigami.Support": "サポート",
     "Shinobigami.Equipment": "装備",
-    "Shinobigami.Talent": "間合",
-    "Shinobigami.Gap": "指定特技",
+    "Shinobigami.Talent": "指定特技",
+    "Shinobigami.Gap": "間合",
     "Shinobigami.Cost": "コスト",
     "Shinobigami.BondsList": "人物欄",
     "Shinobigami.Residence": "居所",
@@ -94,7 +94,7 @@
     "Shinobigami.E1": "5. 戦術",
     "Shinobigami.E2": "兵糧術",
     "Shinobigami.E3": "鳥獣術",
-    "Shinobigami.E4": "夜戦術",
+    "Shinobigami.E4": "野戦術",
     "Shinobigami.E5": "地の利",
     "Shinobigami.E6": "意気",
     "Shinobigami.E7": "用兵術",
@@ -115,9 +115,13 @@
     "Shinobigami.F10": "千里眼の術",
     "Shinobigami.F11": "憑依術",
     "Shinobigami.F12": "呪術",
-    
+
+    "Shinobigami.SelectActor": "プロットを行うアクターを選択してください",
+    "Shinobigami.ReadyPlot": "プロットの選択が完了しました。",
+    "Shinobigami.AwaitPlot": "プロット選択状態が解除されました。",
     
     "SETTINGS.TalentTable": "特技一覧",
-    "SETTINGS.TalentTableDesc": "特技一覧変更"
-
+    "SETTINGS.TalentTableDesc": "特技一覧変更",
+    "SETTINGS.RollAddon": "デフォルトで修正値を入力する",
+    "SETTINGS.RollAddonDesc": "ロールをする際、Ctrlキーを押さずに常に修正値を入力できるダイアログを生成する。"
 }
