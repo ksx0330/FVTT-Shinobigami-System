@@ -98,6 +98,10 @@ export class ShinobigamiActorSheet extends ActorSheet {
       $(event.currentTarget.closest(".skill")).find("#talent-description").hide();
 
     });
+    
+    // Talent
+    html.find('.item-label').click(this._showItemDetails.bind(this));
+    html.find(".echo-item").click(this._echoItemDescription.bind(this));
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
@@ -120,11 +124,6 @@ export class ShinobigamiActorSheet extends ActorSheet {
       this.actor.deleteOwnedItem(li.data("itemId"));
       li.slideUp(200, () => this.render(false));
     });
-
-
-    // Talent
-    html.find('.item-label').click(this._showItemDetails.bind(this));
-    html.find(".echo-item").click(this._echoItemDescription.bind(this));
 
     // Use Item
     html.find(".use-item").click(this._useItem.bind(this));
