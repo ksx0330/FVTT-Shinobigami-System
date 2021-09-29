@@ -123,5 +123,11 @@
     "SETTINGS.TalentTable": "特技一覧",
     "SETTINGS.TalentTableDesc": "特技一覧変更",
     "SETTINGS.RollAddon": "デフォルトで修正値を入力する",
-    "SETTINGS.RollAddonDesc": "ロールをする際、Ctrlキーを押さずに常に修正値を入力できるダイアログを生成する。"
+    "SETTINGS.RollAddonDesc": "ロールをする際、Ctrlキーを押さずに常に修正値を入力できるダイアログを生成する。",
+    
+    "ITEM.TypeBond": "人物",
+    "ITEM.TypeAbility": "忍法",
+    "ITEM.TypeItem": "忍具",
+    "ITEM.TypeFinish": "奥義",
+    "Item.TypeBackground": "背景"
 }
