@@ -102,7 +102,7 @@ class SetDialog extends Dialog {
 
     async _submit() {
         var set = $("#setJournal").val();
-        var secret = game.data.journal.find((item) => (item.name == set));
+        var secret = game.journal.find((item) => (item.name == set));
         var mode = $("#mode").val();
 
 	    console.log(set);
