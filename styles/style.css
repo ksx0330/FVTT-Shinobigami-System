@@ -178,6 +178,26 @@
     font-weight: bold;
 }
 
+.shinobigami .talent-table .talent-num {
+  width: 5%;
+}
+
+.shinobigami .talent-table .talent-name {
+  width: 10%;
+}
+
+.shinobigami .talent-table .talent-gap {
+  width: 2%; 
+}
+
+.shinobigami .talent-table .en .talent-num {
+  width: 2%;
+}
+
+.shinobigami .talent-table .en .talent-name {
+  width: 13%;
+}
+
 .shinobigami .talent-table .stop .talent-name {
     text-decoration: line-through;
 }
