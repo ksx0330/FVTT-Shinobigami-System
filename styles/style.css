@@ -190,6 +190,10 @@
   width: 2%; 
 }
 
+.shinobigami .talent-table .en {
+  font-size: 0.7rem;
+}
+
 .shinobigami .talent-table .en .talent-num {
   width: 2%;
 }
