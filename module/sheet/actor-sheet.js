@@ -29,7 +29,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
     isOwner = this.document.isOwner;
     isEditable = this.isEditable;
     
-    data.lang = game.settings.storage.get("client")["core.language"].split("\"")[1];
+    data.lang = game.i18n.lang;
 
     // The Actor's data
     actorData = this.actor.data.toObject(false);
