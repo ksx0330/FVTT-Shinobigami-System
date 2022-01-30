@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "minimumCoreVersion": "0.8.6",
   "compatibleCoreVersion": "9",
-  "templateVersion": 2,
+  "templateVersion": 3,
   "author": "ltaeng",
   "esmodules": ["module/init.js"],
   "styles": ["styles/style.css"],
