@@ -29,7 +29,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
     isOwner = this.document.isOwner;
     isEditable = this.isEditable;
     
-    data.lang = game.i18n.lang;
+    data.lang = game.settings.storage.get("client")["core.language"].split("\"")[1];
 
     // The Actor's data
     actorData = this.actor.data.toObject(false);
@@ -83,6 +83,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
+    /*
     html.find(".talent-name").parent().on('mouseenter', (event) => {
       event.preventDefault();
 
@@ -99,7 +100,8 @@ export class ShinobigamiActorSheet extends ActorSheet {
       $(event.currentTarget.closest(".skill")).find("#talent-description").hide();
 
     });
-    
+    */
+
     // Talent
     html.find('.item-label').click(this._showItemDetails.bind(this));
     html.find(".echo-item").click(this._echoItemDescription.bind(this));
@@ -115,15 +117,15 @@ export class ShinobigamiActorSheet extends ActorSheet {
     // Update Inventory Item
     html.find('.item-edit').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.getOwnedItem(li.data("itemId"));
+      const item = this.actor.items.get(li.data("itemId"));
       item.sheet.render(true);
     });
 
     // Delete Inventory Item
     html.find('.item-delete').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
-      this.actor.deleteOwnedItem(li.data("itemId"));
-      li.slideUp(200, () => this.render(false));
+      let item = this.actor.items.get(li.data("itemId"));
+      item.delete();
     });
 
     // Use Item
@@ -156,6 +158,8 @@ export class ShinobigamiActorSheet extends ActorSheet {
   /** @override */
   async _updateObject(event, formData) {
     let target = event.currentTarget;
+    
+    console.log(formData);
 
     if (target == undefined || (target.name.indexOf("data.talent") == -1 && target.name.indexOf("data.health.state") == -1) )
       return await this.object.update(formData);
@@ -212,7 +216,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
    * @param {Event} event   The originating click event
    * @private
    */
-  _onItemCreate(event) {
+  async _onItemCreate(event) {
     event.preventDefault();
     const header = event.currentTarget;
     const type = header.dataset.type;
@@ -222,7 +226,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
       name: name,
       type: type
     };
-    return this.actor.createOwnedItem(itemData);
+    await this.actor.createEmbeddedDocuments('Item', [itemData], {});
   }
 
   _showItemDetails(event) {
@@ -344,7 +348,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
   async _useItem(event) {
     event.preventDefault();
     const useButton = $(event.currentTarget);
-    const item = this.actor.getOwnedItem(useButton.parents('.item')[0].dataset.itemId);
+    const item = this.actor.items.get(useButton.parents('.item')[0].dataset.itemId);
 
     if (item.data.data.quantity > 0) {
       await item.update({'data.quantity': item.data.data.quantity - 1});

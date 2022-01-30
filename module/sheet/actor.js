@@ -3,6 +3,8 @@ export class ShinobigamiActor extends Actor {
 
   prepareData() {
     super.prepareData();
+    
+    console.log(this);
 
   }
 
@@ -44,7 +46,8 @@ export class ShinobigamiActor extends Actor {
     let formula = "2d6";
     if (add != null)
       formula += (add < 0) ? `${add}` : `+${add}`
-    let roll = new Roll(formula).roll();
+    let roll = new Roll(formula);
+    await roll.roll();
     let d = roll.terms[0].total;
     
     chatData.content = await renderTemplate("systems/shinobigami/templates/roll.html", {

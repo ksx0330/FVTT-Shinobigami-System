@@ -1,10 +1,10 @@
 {
   "name": "shinobigami",
-  "title": "Shinobigami: God of the Ninja",
+  "title": "Shinobigami System",
   "description": "Shinobigami system",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "minimumCoreVersion": "0.8.6",
-  "compatibleCoreVersion": "0.8.9",
+  "compatibleCoreVersion": "9",
   "templateVersion": 2,
   "author": "ltaeng",
   "esmodules": ["module/init.js"],
@@ -29,6 +29,6 @@
   "primaryTokenAttribute": "health",
   "url": "https://github.com/ksx0330/FVTT-Shinobigami-System",
   "manifest": "https://raw.githubusercontent.com/ksx0330/FVTT-Shinobigami-System/master/system.json",
-  "download": "https://github.com/ksx0330/FVTT-Shinobigami-System/archive/refs/tags/v1.0.1.zip",
+  "download": "https://codeload.github.com/ksx0330/FVTT-Shinobigami-System/zip/master",
   "license": "LICENSE.txt"
 }

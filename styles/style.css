@@ -76,12 +76,10 @@
   top: -8px;
 }
 .shinobigami .tabs {
-  height: 40px;
   border-top: 1px solid #AAA;
   border-bottom: 1px solid #AAA;
 }
 .shinobigami .tabs .item {
-  line-height: 40px;
   font-weight: bold;
 }
 .shinobigami .tabs .item.active {
@@ -178,27 +176,43 @@
     font-weight: bold;
 }
 
-.shinobigami .talent-table .talent-num {
-  width: 5%;
+.shinobigami .talent-table {
+  font-size: 0.75rem;
 }
 
-.shinobigami .talent-table .talent-name {
-  width: 10%;
+.shinobigami .talent-table .talent-header {
+  position: relative;
 }
 
-.shinobigami .talent-table .talent-gap {
-  width: 2%; 
+.shinobigami .talent-table .talent-header .header-checkbox {
+  position: absolute;
+  top: 2px;
+  right: 1px;
+  width: 15px;
+  height: 15px;
+}
+
+.shinobigami .talent-table colgroup .talent-num {
+  width: 2%;
+}
+
+.shinobigami .talent-table colgroup .talent-name {
+  width: 15%;
+}
+
+.shinobigami .talent-table colgroup .talent-gap {
+  width: 1%; 
 }
 
 .shinobigami .talent-table .en {
   font-size: 0.7rem;
 }
 
-.shinobigami .talent-table .en .talent-num {
+.shinobigami .talent-table .en colgroup .talent-num {
   width: 2%;
 }
 
-.shinobigami .talent-table .en .talent-name {
+.shinobigami .talent-table .en colgroup .talent-name {
   width: 13%;
 }
 
@@ -207,12 +221,13 @@
 }
 
 .shinobigami .talent-checkbox {
-    width: 15px;
-    height: 15px;
+  width: 15px;
+  height: 15px;
+  float: left;
 }
 
 .shinobigami .talent-name {
-    height: 15px;
+  margin: 3px 0;
 }
 
 .shinobigami #talent-description {
