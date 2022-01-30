@@ -6,7 +6,7 @@
       "value": 6,
       "min": 0,
       "max": 6,
-      "state": {0: false, 1: false, 2: false, 3: false, 4: false, 5: false}
+      "state": {"0": false, "1": false, "2": false, "3": false, "4": false, "5": false}
     },
     "talent": {
         "table":[ 
@@ -17,7 +17,7 @@
             [{"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}], 
             [{"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}, {"state": false, "num": 12, "stop": false}] 
         ],
-        "gap": {0: false, 1: false, 2: false, 3: false, 4: false, 5: false},
+        "gap": {"0": false, "1": false, "2": false, "3": false, "4": false, "5": false},
         "curiosity": 0,
         "overflowX": false,
         "overflowY": false
