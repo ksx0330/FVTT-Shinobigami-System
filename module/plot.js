@@ -67,9 +67,10 @@ export class PlotSettings {
                     content += `<tr><th>${l.name}</th><td class="dice-lists dice-lists-sm">`;
                     for (let [index, d] of l.dice.entries()) {
                         if (d == "?") {
-                            d = await new Roll("1d6").roll().total;
-                            l.dice[index] = d;
-                            content += `<div class="random">${d}</div> `
+                            d = new Roll("1d6");
+                            await d.roll();
+                            l.dice[index] = d.total;
+                            content += `<div class="random">${d.total}</div> `
                         } else
                             content += `<div>${d}</div> `
                     }
