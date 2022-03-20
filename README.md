@@ -16,7 +16,7 @@ By pressing Ctrl and clicking on the talents, you can add additional values when
 
 Images
 ------------
-![image](https://user-images.githubusercontent.com/15700174/129000289-937124fc-0fa1-4dd1-a287-ee7aad3b6e04.png)
+![image](https://user-images.githubusercontent.com/15700174/159153231-5cd3bfac-5a0b-4735-9c9b-6ede2ac38bd3.png)
 
 Legal
 ------------

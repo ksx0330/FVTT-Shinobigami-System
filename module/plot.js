@@ -18,6 +18,8 @@ export class PlotSettings {
             if (id === "req") {
                 let d = new PlotDialog(data.actorId, data.combatantId, data.name, sender).render(true);
                 game.shinobigami.plotDialogs.push(d);
+
+                Hooks.call("setPlotBar", data.actorId, data.combatantId, data.name, sender);
                 
             } else if (id === "resp") {
                 let plot = game.shinobigami.plot.find(a => (a.actorId === data.actorId && a.combatant === data.combatantId));
@@ -47,10 +49,43 @@ export class PlotSettings {
                 if (share == game.user.id) {
                     let d = new PlotDialog(plot.actorId, plot.combatant, plot.name, game.user.id).render(true);
                     game.shinobigami.plotDialogs.push(d);
+
+                    Hooks.call("setPlotBar", plot.actorId, plot.combatant, plot.name, game.user.id);
                 } else
                     game.socket.emit("system.shinobigami", {id: "req", sender: game.user.id, receiver: share, data: { actorId: plot.actorId, combatantId: plot.combatant, name: plot.name } });
             }
             
+        });
+
+        Hooks.on("setPlotBar", (actorId, combatantId, name, sender) => {
+            let plotBar = $(document).find(".plot-bar");
+            if (plotBar == null)
+                return;
+
+            let content = `
+                <h2>${name}</h2>
+                <button type="button" class="plot-dialog" 
+                    data-actor-id="${actorId}" 
+                    data-combatant-id="${combatantId}"
+                    data-name="${name}"
+                    data-sender="${sender}"
+                    >PLOT</button>
+                `
+
+            let plot = $(`
+                <div class="chat-message message flexcol item">
+                  <span class="remove-bar"><a class="remove-btn"><i class="fas fa-trash"></i></a></span>
+                  ${content}
+                </div>`);
+
+            plot.on("click", ".remove-btn", ev => {
+                event.preventDefault();
+                const target = ev.currentTarget.closest(".chat-message");
+                target.remove();
+            });
+
+            plotBar.append(plot);
+            Hooks.call("updatePlotBar", plot);
         });
         
         Hooks.on("checkPlot", () => {
@@ -84,7 +119,7 @@ export class PlotSettings {
                 let updates = [];
                 for (let l of game.shinobigami.plot) {
                     if (l.combatant != null)
-                        updates.push({_id: l.combatant, initiative: l.dice[0]});
+                        updates.push({_id: l.combatant, initiative: (game.actors.get(l.actorId).data.type == "commoner") ? 0 : l.dice[0]});
                 }
                 if (updates.length != 0)
                     await game.combat.updateEmbeddedDocuments("Combatant", updates);
@@ -108,6 +143,7 @@ export class PlotSettings {
            for (let d of game.shinobigami.plotDialogs)
                 d.close();
             game.shinobigami.plotDialogs = [];
+            $(document).find(".plot-bar").empty();
         });
         
         Hooks.on("getSceneControlButtons", function(controls) {

@@ -1,37 +1,54 @@
 <form class="{{cssClass}}" autocomplete="off">
-    <header class="sheet-header">
-        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
-        <div class="header-fields">
-            <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
-            <table style="text-align: center;">
-                <tr>
-                    <th>{{localize "Shinobigami.Residence"}}</th>
-                    <th>{{localize "Shinobigami.Secret"}}</th>
-                    <th>{{localize "Shinobigami.Finish"}}</th>
-                    <th>{{localize "Shinobigami.Feeling"}}</th>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="data.residence" {{#if data.residence}} checked {{/if}} /></td>
-                    <td><input type="checkbox" name="data.secret" {{#if data.secret}} checked {{/if}} /></td>
-                    <td><input type="checkbox" name="data.finish" {{#if data.finish}} checked {{/if}} /></td>
-                    <td><input type="text" class="string-input" name="data.feeling" value="{{data.feeling}}" data-dtype="String"/></td>
-                </tr>
-            
-            </table>
-        </div>
-    </header>
+  <header class="sheet-header flexrow">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    <div class="header-fields">
+        <h1 class="charname"><input name="name" type="text" value="{{item.name}}" ></h1>
+    </div>
+  </header>
 
-    {{!-- Sheet Tab Navigation --}}
-    <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description">Description</a>
-    </nav>
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{!-- Description Tab --}}
 
-    {{!-- Sheet Body --}}
-    <section class="sheet-body">
+      <div class="sheet-item margin-top-10">
+        <div class="sheet-wrapper">
+          <section class="sheet-attributes">
+            <div class="cell cell--5">
+              <label class="cell--title">{{localize "Shinobigami.Residence"}} 
+                <input type="checkbox" name="data.residence" {{#if data.residence}} checked {{/if}} />
+              </label>
+              
+            </div>
 
-        {{!-- Description Tab --}}
-        <div class="tab" data-group="primary" data-tab="description">
+            <div class="cell cell--5">
+              <label class="cell--title">{{localize "Shinobigami.Secret"}}
+                <input type="checkbox" name="data.secret" {{#if data.secret}} checked {{/if}} />
+              </label>
+              
+            </div>
+
+            <div class="cell cell--6">
+              <label class="cell--title">{{localize "Shinobigami.Finish"}}
+                <input type="checkbox" name="data.finish" {{#if data.finish}} checked {{/if}} />
+              </label>
+              
+            </div>
+
+            <div class="cell cell--5">
+              <label class="cell--title">{{localize "Shinobigami.Feeling"}}</label>
+            </div>
+
+            <div class="cell cell--11">
+              <input type="text" class="string-input" name="data.feeling" value="{{data.feeling}}" data-dtype="String"/>
+            </div>
+
+          </section>
+
+          <div class="cell--bio">
+            <h3 class="cell--title"><b>{{localize "Shinobigami.Description"}}</b></h3>
             {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+          </div>
+
         </div>
 
     </section>

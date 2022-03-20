@@ -1,26 +1,34 @@
 <form class="{{cssClass}}" autocomplete="off">
-    <header class="sheet-header">
-        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
-        <div class="header-fields">
-            <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
-            <div class="resource">
-            	<span>{{localize "Shinobigami.Quantity"}}</span>
-                <input type="text" class="number-input" name="data.quantity" value="{{data.quantity}}" data-dtype="Number"/>
+  <header class="sheet-header flexrow">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    <div class="header-fields">
+        <h1 class="charname"><input name="name" type="text" value="{{item.name}}" ></h1>
+    </div>
+  </header>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{!-- Description Tab --}}
+
+      <div class="sheet-item margin-top-10">
+        <div class="sheet-wrapper">
+          <section class="sheet-attributes">
+            <div class="cell cell--5">
+              <label class="cell--title">{{localize "Shinobigami.Quantity"}}</label>
             </div>
-        </div>
-    </header>
 
-    {{!-- Sheet Tab Navigation --}}
-    <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description">Description</a>
-    </nav>
+            <div class="cell cell--11">
+              <input type="text" class="string-input" name="data.quantity" value="{{data.quantity}}" data-dtype="String"/>
+            </div>
+          </section>
 
-    {{!-- Sheet Body --}}
-    <section class="sheet-body">
+          <div class="cell--bio">
+            <h3 class="cell--title"><b>{{localize "Shinobigami.Description"}}</b>
 
-        {{!-- Description Tab --}}
-        <div class="tab" data-group="primary" data-tab="description">
+            </h3>
             {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+          </div>
+
         </div>
 
     </section>

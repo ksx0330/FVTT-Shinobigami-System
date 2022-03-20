@@ -1,91 +1,317 @@
+
+
 .shinobigami {
   /* Sheet Tabs */
   /* Items List */
   /* Attributes */
 }
-.shinobigami .window-content {
-  height: 100%;
-  padding: 5px;
-  overflow-y: hidden;
+
+.shinobigami .margin-top-10 {
+  margin-top: 10px;
 }
-.shinobigami .sheet-header {
-  overflow: hidden;
+
+.shinobigami .margin-left-10 {
+  margin-left: 10px;
+}
+
+.shinobigami .logo-box {
+  width: 100%;
+  text-align: center;
+  background: #444444;
+}
+
+.shinobigami .logo-box img {
+  border: none;
+}
+
+.shinobigami .sheet-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
   flex-direction: row;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  margin-bottom: 10px;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 100%;
 }
-.shinobigami .sheet-header .profile-img {
-  flex: 0 0 100px;
-  height: 100px;
+
+.shinobigami .sheet-wrapper .sheet-header {
+  width: 101%;
+  -webkit-box-ordinal-group: 1;
+  -ms-flex-order: 0;
+  order: 0;
+  margin-bottom: 10px;
+  height: 60px;
+}
+
+.shinobigami .sheet-header {
+  background: #2d2d2d;
+  color: #fff;
+}
+
+.shinobigami .sheet-header input {
+  color: #fff;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  border: 0;
+}
+
+.shinobigami .sheet-header input {
+  color: #fff;
+  border-bottom: 2px solid #fff;
+  margin: 0 10px;
+  font-size: 18px;
+  height: 32px;
+  line-height: 32px;
+}
+
+.shinobigami .sheet-wrapper .sheet-main {
+  -webkit-box-flex: 100%;
+  -ms-flex: 100% 1 1;
+  flex: 100% 1 1;
+  height: calc(100% - 80px);
+}
+
+.shinobigami .sheet-wrapper .sheet-main .sheet-attributes {
+  display: grid;
+  grid-column: span 15;
+  grid-template-columns: repeat(15, minmax(0, 1fr));
+  gap: 0px 10px;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+
+.shinobigami .sheet-item .sheet-wrapper .sheet-attributes {
+  display: grid;
+  grid-column: span 16;
+  grid-template-columns: repeat(16, minmax(0, 1fr));
+  gap: 0px 10px;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+
+.shinobigami .sheet-wrapper .sheet-attributes .cell {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.shinobigami .sheet-wrapper .cell--title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-flex: 100%;
+  -ms-flex: 100%;
+  flex: 100%;
+  color: #2d3748;
+  padding: 5px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.shinobigami .sheet-wrapper .sheet-attributes .cell .cell--title {
+  -webkit-box-flex: 100%;
+  -ms-flex: 100%;
+  flex: 100%;
+  background: #2d3748;
+  color: #fff;
+  padding: 5px;
+  height: 34px;
+}
+
+.shinobigami .sheet-wrapper .sheet-attributes .cell .cell--title {
+  width: 110px;
+}
+
+.shinobigami .sheet-item .sheet-wrapper .sheet-attributes .cell .cell--title {
+  width: 150px;
+}
+
+.shinobigami .sheet-wrapper .sheet-main .cell--img {
+  grid-column: span 3;
+}
+
+.shinobigami .sheet-wrapper .sheet-main .cell--img img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 0 10px 0;
+}
+
+
+.shinobigami .sheet-wrapper .sheet-main .cell--attr {
+  grid-column: span 4;
+}
+
+.shinobigami .sheet-wrapper .sheet-main .cell--items {
+  grid-column: span 8;
+}
+
+.shinobigami .sheet-item .cell--4 {
+  grid-column: span 4;
+}
+
+.shinobigami .sheet-item .cell--5 {
+  grid-column: span 5;
+}
+
+.shinobigami .sheet-item .cell--6 {
+  grid-column: span 6;
+}
+
+.shinobigami .sheet-item .cell--11 {
+  grid-column: span 11;
+}
+
+.shinobigami .sheet-item .cell--bio {
+  -webkit-box-flex: 100;
+  -ms-flex: 100;
+  flex: 100;
+}
+
+
+.shinobigami .sheet-wrapper .sheet-main .cell .cell--horizon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.shinobigami .sheet-attributes .cell--counter {
   margin-right: 10px;
 }
-.shinobigami .sheet-header .header-fields {
+
+.shinobigami .sheet-attributes .cell--select {
+  width: 100%;
+}
+
+.shinobigami .sheet-attributes .cell--select select {
+  background: white;
+  width: 100%;
+  height: 32px;
+}
+
+.shinobigami .sheet-attributes input {
+  margin-top: 1px;
+  text-align: center;
+  background: white;
+  height: 32px;
+}
+
+.shinobigami .sheet-attributes .slash {
+  margin: 0 10px;
+  padding-top: 4px;
+}
+
+.shinobigami .item-controls {
+  text-align: right;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 40px;
+  flex: 0 0 40px;
+}
+
+.shinobigami .item-controls .white-btn {
+  border: none;
+}
+
+.shinobigami .cell--items .items-list {
+  margin: 0;
+  padding: 0 0 0 4px;
+  width: 100%;
+  overflow: auto;
+  height: 128px;
+}
+
+.shinobigami .cell--items .items-list .item {
+  padding: 2px 0;
+}
+
+.shinobigami .cell--items .items-list .item-name {
+  font-size: 17px;
+}
+
+.shinobigami .item-addon {
+  text-align: right;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.shinobigami .icon-button {
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  line-height: 0;
+}
+
+.shinobigami .use-button {
+  width: auto;
+  height: 30px;
+  margin: 0;
+  line-height: 0;
+  font-weight: bold;
+}
+
+.shinobigami nav.tabs {
+  border-bottom: 1px solid;
+  border-top: 0;
+  line-height: 29px;
+  padding: 0;
+}
+
+.shinobigami .tabs .item {
+  border: 1px solid;
+  background: #404040;
+  color: white;
+  border-radius: 4px 4px 0 0;
+  border-color: black;
+  margin: 0 5px -1px;
   flex: 1;
 }
-.shinobigami .sheet-header h1.charname {
-  height: 50px;
-  padding: 0px;
-  margin: 5px 0;
-  border-bottom: 0;
-}
-.shinobigami .sheet-header h1.charname input {
-  width: 92%;
-  height: 100%;
-  margin: 0;
-}
-.shinobigami .gap {
-  text-align: center;
-}
 
-.shinobigami .gap input {
-  margin: 1px;
-  margin-top: 2px;
-}
-
-.shinobigami .quater-width {
-  width: 25%;
-}
-.shinobigami .double-width {
-  width: 50%;
-}
-.shinobigami .resource {
-  height: 40px;
-  margin-top: 10px;
-  float: left;
-  text-align: center;
-}
-.shinobigami .resource input {
-  height: 28px;
-}
-.shinobigami .resource input[type=checkbox] {
-  height: 20px;
-}
-.shinobigami .resource span {
-  font-weight: bold;
-}
-.shinobigami .resource .number-input {
-  width: 50px;
-}
-.shinobigami .resource .string-input {
-  width: 100px;
-}
-.shinobigami .resource .check-span {
-  position: relative;
-  top: -8px;
-}
-.shinobigami .tabs {
-  border-top: 1px solid #AAA;
-  border-bottom: 1px solid #AAA;
-}
-.shinobigami .tabs .item {
-  font-weight: bold;
-}
 .shinobigami .tabs .item.active {
-  text-decoration: underline;
+  background: #fff;
+  color: #000;
+  border-bottom: 0;
   text-shadow: none;
+  font-weight: bold;
 }
+
 .shinobigami .sheet-body {
   overflow: auto;
 }
@@ -93,75 +319,68 @@
   height: 100%;
   overflow-y: auto;
 }
-.shinobigami .editor,
-.shinobigami .editor-content {
-  height: 100%;
+
+.shinobigami .editor, .shinobigami .editor-content {
+  min-height: 350px;
+  resize: none;
 }
-.shinobigami .item-list {
-  list-style: none;
-  margin: 7px 0;
-  padding: 0;
-  overflow-y: auto;
+
+
+.shinobigami .item-form .sheet-header {
+  margin-bottom: 10px;
 }
-.shinobigami .item-list .item {
-  height: 30px;
-  line-height: 24px;
-  padding: 3px 0;
-  border-bottom: 1px solid #BBB;
+
+.shinobigami .item-form .sheet-header, .shinobigami .item-form .sheet-navigation {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 30px;
+  flex: 0 0 30px;
 }
-.shinobigami .item-list .item img {
-  flex: 0 0 24px;
-  margin-right: 5px;
+
+.shinobigami .tab .items-list .item {
+  padding: 10px 0;
 }
-.shinobigami .item-list .item-name {
+
+.shinobigami .item-description {
+  display: none;
+  -webkit-box-flex: 0;
+  -ms-flex: none;
+  flex: none;
+  width: 100%;
+}
+
+.shinobigami .item-name {
+  font-size: 18px;
+  font-weight: bold;
+  -webkit-box-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
   margin: 0;
 }
-.shinobigami .item-list .item-controls {
-  flex: 0 0 36px;
+
+.shinobigami .item-label:hover::after {
+  width: 100%;
 }
-.shinobigami .attributes-header {
-  padding: 5px;
-  margin: 5px 0;
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid #AAA;
-  border-radius: 2px;
-  text-align: center;
+
+.shinobigami .item-label::after {
+  display: block;
+  content: '';
+  width: 0;
+  height: 0;
+  margin-top: 2px;
+  border-bottom: 2px solid;
+  -webkit-transition: all ease-in-out 0.25s;
+  -o-transition: all ease-in-out 0.25s;
+  transition: all ease-in-out 0.25s;
+}
+
+.shinobigami .side-box {
+  text-align: right;
   font-weight: bold;
 }
-.shinobigami .attributes-header .attribute-label {
-  flex: 1.5;
-}
-.shinobigami .attributes-header .attribute-control {
-  flex: 0 0 20px;
-}
-.shinobigami .attributes-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.shinobigami .attributes-list li > * {
-  margin: 0 3px;
-  height: 28px;
-  line-height: 24px;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  border-bottom: 1px solid #AAA;
-}
-.shinobigami .attributes-list a.attribute-control {
-  flex: 0 0 20px;
-  text-align: center;
-  line-height: 28px;
-  border: none;
-}
-.shinobigami.sheet.actor {
-  min-width: 560px;
-  min-height: 420px;
-}
-.shinobigami.sheet.item {
-  min-width: 460px;
-  min-height: 400px;
-}
+
+
+
+
 .shinobigami .talent-table table, th, td {
   border: 1px solid black;
 }
@@ -230,96 +449,6 @@
   margin: 3px 0;
 }
 
-.shinobigami #talent-description {
-    padding: 2px 8px;
-    border: 2px solid black;
-    background-color: #efefef;
-    text-align: center;
-    font-weight: bold;
-    position: fixed;
-    display: none;
-    z-index: 50;
-    border-radius: 15%;
-}
-
-.shinobigami .cell .cell--title {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -ms-flex-wrap: nowrap;
-  flex-wrap: nowrap;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-box-flex: 100%;
-  -ms-flex: 100%;
-  flex: 100%;
-  color: #2d3748;
-  padding: 5px;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.shinobigami .item-controls {
-  text-align: right;
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 40px;
-  flex: 0 0 40px;
-}
-
-.shinobigami .item-form .sheet-header {
-  margin-bottom: 10px;
-}
-
-.shinobigami .item-form .sheet-header, .shinobigami .item-form .sheet-navigation {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 30px;
-  flex: 0 0 30px;
-}
-
-.shinobigami .items-list .item {
-  padding: 10px 0;
-}
-
-.shinobigami .item-description {
-  display: none;
-  -webkit-box-flex: 0;
-  -ms-flex: none;
-  flex: none;
-  width: 100%;
-}
-
-.shinobigami .item-name {
-  font-size: 18px;
-  font-weight: bold;
-  -webkit-box-flex: 2;
-  -ms-flex: 2;
-  flex: 2;
-  margin: 0;
-}
-
-.shinobigami .item-label:hover::after {
-  width: 100%;
-}
-
-.shinobigami .item-label::after {
-  display: block;
-  content: '';
-  width: 0;
-  height: 0;
-  margin-top: 2px;
-  border-bottom: 2px solid;
-  -webkit-transition: all ease-in-out 0.25s;
-  -o-transition: all ease-in-out 0.25s;
-  transition: all ease-in-out 0.25s;
-}
 
 
 .shinobigami .plot-header {
@@ -382,4 +511,30 @@
 
 .dice-lists .random {
   background-color: #ffe2e2;
+}
+
+
+.plot-bar {
+  z-index: 70;
+  position: fixed;
+  bottom: 7px;
+  right: 310px;
+  display: flex;
+  flex-direction: row;
+  flex: 0 0 100px;
+  flex-wrap: wrap;
+}
+
+.plot-bar .item {
+  width: 300px;
+  position: relative;
+}
+
+.plot-bar .remove-bar {
+  position: absolute;
+  width: calc(100% - 12px);
+}
+
+.plot-bar .remove-bar .remove-btn {
+  float: right;
 }

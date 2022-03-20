@@ -54,6 +54,8 @@ export class ShinobigamiItemSheet extends ItemSheet {
     let effects = {};
     let actor = null;
 
+    data.userId = game.user.id
+
     this.options.title = this.document.data.name;
     isOwner = this.document.isOwner;
     isEditable = this.isEditable;
@@ -63,7 +65,16 @@ export class ShinobigamiItemSheet extends ItemSheet {
     
     data.dtypes = ["String", "Number", "Boolean"];
 
-    console.log(data);
+    if (this.item.data.type == "finish" || this.item.data.type == "handout") {
+      data.users = []
+      for (let i of game.users) {
+        if (i.isGM)
+          continue;
+        data.users.push(i)
+      }
+    }
+
+    console.log(data)
 
     return data;
   }

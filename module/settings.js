@@ -36,8 +36,19 @@ export class ShinobigamiSettings {
 			return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
 		});
 
+		Handlebars.registerHelper('ifOR', function(arg1, arg2, options) {
+			return (arg1 || arg2) ? options.fn(this) : options.inverse(this);;
+		});
+
 		Handlebars.registerHelper('ifOrEquals', function(arg1, arg2, arg3, arg4, options) {
 			return (arg1 == arg2 || arg3 == arg4) ? options.fn(this) : options.inverse(this);
+		});
+
+		Handlebars.registerHelper('checkVisible', function(arg1, arg2, options) {
+			console.log(arg1)
+			console.log(arg2)
+
+			return (arg1 instanceof Object && arg2 in arg1 && arg1[arg2]);
 		});
 
 		Handlebars.registerHelper('ifSuccess', function(arg1, arg2, options) {

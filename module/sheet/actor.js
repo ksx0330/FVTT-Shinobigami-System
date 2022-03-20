@@ -3,8 +3,6 @@ export class ShinobigamiActor extends Actor {
 
   prepareData() {
     super.prepareData();
-    
-    console.log(this);
 
   }
 

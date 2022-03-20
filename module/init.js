@@ -12,6 +12,7 @@ import { SecretJournalSheet } from "./secret-journal.js";
 import { ShinobigamiSettings } from "./settings.js";
 import { PlotCombat } from "./combat.js";
 import { PlotSettings } from "./plot.js";
+import { PlotDialog } from "./dialog/plot-dialog.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -38,8 +39,17 @@ Hooks.once("init", async function() {
     
 });
 
+Hooks.once("ready", async function() {
+    let basedoc = document.getElementsByClassName("vtt game system-shinobigami");
+    let hotbar = document.createElement("div");
+    hotbar.className = "plot-bar";
+
+    basedoc[0].appendChild(hotbar);
+});
+
 Hooks.on("renderChatLog", (app, html, data) => chatListeners(html));
 Hooks.on("renderChatPopout", (app, html, data) => chatListeners(html));
+Hooks.on("updatePlotBar", (html) => chatListeners(html));
 
 async function chatListeners(html) {
     html.on('click', '.roll-talent', async ev => {
@@ -84,6 +94,16 @@ async function chatListeners(html) {
             buttons: {}
         }).render(true);
         return;
+    });
+
+
+    html.on('click', '.plot-dialog', async ev => {
+        event.preventDefault();
+        const data = ev.currentTarget.dataset;
+
+        let d = new PlotDialog(data.actorId, data.combatantId, data.name, data.sender).render(true);
+        game.shinobigami.plotDialogs.push(d);
+
     });
 }
 

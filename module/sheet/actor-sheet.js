@@ -8,12 +8,19 @@ export class ShinobigamiActorSheet extends ActorSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["shinobigami", "sheet", "actor"],
-      template: "systems/shinobigami/templates/actor-sheet.html",
       width: 850,
-      height: 800,
+      height: 830,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "skill"}],
       dragDrop: [{dragSelector: ".item-list .item", dropSelector: null}]
     });
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  get template() {
+    const path = "systems/shinobigami/templates";
+    return `${path}/${this.actor.data.type}-sheet.html`;
   }
 
   /* -------------------------------------------- */
@@ -30,6 +37,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
     isEditable = this.isEditable;
     
     data.lang = game.i18n.lang;
+    data.userId = game.user.id
 
     // The Actor's data
     actorData = this.actor.data.toObject(false);
@@ -60,6 +68,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
     actorData.itemList = [];
     actorData.finishList = [];
     actorData.backgroundList = [];
+    actorData.handoutList = [];
 
     for (let i of data.items) {
         if (i.type === 'ability')
@@ -72,6 +81,8 @@ export class ShinobigamiActorSheet extends ActorSheet {
             actorData.finishList.push(i);
         else if (i.type == 'background')
             actorData.backgroundList.push(i);
+        else if (i.type == 'handout')
+            actorData.handoutList.push(i);
     }
 
     return data;
@@ -83,28 +94,16 @@ export class ShinobigamiActorSheet extends ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
-    /*
-    html.find(".talent-name").parent().on('mouseenter', (event) => {
-      event.preventDefault();
-
-      let name = $(event.currentTarget);
-      let dialog = $(event.currentTarget.closest(".skill")).find("#talent-description");
-      let nameData = name.find(".talent-name")[0].dataset;
-      let num = nameData.num;
-
-      dialog.text(name.text() + " / " + num);
-      dialog.css({"left": parseInt(name.offset().left)+10, "top": parseInt(name.offset().top)+28});
-      dialog.show();
-
-    }).on('mouseleave', (event) => {
-      $(event.currentTarget.closest(".skill")).find("#talent-description").hide();
-
-    });
-    */
-
     // Talent
     html.find('.item-label').click(this._showItemDetails.bind(this));
     html.find(".echo-item").click(this._echoItemDescription.bind(this));
+
+    // Update Inventory Item
+    html.find('.item-edit').click(ev => {
+      const li = $(ev.currentTarget).parents(".item");
+      const item = this.actor.items.get(li.data("itemId"));
+      item.sheet.render(true);
+    });
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
@@ -113,13 +112,6 @@ export class ShinobigamiActorSheet extends ActorSheet {
 
     // Owned Item management
     html.find('.item-create').click(this._onItemCreate.bind(this));
-
-    // Update Inventory Item
-    html.find('.item-edit').click(ev => {
-      const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.items.get(li.data("itemId"));
-      item.sheet.render(true);
-    });
 
     // Delete Inventory Item
     html.find('.item-delete').click(ev => {
@@ -131,13 +123,15 @@ export class ShinobigamiActorSheet extends ActorSheet {
     // Use Item
     html.find(".use-item").click(this._useItem.bind(this));
 
-    if (this.actor.owner) {
+    if (this.actor.isOwner) {
       let handler = ev => this._onDragStart(ev);
       html.find('li.item').each((i, li) => {
         if (li.classList.contains("inventory-header")) return;
         li.setAttribute("draggable", true);
         li.addEventListener("dragstart", handler, false);
       });
+
+      html.find('.quantity-change').click(this._changeItemQuantity.bind(this));
     }
 
   }
@@ -149,7 +143,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
     const position = super.setPosition(options);
     const sheetBody = this.element.find(".sheet-body");
     const bodyHeight = position.height;
-    sheetBody.css("height", bodyHeight);
+    sheetBody.css("height", bodyHeight - 300);
     return position;
   }
 
@@ -343,6 +337,32 @@ export class ShinobigamiActorSheet extends ActorSheet {
 
     ChatMessage.create(chatData);
 
+  }
+
+  async _changeItemQuantity(event) {
+    event.preventDefault();
+
+    const chargeButton = $(event.currentTarget);
+    const item = this.actor.items.get(chargeButton.parents('.item')[0].dataset.itemId);
+
+    const add = Number(event.currentTarget.dataset.add);
+    const num = Number(item.data.data.quantity);
+
+    console.log(add)
+    console.log(num)
+
+    if (num + add < 0)
+      return;
+
+    await item.update({"data.quantity": num + add});
+
+    let chatData = {
+      user: game.user._id,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      content: "<h3>" + item.data.name + ": " + num + " -> " + (num + add) + "</h3>"
+    };
+
+    ChatMessage.create(chatData);
   }
 
   async _useItem(event) {

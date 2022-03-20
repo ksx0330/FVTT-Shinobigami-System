@@ -1,43 +1,58 @@
 <form class="{{cssClass}}" autocomplete="off">
-    <header class="sheet-header">
-        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
-        <div class="header-fields">
-            <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
-            <table style="text-align: center;">
-                <tr>
-                    <th>{{localize "Shinobigami.Type"}}</th>
-                    <th>{{localize "Shinobigami.Gap"}}</th>
-                    <th>{{localize "Shinobigami.Cost"}}</th>
-                    <th>{{localize "Shinobigami.Talent"}}</th>
-                </tr>
-                <tr>
-                    <td><select name="data.type">
-                    {{#select data.type}}
-                    <option value="{{localize 'Shinobigami.Attack'}}">{{localize "Shinobigami.Attack"}}</option>
-                    <option value="{{localize 'Shinobigami.Support'}}">{{localize "Shinobigami.Support"}}</option>
-                    <option value="{{localize 'Shinobigami.Equipment'}}">{{localize "Shinobigami.Equipment"}}</option>
-                    {{/select}}
-                    </select></td>
-                    <td><input type="text" class="string-input" name="data.gap" value="{{data.gap}}" data-dtype="String"/></td>
-                    <td><input type="text" class="string-input" name="data.cost" value="{{data.cost}}" data-dtype="String"/></td>
-                    <td><input type="text" class="string-input" name="data.talent" value="{{data.talent}}" data-dtype="String"/></td>
-                </tr>
-            
-            </table>
-        </div>
-    </header>
+  <header class="sheet-header flexrow">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    <div class="header-fields">
+        <h1 class="charname"><input name="name" type="text" value="{{item.name}}" ></h1>
+    </div>
+  </header>
 
-    {{!-- Sheet Tab Navigation --}}
-    <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description">Description</a>
-    </nav>
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{!-- Description Tab --}}
 
-    {{!-- Sheet Body --}}
-    <section class="sheet-body">
+      <div class="sheet-item margin-top-10">
+        <div class="sheet-wrapper">
+          <section class="sheet-attributes">
+            <div class="cell cell--4 cell--select">
+              <label class="cell--title">{{localize "Shinobigami.Type"}}</label>
+              <select name="data.type" class="">
+                {{#select data.type}}
+                <option value="{{localize 'Shinobigami.Attack'}}">{{localize "Shinobigami.Attack"}}</option>
+                <option value="{{localize 'Shinobigami.Support'}}">{{localize "Shinobigami.Support"}}</option>
+                <option value="{{localize 'Shinobigami.Equipment'}}">{{localize "Shinobigami.Equipment"}}</option>
+                {{/select}}
+              </select>
+            </div>
 
-        {{!-- Description Tab --}}
-        <div class="tab" data-group="primary" data-tab="description">
+            <div class="cell cell--4">
+              <label class="cell--title">{{localize "Shinobigami.Gap"}}</label>
+              <input type="text" name="data.gap" value="{{data.gap}}" data-dtype="String"/>
+            </div>
+
+            <div class="cell cell--4">
+              <label class="cell--title">{{localize "Shinobigami.Cost"}}</label>
+              <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="String"/>
+            </div>
+
+            <div class="cell cell--4">
+              <label class="cell--title">{{localize "Shinobigami.Talent"}}</label>
+              <input type="text" name="data.talent" value="{{data.talent}}" data-dtype="String"/>
+            </div>
+
+          </section>
+
+          <div class="cell--bio">
+            <h3 class="cell--title"><b>{{localize "Shinobigami.Description"}}</b>
+
+              <span class="side-box">
+                <label>{{localize "Shinobigami.Hidden"}}: </label>
+                <input type="checkbox" name="data.hidden" value="{{data.hidden}}" data-dtype="Boolean" {{#if data.hidden}} checked {{/if}} >
+              </span>
+
+            </h3>
             {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+          </div>
+
         </div>
 
     </section>

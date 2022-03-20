@@ -1,35 +1,46 @@
 <form class="{{cssClass}}" autocomplete="off">
-    <header class="sheet-header">
-        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
-        <div class="header-fields">
-            <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
-            <table style="text-align: center;">
-                <tr>
-                    <th>{{localize "Shinobigami.Type"}}</th>
-                    <td><select name="data.type">
-                    {{#select data.type}}
-                    <option value="pros">{{localize "Shinobigami.Pros"}}</option>
-                    <option value="cons">{{localize "Shinobigami.Cons"}}</option>
-                    {{/select}}
-                    </select></td>
-                    <th>{{localize "Shinobigami.RequireEXP"}}</th>
-                    <td><input type="text" name="data.exp" value="{{data.exp}}"/></td>
-                </tr>
-            </table>
-        </div>
-    </header>
+  <header class="sheet-header flexrow">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    <div class="header-fields">
+        <h1 class="charname"><input name="name" type="text" value="{{item.name}}" ></h1>
+    </div>
+  </header>
 
-    {{!-- Sheet Tab Navigation --}}
-    <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description">Description</a>
-    </nav>
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{!-- Description Tab --}}
 
-    {{!-- Sheet Body --}}
-    <section class="sheet-body">
+      <div class="sheet-item margin-top-10">
+        <div class="sheet-wrapper">
+          <section class="sheet-attributes">
+            <div class="cell cell--4">
+              <label class="cell--title">{{localize "Shinobigami.Type"}}</label>
+            </div>
 
-        {{!-- Description Tab --}}
-        <div class="tab" data-group="primary" data-tab="description">
+            <div class="cell cell--4 cell--select">
+              <select name="data.type" class="">
+                {{#select data.type}}
+                <option value="pros">{{localize "Shinobigami.Pros"}}</option>
+                <option value="cons">{{localize "Shinobigami.Cons"}}</option>
+                {{/select}}
+              </select>
+            </div>
+
+            <div class="cell cell--4">
+              <label class="cell--title">{{localize "Shinobigami.RequireEXP"}}</label>
+            </div>
+
+            <div class="cell cell--4">
+              <input type="text" name="data.exp" value="{{data.exp}}" data-dtype="String"/>
+            </div>
+
+          </section>
+
+          <div class="cell--bio">
+            <h3 class="cell--title"><b>{{localize "Shinobigami.Description"}}</b></h3>
             {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+          </div>
+
         </div>
 
     </section>
