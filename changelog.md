@@ -11,3 +11,5 @@ Changelog
 1.0.4 - Bug Fix
 
 1.1.0 - Add some feature
+
+1.1.1 - Bug fix
