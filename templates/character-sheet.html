@@ -400,6 +400,12 @@
         
         {{!-- Owned Background Tab --}}
         <div class="tab items" data-group="primary" data-tab="background">
+          <div class="cell">
+            <h2 class="cell--title">{{localize "Shinobigami.ExpContent"}}</b></h2>
+            <input type="text" name="data.details.expContent" value="{{data.details.expContent}}">
+          </div>
+          <br>
+
           <div class="cell cell--common-talent">
             <h2 class="cell--title">
               <label>{{localize "Shinobigami.Background"}}</label>
@@ -454,7 +460,7 @@
             <ol class="items-list">
             {{#each actor.handoutList as |item id|}}
 
-            {{#ifOR ../data.isOwner (checkVisible item.data.visible ../userId)}} 
+            {{#ifOR ../isGM (checkVisible item.data.visible ../userId)}} 
               <li class="item flexrow" data-item-id="{{item.id}}" draggable="true">
 
                 <h4 class="item-name">

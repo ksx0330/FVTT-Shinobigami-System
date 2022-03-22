@@ -64,6 +64,7 @@ export class ShinobigamiItemSheet extends ItemSheet {
     data.data = itemData.data;
     
     data.dtypes = ["String", "Number", "Boolean"];
+    data.isGM = game.user.isGM;
 
     if (this.item.data.type == "finish" || this.item.data.type == "handout") {
       data.users = []

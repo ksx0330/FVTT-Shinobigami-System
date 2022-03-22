@@ -9,11 +9,12 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     <a class="item" data-tab="description">{{localize "Shinobigami.Description"}}</a>
-    {{#ifOR owner (checkVisible data.visible userId)}} 
+    {{#ifOR isGM (checkVisible data.sVisible userId)}} 
     <a class="item" data-tab="secret">{{localize "Shinobigami.Secret"}}</a>
     {{/ifOR}}
-    {{#if owner}}
+    {{#if isGM}}
     <a class="item" data-tab="visible">{{localize "Shinobigami.Visible" }}</a>
+    <a class="item" data-tab="visible2">{{localize "Shinobigami.Visible" }} ({{localize "Shinobigami.Secret" }})</a>
     {{/if}}
   </nav>
 
@@ -25,7 +26,6 @@
       <div class="sheet-item margin-top-10">
         <div class="sheet-wrapper">
           <div class="cell--bio">
-            <h3 class="cell--title"><b>{{localize "Shinobigami.Description"}}</b></h3>
             {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
           </div>
 
@@ -39,7 +39,6 @@
       <div class="sheet-item margin-top-10">
         <div class="sheet-wrapper">
           <div class="cell--bio">
-            <h3 class="cell--title"><b>{{localize "Shinobigami.Description"}}</b></h3>
             {{editor content=data.secret target="data.secret" button=true owner=owner editable=editable}}
           </div>
 
@@ -58,6 +57,22 @@
         <tr>
           <td>{{name}}</td>
           <td><input type="checkbox" name="data.visible.{{id}}" data-dtype="Boolean" {{#if (checkVisible ../data.visible id)}} checked {{/if}}/></td>
+        </tr>
+        {{/each}}
+      </table>
+    </div>
+
+    {{!-- Description Tab --}}
+    <div class="tab" data-group="primary" data-tab="visible2">
+      <table>
+        <tr>
+          <th>USER</th>
+          <th>{{localize "Shinobigami.Visible" }}</th>
+        </tr>
+        {{#each users}}
+        <tr>
+          <td>{{name}}</td>
+          <td><input type="checkbox" name="data.sVisible.{{id}}" data-dtype="Boolean" {{#if (checkVisible ../data.sVisible id)}} checked {{/if}}/></td>
         </tr>
         {{/each}}
       </table>

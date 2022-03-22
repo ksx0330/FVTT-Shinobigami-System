@@ -53,6 +53,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
     });
     
     data.dtypes = ["String", "Number", "Boolean"];
+    data.isGM = game.user.isGM;
 
     data.data.tables = [];
     for (var i = 2; i <= 12; ++i) {
@@ -345,21 +346,20 @@ export class ShinobigamiActorSheet extends ActorSheet {
     const chargeButton = $(event.currentTarget);
     const item = this.actor.items.get(chargeButton.parents('.item')[0].dataset.itemId);
 
-    const add = Number(event.currentTarget.dataset.add);
-    const num = Number(item.data.data.quantity);
-
-    console.log(add)
-    console.log(num)
+    let add = Number(event.currentTarget.dataset.add);
+    let num = Number(item.data.data.quantity);
 
     if (num + add < 0)
       return;
 
     await item.update({"data.quantity": num + add});
 
+    add = (add > 0) ? "+" + add : add
+
     let chatData = {
       user: game.user._id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      content: "<h3>" + item.data.name + ": " + num + " -> " + (num + add) + "</h3>"
+      content: "<h3>" + item.data.name + ": " + add + "</h3>"
     };
 
     ChatMessage.create(chatData);

@@ -6,7 +6,7 @@
     "Shinobigami.Skill": "特技リスト",
     "Shinobigami.HP": "生命力",
     "Shinobigami.Curiosity": "得意分野",
-    "Shinobigami.Description": "キャラクター情報",
+    "Shinobigami.Description": "情報",
     "Shinobigami.Ability": "忍法",
     "Shinobigami.Bonds": "人物欄",
     "Shinobigami.Items": "忍具",
@@ -19,6 +19,7 @@
     "Shinobigami.Identify": "表の顔",
     "Shinobigami.Belief": "信念",
     "Shinobigami.Exp": "功績",
+    "Shinobigami.ExpContent": "功績内訳",
     "Shinobigami.Memo": "設定",
     "Shinobigami.OverflowX": "魔界工学",
     "Shinobigami.OverflowY": "木蓮",
@@ -129,9 +130,13 @@
     "SETTINGS.RollAddon": "デフォルトで修正値を入力する",
     "SETTINGS.RollAddonDesc": "ロールをする際、Ctrlキーを押さずに常に修正値を入力できるダイアログを生成する。",
     
+    "ACTOR.TypeCharacter": "忍者",
+    "ACTOR.TypeCommoner": "一般人",
+
     "ITEM.TypeBond": "人物",
     "ITEM.TypeAbility": "忍法",
     "ITEM.TypeItem": "忍具",
     "ITEM.TypeFinish": "奥義",
-    "Item.TypeBackground": "背景"
+    "ITEM.TypeBackground": "背景",
+    "ITEM.TypeHandout": "ハンドアウト"
 }

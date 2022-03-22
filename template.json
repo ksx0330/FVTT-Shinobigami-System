@@ -30,6 +30,7 @@
                 "identify": "",
                 "belief": "",
                 "exp": 0,
+                "expContent": "",
                 "biography": ""
             }
         }
@@ -86,6 +87,7 @@
     },
     "handout": {
         "visible": {},
+        "sVisible": {},
         "description": "",
         "secret": ""
     }

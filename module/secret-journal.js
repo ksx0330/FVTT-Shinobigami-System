@@ -5,8 +5,9 @@ export class SecretJournalSheet extends JournalSheet {
     _getHeaderButtons() {
         let buttons = super._getHeaderButtons();
 
-        // Show Secret Journal
-        if (this.object.owner || this.object.hasPerm(game.user, "OBSERVER") ) {
+        console.log(this);
+
+        if (this.object.permission >= 2) {
             buttons.unshift({
                 label: "Secret",
                 class: "show-secret",
@@ -42,12 +43,14 @@ export class SecretJournalSheet extends JournalSheet {
             var user = game.user._id;
             var secretJournal = game.journal.get(id);
 
-            if (secretJournal.owner || secretJournal.hasPerm(game.user, "OBSERVER"))
+            if (secretJournal.permission >= 2)
                 await Journal._showEntry(secretJournal.uuid, mode, false);
             else 
                 throw new Error("You don't have permission");
 
         } catch (error) {
+            console.log(error);
+
             new Dialog({
                 title: "Error!",
                 content: "<p>You can't access this secret</p>",

@@ -19,6 +19,7 @@
     "Shinobigami.Identify": "Cover",
     "Shinobigami.Belief": "Conviction",
     "Shinobigami.Exp": "Exp",
+    "Shinobigami.ExpContent": "Exp Breakdown",
     "Shinobigami.Memo": "Memo",
     "Shinobigami.OverflowX": "1 <-> 6",
     "Shinobigami.OverflowY": "2 <-> 12",
@@ -130,9 +131,13 @@
     "SETTINGS.RollAddon": "Always Add Modifier",
     "SETTINGS.RollAddonDesc": "When you roll, Even if you don't press Ctrl, a dialog box appears where you can enter additional modifiers.",
     
+    "ACTOR.TypeCharacter": "Ninja",
+    "ACTOR.TypeCommoner": "Commoner",
+
     "ITEM.TypeBond": "People",
     "ITEM.TypeAbility": "Ninpo",
     "ITEM.TypeItem": "Ninja Gear",
     "ITEM.TypeFinish": "Ohgi",
-    "Item.TypeBackground": "Background"
+    "Item.TypeBackground": "Background",
+    "ITEM.TypeHandout": "Handout"
 }

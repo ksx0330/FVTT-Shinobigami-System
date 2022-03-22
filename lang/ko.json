@@ -19,6 +19,7 @@
     "Shinobigami.Identify": "겉모습",
     "Shinobigami.Belief": "신념",
     "Shinobigami.Exp": "공적점",
+    "Shinobigami.ExpContent": "공적점 내역",
     "Shinobigami.Memo": "메모",
     "Shinobigami.OverflowX": "마계공학",
     "Shinobigami.OverflowY": "목련",
@@ -124,15 +125,18 @@
     "Shinobigami.ReadyPlot": "플롯이 준비되었습니다",
     "Shinobigami.AwaitPlot": "플롯 준비가 해제되었습니다.",
     
-    
     "SETTINGS.TalentTable": "특기 리스트",
     "SETTINGS.TalentTableDesc": "특기 리스트 변경",
     "SETTINGS.RollAddon": "수정치 추가",
     "SETTINGS.RollAddonDesc": "롤을 할 때 Ctrl을 누르지 않아도 항상 추가 수정치를 입력할 수 있는 다이얼로그가 나옵니다.",
     
+    "ACTOR.TypeCharacter": "닌자",
+    "ACTOR.TypeCommoner": "일반인",
+
     "ITEM.TypeBond": "인물",
     "ITEM.TypeAbility": "인법",
     "ITEM.TypeItem": "닌자 도구",
     "ITEM.TypeFinish": "오의",
-    "Item.TypeBackground": "배경"
+    "ITEM.TypeBackground": "배경",
+    "ITEM.TypeHandout": "핸드아웃"
 }
