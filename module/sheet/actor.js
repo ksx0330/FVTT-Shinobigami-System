@@ -40,6 +40,13 @@ export class ShinobigamiActor extends Actor {
           }
         }
 
+        if ('curiosity' in data.data.talent && data.data.talent.curiosity != 0) {
+          gap = data.data.talent.gap = {"0": false, "1": false, "2": false, "3": false, "4": false, "5": false};
+
+          data.data.talent.gap[data.data.talent.curiosity] = gap[data.data.talent.curiosity] = true;
+          data.data.talent.gap[data.data.talent.curiosity - 1] = gap[data.data.talent.curiosity - 1] = true;
+        }
+
         if ('overflowX' in data.data.talent)
           overflowX = data.data.talent.overflowX;
         if ('overflowY' in data.data.talent)
