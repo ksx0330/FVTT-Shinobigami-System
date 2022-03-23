@@ -17,3 +17,5 @@ Changelog
 1.1.2 - Add some feature
 
 1.1.3 - Bug fix
+
+1.1.4 - Bug fix

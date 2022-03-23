@@ -24,7 +24,7 @@ export class ShinobigamiActor extends Actor {
             let i = Object.keys(data.data.talent.table)[a];
             for (let b = 0; b < Object.keys(data.data.talent.table[i]).length; ++b) {
               let j = Object.keys(data.data.talent.table[i])[b];
-              for (let c = 0; c < Object.keys(data.data.talent.table[i][j]); ++c) {
+              for (let c = 0; c < Object.keys(data.data.talent.table[i][j]).length; ++c) {
                 let key = Object.keys(data.data.talent.table[i][j])[c];
                 table[i][j][key] = data.data.talent.table[i][j][key];
               }
