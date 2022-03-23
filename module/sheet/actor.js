@@ -10,7 +10,7 @@ export class ShinobigamiActor extends Actor {
   async _preUpdate(data, options, userId) {
     console.log(data);
 
-    if ('talent' in data.data || 'health' in data.data) {
+    if ('data' in data && ('talent' in data.data || 'health' in data.data) ) {
       let health = JSON.parse(JSON.stringify(this.data.data.health.state));
       let table = JSON.parse(JSON.stringify(this.data.data.talent.table));
       let gap = JSON.parse(JSON.stringify(this.data.data.talent.gap));
@@ -34,7 +34,7 @@ export class ShinobigamiActor extends Actor {
         }
 
         if ('gap' in data.data.talent) {
-          for (let a = 0; a < Object.keys(data.data.talent.table).length; ++a) {
+          for (let a = 0; a < Object.keys(data.data.talent.gap).length; ++a) {
             let i = Object.keys(data.data.talent.gap)[a];
             gap[i] = data.data.talent.gap[i];
           }
@@ -47,7 +47,7 @@ export class ShinobigamiActor extends Actor {
       }
 
       if ('health' in data.data) {
-        for (let a = 0; a < Object.keys(data.data.talent.table).length; ++a) {
+        for (let a = 0; a < Object.keys(data.data.health.state).length; ++a) {
           let i = Object.keys(data.data.health.state)[a];
           health[i] = data.data.health.state[i];
         }
@@ -114,7 +114,7 @@ export class ShinobigamiActor extends Actor {
 
   async rollTalent(title, num, add) {
     if (!add) {
-      this._onRollDice(title, null, num); 
+      this._onRollDice(title, num, null); 
       return;
     }
     
@@ -125,7 +125,7 @@ export class ShinobigamiActor extends Actor {
           confirm: {
             icon: '<i class="fas fa-check"></i>',
             label: "Confirm",
-            callback: () => this._onRollDice(title, $("#add").val(), num)
+            callback: () => this._onRollDice(title, num, $("#add").val())
           }
         },
         default: "confirm"
@@ -133,7 +133,7 @@ export class ShinobigamiActor extends Actor {
     
   }
 
-  async _onRollDice(title, add, num) {
+  async _onRollDice(title, num, add) {
     
     // GM rolls.
     let chatData = {

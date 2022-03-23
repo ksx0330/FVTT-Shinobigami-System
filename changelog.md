@@ -19,3 +19,5 @@ Changelog
 1.1.3 - Bug fix
 
 1.1.4 - Bug fix
+
+1.1.5 - Bug fix

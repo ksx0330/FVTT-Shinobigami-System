@@ -196,10 +196,14 @@ export class ShinobigamiActorSheet extends ActorSheet {
     const type = header.dataset.type;
 
     const name = `New ${type.capitalize()}`;
-    const itemData = {
+    let itemData = {
       name: name,
-      type: type
+      type: type,
+      data: {}
     };
+    if (type == "handout")
+      itemData.data.visible = {[game.user.id]: true};
+
     await this.actor.createEmbeddedDocuments('Item', [itemData], {});
   }
 

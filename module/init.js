@@ -64,7 +64,7 @@ Hooks.on("getSceneControlButtons", function(controls) {
                 <h2>
                   ${game.i18n.localize("Shinobigami.Talent")}
                 </h2>
-                <input type="text" id="talent" style="margin-bottom: 8px" />
+                <p><input type="text" id="talent" /></p>
               `,
               render: () => $("#talent").focus(),
               callback: async () => {

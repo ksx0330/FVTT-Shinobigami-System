@@ -2,7 +2,7 @@
   "name": "shinobigami",
   "title": "Shinobigami System",
   "description": "Shinobigami system",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "minimumCoreVersion": "0.8.6",
   "compatibleCoreVersion": "9",
   "templateVersion": 5,
