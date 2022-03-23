@@ -51,6 +51,8 @@ export class ShinobigamiActorSheet extends ActorSheet {
       i.data.id = i.id;
       return i.data;
     });
+
+    data.items.sort((a, b) => (a.sort || 0) - (b.sort || 0));
     
     data.dtypes = ["String", "Number", "Boolean"];
     data.isGM = game.user.isGM;
@@ -149,24 +151,6 @@ export class ShinobigamiActorSheet extends ActorSheet {
   }
 
   /* -------------------------------------------- */
-
-  /** @override */
-  async _updateObject(event, formData) {
-    let target = event.currentTarget;
-    
-    console.log(formData);
-
-    if (target == undefined || (target.name.indexOf("data.talent") == -1 && target.name.indexOf("data.health.state") == -1) )
-      return await this.object.update(formData);
-
-    await this.object.update(formData);
-    this._updateFormData(formData);
-    
-    return await this.object.update(formData);
-  }
-
-
-  /* -------------------------------------------- */
   
   async _onRouteTalent(event) {
     if (event.button == 2 || event.which == 3)
@@ -184,11 +168,6 @@ export class ShinobigamiActorSheet extends ActorSheet {
     
     table[id[1]][id[2]].stop = !table[id[1]][id[2]].stop;
     await this.actor.update({"data.talent.table": table});
-    
-    let formData = {};
-    this._updateFormData(formData);
-    await this.object.update(formData);
-    
   }
   
   async _onRollTalent(event) {
@@ -196,10 +175,10 @@ export class ShinobigamiActorSheet extends ActorSheet {
     let dataset = event.currentTarget.dataset;
     let num = dataset.num;
     let title = dataset.title;
-    let add = false;
+    let add = true;
   
     if (!event.ctrlKey && !game.settings.get("shinobigami", "rollAddon"))
-      add = true;
+      add = false;
     
     await this.actor.rollTalent(title, num, add);
   }
@@ -389,75 +368,6 @@ export class ShinobigamiActorSheet extends ActorSheet {
 
     }
   
-  }
-  
-  _updateFormData(formData) {
-    let table = this._getTalentTable();
-    
-    for (var i = 0; i < 6; ++i)
-    for (var j = 0; j < 11; ++j)
-      formData[`data.talent.table.${i}.${j}.num`] = table[i][j].num;
-
-  }
-
-  _getTalentTable() {
-    let health = this.actor.data.data.health.state;
-    let table = JSON.parse(JSON.stringify(this.actor.data.data.talent.table));
-    let curiosity = this.actor.data.data.talent.curiosity;
-    let gap = this.actor.data.data.talent.gap;
-    let nodes = [];
-    
-    let overflowX = this.actor.data.data.talent.overflowX;
-    let overflowY = this.actor.data.data.talent.overflowY;
-    
-    for (var i = 0; i < 6; ++i)
-    for (var j = 0; j < 11; ++j) {
-      if (table[i][j].state == true && table[i][j].stop == false && health[i] == false) {
-        nodes.push({x: i, y: j});
-        table[i][j].num = "5";
-      } else
-        table[i][j].num = "12";
-    }
-
-    let dx = [0, 0, 1, -1];
-    let dy = [1, -1, 0, 0];
-    let move = [1, 1, 2, 2];
-    for (var i = 0; i < nodes.length; ++i) {
-      let queue = [nodes[i]];
-
-      while (queue.length != 0) {
-        let now = queue[0];
-        queue.shift();
-        
-        if (+table[now.x][now.y].num == 12)
-          continue;
-
-        for (var d = 0; d < 4; ++d) {
-          var nx = now.x + dx[d];
-          var ny = now.y + dy[d];
-          var m = move[d];
-
-          if (overflowX && (nx < 0 || nx >= 6) )
-            nx = (nx < 0) ? 5 : 0;
-          if (overflowY && (ny < 0 || ny >= 11) )
-            ny = (ny < 0) ? 10 : 0;
-          
-          if (nx < 0 || nx >= 6 || ny < 0 || ny >= 11)
-            continue;
-
-          let g = ( (now.x == 0 && nx == 5) || (now.x == 5 && nx == 0) ) ? gap[0] : gap[(nx > now.x) ? nx : now.x];
-          if (m == 2 && g)
-            m = 1;
-
-          if (Number(table[nx][ny].num) > Number(table[now.x][now.y].num) + m) {
-            table[nx][ny].num = String(Number(table[now.x][now.y].num) + m);
-            queue.push({x: nx, y: ny});
-          }
-        }
-      }
-    }
-
-    return table;
   }
 
 }

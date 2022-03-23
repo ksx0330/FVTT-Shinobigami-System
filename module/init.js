@@ -51,6 +51,45 @@ Hooks.on("renderChatLog", (app, html, data) => chatListeners(html));
 Hooks.on("renderChatPopout", (app, html, data) => chatListeners(html));
 Hooks.on("updatePlotBar", (html) => chatListeners(html));
 
+Hooks.on("getSceneControlButtons", function(controls) {
+    controls[0].tools.push({
+        name: "rollTalent",
+        title: "Roll Talent",
+        icon: "fas fa-dice-d6",
+        visible: game.user.isGM,
+        onClick: () => {
+            Dialog.prompt({
+              title: "Roll Talent",
+              content: `
+                <h2>
+                  ${game.i18n.localize("Shinobigami.Talent")}
+                </h2>
+                <input type="text" id="talent" style="margin-bottom: 8px" />
+              `,
+              render: () => $("#talent").focus(),
+              callback: async () => {
+                const talent = $("#talent").val().trim();
+                let context = `
+                  <h2>${game.i18n.localize("Shinobigami.Talent")}: ${talent}</h2>
+                  <button type="button" class="roll-talent" data-talent="${talent}">${talent}</button>
+                `
+
+                // GM rolls.
+                let chatData = {
+                  user: game.user.id,
+                  speaker: ChatMessage.getSpeaker({ alias: "GM" }),
+                  content: context
+                };
+
+                ChatMessage.create(chatData);
+              }
+            });
+        },
+        button: true
+    });
+
+});
+
 async function chatListeners(html) {
     html.on('click', '.roll-talent', async ev => {
         event.preventDefault();
@@ -71,9 +110,9 @@ async function chatListeners(html) {
             return;
         }
         
-        let add = false;
+        let add = true;
         if (!event.ctrlKey && !game.settings.get("shinobigami", "rollAddon"))
-          add = true;
+          add = false;
         
         for (var i = 2; i <= 12; ++i)
         for (var j = 0; j < 6; ++j) {
