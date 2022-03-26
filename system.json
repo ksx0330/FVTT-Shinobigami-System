@@ -29,7 +29,8 @@
   "languages": [
     { "lang": "en", "name": "English", "path": "lang/en.json" },
     { "lang": "ko", "name": "한국어", "path": "lang/ko.json" }, 
-    { "lang": "ja", "name": "日本語", "path": "lang/ja.json" }
+    { "lang": "ja", "name": "日本語", "path": "lang/ja.json" }, 
+    { "lang": "zh-tw", "name": "正體中文", "path": "lang/zh-tw.json" }
   ],
   "gridDistance": 5,
   "gridUnits": "ft",
