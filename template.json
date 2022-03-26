@@ -21,7 +21,8 @@
                 "gap": {"0": false, "1": false, "2": false, "3": false, "4": false, "5": false},
                 "curiosity": 0,
                 "overflowX": false,
-                "overflowY": false
+                "overflowY": false,
+                "subTitle": {"id": "", "title": "", "state": false}
             },
             "details": {
                 "age": "",

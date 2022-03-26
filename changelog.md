@@ -21,3 +21,5 @@ Changelog
 1.1.4 - Bug fix
 
 1.1.5 - Bug fix
+
+1.1.6 - Add localization

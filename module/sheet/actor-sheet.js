@@ -57,12 +57,18 @@ export class ShinobigamiActorSheet extends ActorSheet {
     data.dtypes = ["String", "Number", "Boolean"];
     data.isGM = game.user.isGM;
 
+    let subTitle = {state: false, id: ""}
+    if ("subTitle" in data.data.talent && data.data.talent.subTitle.state) {
+      subTitle.id = data.data.talent.subTitle.id;
+      subTitle.state = true;
+    }
+
     data.data.tables = [];
     for (var i = 2; i <= 12; ++i) {
         data.data.tables.push({line: [], number: i});
         for (var j = 0; j < 6; ++j) {
             var name = String.fromCharCode(65 + j);
-            data.data.tables[i - 2].line.push({ id: `col-${j}-${i-2}`, title: `Shinobigami.${name}${i}`, name: `data.talent.table.${j}.${i - 2}`, state: data.data.talent.table[j][i - 2].state, num: data.data.talent.table[j][i - 2].num, stop: data.data.talent.table[j][i - 2].stop });
+            data.data.tables[i - 2].line.push({ id: `col-${j}-${i-2}`, title: `Shinobigami.${name}${i}`, name: `data.talent.table.${j}.${i - 2}`, state: data.data.talent.table[j][i - 2].state, num: data.data.talent.table[j][i - 2].num, stop: data.data.talent.table[j][i - 2].stop, subTitle: (`col-${j}-${i-2}` == subTitle.id) ? true : false });
         }
     }
 
@@ -176,11 +182,31 @@ export class ShinobigamiActorSheet extends ActorSheet {
     let num = dataset.num;
     let title = dataset.title;
     let add = true;
+    let secret = false;
   
     if (!event.ctrlKey && !game.settings.get("shinobigami", "rollAddon"))
       add = false;
+
+    if (event.altKey)
+      secret = true;
+
+    if (event.shiftKey) {
+      let subTitle = this.actor.data.data.talent.subTitle;
+
+      if (subTitle.state) {
+        this.actor.update({"data.talent.subTitle.id": "", "data.talent.subTitle.title": "", "data.talent.subTitle.state": false});
+        if (dataset.id != subTitle.id)
+          title = subTitle.title + "->" + title;
+        else
+          return;
+
+      } else {
+        this.actor.update({"data.talent.subTitle.id": dataset.id, "data.talent.subTitle.title": title, "data.talent.subTitle.state": true});
+        return;
+      }
+    }
     
-    await this.actor.rollTalent(title, num, add);
+    await this.actor.rollTalent(title, num, add, secret);
   }
 
 

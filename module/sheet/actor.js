@@ -119,9 +119,9 @@ export class ShinobigamiActor extends Actor {
     return table;
   }
 
-  async rollTalent(title, num, add) {
+  async rollTalent(title, num, add, secret) {
     if (!add) {
-      this._onRollDice(title, num, null); 
+      this._onRollDice(title, num, null, secret); 
       return;
     }
     
@@ -132,7 +132,7 @@ export class ShinobigamiActor extends Actor {
           confirm: {
             icon: '<i class="fas fa-check"></i>',
             label: "Confirm",
-            callback: () => this._onRollDice(title, num, $("#add").val())
+            callback: () => this._onRollDice(title, num, $("#add").val(), secret)
           }
         },
         default: "confirm"
@@ -140,7 +140,7 @@ export class ShinobigamiActor extends Actor {
     
   }
 
-  async _onRollDice(title, num, add) {
+  async _onRollDice(title, num, add, secret) {
     
     // GM rolls.
     let chatData = {
@@ -149,7 +149,7 @@ export class ShinobigamiActor extends Actor {
         flavor: "<h2><b>" + title + "</b></h2>"
     };
 
-    let rollMode = game.settings.get("core", "rollMode");
+    let rollMode = (secret) ? "gmroll" : game.settings.get("core", "rollMode");
     if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
     if (rollMode === "selfroll") chatData["whisper"] = [game.user.id];
     if (rollMode === "blindroll") chatData["blind"] = true;

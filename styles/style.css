@@ -439,6 +439,11 @@
     text-decoration: line-through;
 }
 
+.shinobigami .talent-table .subTitle .talent-name {
+  color: blue;
+  font-weight: bold;
+}
+
 .shinobigami .talent-checkbox {
   width: 15px;
   height: 15px;

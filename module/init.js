@@ -113,6 +113,10 @@ async function chatListeners(html) {
         let add = true;
         if (!event.ctrlKey && !game.settings.get("shinobigami", "rollAddon"))
           add = false;
+
+        let secret = false;
+        if (event.altKey)
+          secret = true;
         
         for (var i = 2; i <= 12; ++i)
         for (var j = 0; j < 6; ++j) {
@@ -123,7 +127,7 @@ async function chatListeners(html) {
             if (title === data.talent) {
                 let num = actor.data.data.talent.table[j][i - 2].num;
                 
-                return actor.rollTalent(title, num, add);
+                return actor.rollTalent(title, num, add, secret);
             }
         }
         

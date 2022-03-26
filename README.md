@@ -13,6 +13,8 @@ https://raw.githubusercontent.com/ksx0330/FVTT-Shinobigami-System/master/system.
 Roll
 -------------
 By pressing Ctrl and clicking on the talents, you can add additional values when rolling the dice.
+By pressing Alt and clicking on the talents, you can roll for gm when rolling the dice.
+By pressing Shift and clicking on the talents, you can roll other title when rolling the dice.
 
 Images
 ------------
