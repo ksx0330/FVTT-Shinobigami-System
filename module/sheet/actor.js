@@ -10,7 +10,7 @@ export class ShinobigamiActor extends Actor {
   async _preUpdate(data, options, userId) {
     console.log(data);
 
-    if ('data' in data && ('talent' in data.data || 'health' in data.data) ) {
+    if ('data' in data && ('talent' in data.data || ('health' in data.data && 'state' in data.data.health)) ) {
       let health = JSON.parse(JSON.stringify(this.data.data.health.state));
       let table = JSON.parse(JSON.stringify(this.data.data.talent.table));
       let gap = JSON.parse(JSON.stringify(this.data.data.talent.gap));
