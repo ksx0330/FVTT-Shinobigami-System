@@ -172,34 +172,41 @@ export class ShinobigamiActor extends Actor {
     };
 
     let rollMode = (secret) ? "gmroll" : game.settings.get("core", "rollMode");
-    if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = ChatMessage.getWhisperRecipients("GM");
+    if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = await ChatMessage.getWhisperRecipients("GM");
     if (rollMode === "selfroll") chatData["whisper"] = [game.user.id];
-    if (rollMode === "blindroll") chatData["blind"] = true;
+    if (rollMode === "blindroll") {
+      chatData["blind"] = true;
+      chatData["type"] = CONST.CHAT_MESSAGE_TYPES.ROLL;
+    }
 
     let formula = "2d6";
     if (add != null)
       formula += (add < 0) ? `${add}` : `+${add}`
     let roll = new Roll(formula);
-    await roll.roll();
+    await roll.roll({async: true});
     let d = roll.terms[0].total;
+
+    console.log(rollMode)
+    console.log(chatData["whisper"])
     
+    chatData.roll = roll;
     chatData.content = await renderTemplate("systems/shinobigami/templates/roll.html", {
-        formula: roll.formula,
-        flavor: null,
-        user: game.user.id,
-        tooltip: await roll.getTooltip(),
-        total: Math.round(roll.total * 100) / 100,
-        special: d == 12,
-        fumble: d == 2,
-        num: num
+      formula: roll.formula,
+      flavor: null,
+      user: game.user.id,
+      tooltip: await roll.getTooltip(),
+      total: Math.round(roll.total * 100) / 100,
+      special: d == 12,
+      fumble: d == 2,
+      num: num
     });
 
-    if (game.dice3d) {
-        game.dice3d.showForRoll(roll, game.user, true, chatData.whisper, chatData.blind).then(displayed => ChatMessage.create(chatData));;
-    } else {
-        chatData.sound = CONFIG.sounds.dice;
-        ChatMessage.create(chatData);
-    }
+    chatData.sound = CONFIG.sounds.dice;
+
+    console.log(chatData)
+
+    ChatMessage.create(chatData);
+
   }
 
 }

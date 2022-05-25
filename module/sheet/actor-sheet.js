@@ -169,9 +169,6 @@ export class ShinobigamiActorSheet extends ActorSheet {
   /* -------------------------------------------- */
   
   async _onRouteTalent(event) {
-    console.log(event.button)
-    console.log(event.which)
-
     if (event.button == 2 || event.which == 3)
       this._setStopTalent(event);
     else if (event.button == 1 || event.which == 2)
@@ -371,7 +368,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
     let chatData = {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      content: "<h2>" + title + "</h2>" + description
+      content: `<div class="" data-actor-id=${this.actor.id} data-item-id=${itemId}>` + "<h2>" + title + "</h2>" + description + "</div>"
     };
 
     ChatMessage.create(chatData);
