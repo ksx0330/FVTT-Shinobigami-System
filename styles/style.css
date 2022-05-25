@@ -436,7 +436,15 @@
 }
 
 .shinobigami .talent-table .stop .talent-name {
-    text-decoration: line-through;
+  text-decoration: line-through;
+}
+
+.shinobigami .talent-table .expert .talent-name {
+  color: gold;
+}
+
+.shinobigami .talent-table .dirty {
+  text-decoration: line-through;
 }
 
 .shinobigami .talent-table .subTitle .talent-name {

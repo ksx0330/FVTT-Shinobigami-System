@@ -153,39 +153,45 @@
                       <td class="gap"><input class="talent-checkbox" type="checkbox" name="data.talent.gap.0"  {{#if data.talent.gap.[0]}} checked {{/if}}></td>
 
                       <th class="talent-header">
-                        <div class="header-name">{{localTalent "Shinobigami.A1"}}</div>
+                        <div class="header-name {{#if data.health.dirty.[0]}} dirty {{/if}}" data-num="0">{{localTalent "Shinobigami.A1"}}</div>
                         <input class="header-checkbox" type="checkbox" name="data.health.state.0"  {{#if data.health.state.[0]}} checked {{/if}}>
+                        <input type="hidden" name="data.health.dirty.0" value="{{data.health.dirty.[0]}}" data-dtype="Boolean">
                       </th>
 
                       <td class="gap"><input class="talent-checkbox" type="checkbox" name="data.talent.gap.1"   {{#if data.talent.gap.[1]}} checked {{/if}}></td>
 
                       <th class="talent-header">
-                        <div class="header-name">{{localTalent "Shinobigami.B1"}}</div>
+                        <div class="header-name {{#if data.health.dirty.[1]}} dirty {{/if}}" data-num="1">{{localTalent "Shinobigami.B1"}}</div>
                         <input class="header-checkbox" type="checkbox" name="data.health.state.1"  {{#if data.health.state.[1]}} checked {{/if}}>
+                        <input type="hidden" name="data.health.dirty.1" value="{{data.health.dirty.[1]}}" data-dtype="Boolean">
                       </th>
 
                       <td class="gap"><input class="talent-checkbox" type="checkbox" name="data.talent.gap.2"  {{#if data.talent.gap.[2]}} checked {{/if}}></td>
                       <th class="talent-header">
-                        <div class="header-name">{{localTalent "Shinobigami.C1"}}</div>
+                        <div class="header-name {{#if data.health.dirty.[2]}} dirty {{/if}}" data-num="2">{{localTalent "Shinobigami.C1"}}</div>
                         <input class="header-checkbox" type="checkbox" name="data.health.state.2"  {{#if data.health.state.[2]}} checked {{/if}}>
+                        <input type="hidden" name="data.health.dirty.2" value="{{data.health.dirty.[2]}}" data-dtype="Boolean">
                       </th>
 
                       <td class="gap"><input class="talent-checkbox" type="checkbox" name="data.talent.gap.3"  {{#if data.talent.gap.[3]}} checked {{/if}}></td>
                       <th class="talent-header">
-                        <div class="header-name">{{localTalent "Shinobigami.D1"}}</div>
+                        <div class="header-name {{#if data.health.dirty.[3]}} dirty {{/if}}" data-num="3">{{localTalent "Shinobigami.D1"}}</div>
                         <input class="header-checkbox" type="checkbox" name="data.health.state.3"  {{#if data.health.state.[3]}} checked {{/if}}>
+                        <input type="hidden" name="data.health.dirty.3" value="{{data.health.dirty.[3]}}" data-dtype="Boolean">
                       </th>
 
                       <td class="gap"><input class="talent-checkbox" type="checkbox" name="data.talent.gap.4" {{#if data.talent.gap.[4]}} checked {{/if}}></td>
                       <th class="talent-header">
-                        <div class="header-name">{{localTalent "Shinobigami.E1"}}</div>
+                        <div class="header-name {{#if data.health.dirty.[4]}} dirty {{/if}}" data-num="4">{{localTalent "Shinobigami.E1"}}</div>
                         <input class="header-checkbox" type="checkbox" name="data.health.state.4" {{#if data.health.state.[4]}} checked {{/if}}>
+                        <input type="hidden" name="data.health.dirty.4" value="{{data.health.dirty.[4]}}" data-dtype="Boolean">
                       </th>
 
                       <td class="gap"><input class="talent-checkbox" type="checkbox" name="data.talent.gap.5" {{#if data.talent.gap.[5]}} checked {{/if}}></td>
                       <th class="talent-header">
-                        <div class="header-name">{{localTalent "Shinobigami.F1"}}</div>
+                        <div class="header-name {{#if data.health.dirty.[5]}} dirty {{/if}}" data-num="5">{{localTalent "Shinobigami.F1"}}</div>
                         <input class="header-checkbox" type="checkbox" name="data.health.state.5" {{#if data.health.state.[5]}} checked {{/if}}>
+                        <input type="hidden" name="data.health.dirty.5" value="{{data.health.dirty.[5]}}" data-dtype="Boolean">
                       </th>
 
                       <th></th>
@@ -194,54 +200,60 @@
                   <tr>
                       <th>{{number}}</th>
                       <td {{#if ../data.talent.gap.[0]}} class="active" {{/if}}></td>
-                      <td class="{{#if line.[0].state}} checked {{/if}} {{#if line.[0].stop}} stop {{/if}} {{#if line.[0].subTitle}} subTitle {{/if}}" >
+                      <td class="{{#if line.[0].state}} checked {{/if}} {{#if line.[0].stop}} stop {{/if}} {{#if line.[0].expert}} expert {{/if}} {{#if line.[0].subTitle}} subTitle {{/if}}" >
                           <input class="talent-checkbox" type="checkbox" name="{{line.[0].name}}.state" {{#if line.[0].state}} checked {{/if}} >
                           <input type="hidden" name="{{line.[0].name}}.num" value="{{line.[0].num}}">
                           <input type="hidden" name="{{line.[0].name}}.stop" value="{{line.[0].stop}}" data-dtype="Boolean">
+                          <input type="hidden" name="{{line.[0].name}}.expert" value="{{line.[0].expert}}" data-dtype="Boolean">
                           <div class="talent-name" data-title="{{localTalent line.[0].title}}" data-num="{{line.[0].num}}" data-id="{{line.[0].id}}" data-stop="{{line.[0].stop}}">{{localTalent line.[0].title}} / {{line.[0].num}}</div>
                       </td>
 
                       <td {{#if ../data.talent.gap.[1]}} class="active" {{/if}}></td>
-                      <td  class="{{#if line.[1].state}} checked {{/if}} {{#if line.[1].stop}} stop {{/if}} {{#if line.[1].subTitle}} subTitle {{/if}}" >
+                      <td  class="{{#if line.[1].state}} checked {{/if}} {{#if line.[1].stop}} stop {{/if}} {{#if line.[1].expert}} expert {{/if}} {{#if line.[1].subTitle}} subTitle {{/if}}" >
                           <input class="talent-checkbox" type="checkbox" name="{{line.[1].name}}.state" {{#if line.[1].state}} checked {{/if}} >
                           <input type="hidden" name="{{line.[1].name}}.num" value="{{line.[1].num}}">
                           <input type="hidden" name="{{line.[1].name}}.stop" value="{{line.[1].stop}}" data-dtype="Boolean">
+                          <input type="hidden" name="{{line.[1].name}}.expert" value="{{line.[1].expert}}" data-dtype="Boolean">
                           <div class="talent-name" data-title="{{localTalent line.[1].title}}" data-num="{{line.[1].num}}" data-id="{{line.[1].id}}" data-stop="{{line.[1].stop}}">{{localTalent line.[1].title}} / {{line.[1].num}}</div>
                       </td>
 
                       <td {{#if ../data.talent.gap.[2]}} class="active" {{/if}}></td>
 
-                      <td class="{{#if line.[2].state}} checked {{/if}} {{#if line.[2].stop}} stop {{/if}} {{#if line.[2].subTitle}} subTitle {{/if}}" >
+                      <td class="{{#if line.[2].state}} checked {{/if}} {{#if line.[2].stop}} stop {{/if}} {{#if line.[2].expert}} expert {{/if}} {{#if line.[2].subTitle}} subTitle {{/if}}" >
                           <input class="talent-checkbox" type="checkbox" name="{{line.[2].name}}.state" {{#if line.[2].state}} checked {{/if}} >
                           <input type="hidden" name="{{line.[2].name}}.num" value="{{line.[2].num}}">
                           <input type="hidden" name="{{line.[2].name}}.stop" value="{{line.[2].stop}}" data-dtype="Boolean">
+                          <input type="hidden" name="{{line.[2].name}}.expert" value="{{line.[2].expert}}" data-dtype="Boolean">
                           <div class="talent-name" data-title="{{localTalent line.[2].title}}" data-num="{{line.[2].num}}" data-id="{{line.[2].id}}" data-stop="{{line.[2].stop}}">{{localTalent line.[2].title}} / {{line.[2].num}}</div>
                       </td>
 
                       <td {{#if ../data.talent.gap.[3]}} class="active" {{/if}}></td>
 
-                      <td class="{{#if line.[3].state}} checked {{/if}} {{#if line.[3].stop}} stop {{/if}} {{#if line.[3].subTitle}} subTitle {{/if}}" >
+                      <td class="{{#if line.[3].state}} checked {{/if}} {{#if line.[3].stop}} stop {{/if}} {{#if line.[3].expert}} expert {{/if}} {{#if line.[3].subTitle}} subTitle {{/if}}" >
                           <input class="talent-checkbox" type="checkbox" name="{{line.[3].name}}.state" {{#if line.[3].state}} checked {{/if}} >
                           <input type="hidden" name="{{line.[3].name}}.num" value="{{line.[3].num}}">
                           <input type="hidden" name="{{line.[3].name}}.stop" value="{{line.[3].stop}}" data-dtype="Boolean">
+                          <input type="hidden" name="{{line.[3].name}}.expert" value="{{line.[3].expert}}" data-dtype="Boolean">
                           <div class="talent-name" data-title="{{localTalent line.[3].title}}" data-num="{{line.[3].num}}" data-id="{{line.[3].id}}" data-stop="{{line.[3].stop}}">{{localTalent line.[3].title}} / {{line.[3].num}}</div>
                       </td>
 
                       <td {{#if ../data.talent.gap.[4]}} class="active" {{/if}}></td>
 
-                      <td class="{{#if line.[4].state}} checked {{/if}} {{#if line.[4].stop}} stop {{/if}} {{#if line.[4].subTitle}} subTitle {{/if}}" >
+                      <td class="{{#if line.[4].state}} checked {{/if}} {{#if line.[4].stop}} stop {{/if}} {{#if line.[4].expert}} expert {{/if}} {{#if line.[4].subTitle}} subTitle {{/if}}" >
                           <input class="talent-checkbox" type="checkbox" name="{{line.[4].name}}.state" {{#if line.[4].state}} checked {{/if}} >
                           <input type="hidden" name="{{line.[4].name}}.num" value="{{line.[4].num}}">
                           <input type="hidden" name="{{line.[4].name}}.stop" value="{{line.[4].stop}}" data-dtype="Boolean">
+                          <input type="hidden" name="{{line.[4].name}}.expert" value="{{line.[4].expert}}" data-dtype="Boolean">
                           <div class="talent-name" data-title="{{localTalent line.[4].title}}" data-num="{{line.[4].num}}" data-id="{{line.[4].id}}" data-stop="{{line.[4].stop}}">{{localTalent line.[4].title}} / {{line.[4].num}}</div>
                       </td>
 
                       <td {{#if ../data.talent.gap.[5]}} class="active" {{/if}}></td>
 
-                      <td class="{{#if line.[5].state}} checked {{/if}} {{#if line.[5].stop}} stop {{/if}} {{#if line.[5].subTitle}} subTitle {{/if}}" >
+                      <td class="{{#if line.[5].state}} checked {{/if}} {{#if line.[5].stop}} stop {{/if}} {{#if line.[5].expert}} expert {{/if}} {{#if line.[5].subTitle}} subTitle {{/if}}" >
                           <input class="talent-checkbox" type="checkbox" name="{{line.[5].name}}.state" {{#if line.[5].state}} checked {{/if}} >
                           <input type="hidden" name="{{line.[5].name}}.num" value="{{line.[5].num}}">
                           <input type="hidden" name="{{line.[5].name}}.stop" value="{{line.[5].stop}}" data-dtype="Boolean">
+                          <input type="hidden" name="{{line.[5].name}}.expert" value="{{line.[5].expert}}" data-dtype="Boolean">
                           <div class="talent-name" data-title="{{localTalent line.[5].title}}" data-num="{{line.[5].num}}" data-id="{{line.[5].id}}" data-stop="{{line.[5].stop}}">{{localTalent line.[5].title}} / {{line.[5].num}}</div>
                       </td>
                       <th>{{number}}</th>
@@ -252,16 +264,18 @@
           
           <table style="text-align: center;">
               <colgroup>
-                  <col span="1" style="width: 25%;">
-                  <col span="1" style="width: 25%;">
-                  <col span="1" style="width: 25%;">
-                  <col span="1" style="width: 25%;">
+                  <col span="1" style="width: 18%;">
+                  <col span="1" style="width: 18%;">
+                  <col span="1" style="width: 18%;">
+                  <col span="1" style="width: 18%;">
               </colgroup>
               <tr>
                   <th>{{localize "Shinobigami.OverflowX"}}</th>
                   <td><input type="checkbox" name="data.talent.overflowX" data-dtype="Boolean" {{#if data.talent.overflowX}} checked {{/if}}></td>
                   <th>{{localize "Shinobigami.OverflowY"}}</th>
                   <td><input type="checkbox" name="data.talent.overflowY" data-dtype="Boolean" {{#if data.talent.overflowY}} checked {{/if}}></td>
+                  <th>{{localize "Shinobigami.Yoma"}}</th>
+                  <td><input type="checkbox" name="data.talent.yoma" data-dtype="Boolean" {{#if data.talent.yoma}} checked {{/if}}></td>
               </tr>
               
           </table>

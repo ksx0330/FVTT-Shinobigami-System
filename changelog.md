@@ -25,3 +25,5 @@ Changelog
 1.1.6 - Add localization
 
 1.1.7 - Bug fix
+
+1.1.8 - Add some feature

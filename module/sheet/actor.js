@@ -12,11 +12,13 @@ export class ShinobigamiActor extends Actor {
 
     if ('data' in data && ('talent' in data.data || 'health' in data.data) ) {
       let health = JSON.parse(JSON.stringify(this.data.data.health.state));
+      let dirty = JSON.parse(JSON.stringify(this.data.data.health.dirty));
       let table = JSON.parse(JSON.stringify(this.data.data.talent.table));
       let gap = JSON.parse(JSON.stringify(this.data.data.talent.gap));
 
       let overflowX = this.data.data.talent.overflowX;
       let overflowY = this.data.data.talent.overflowY;
+      let yoma = this.data.data.talent.yoma;
 
       if ('talent' in data.data) {
         if ('table' in data.data.talent) {
@@ -51,15 +53,35 @@ export class ShinobigamiActor extends Actor {
           overflowX = data.data.talent.overflowX;
         if ('overflowY' in data.data.talent)
           overflowY = data.data.talent.overflowY;
+        if ('yoma' in data.data.talent)
+          yoma = data.data.talent.yoma;
       }
 
-      if ('health' in data.data && 'state' in data.data.health) {
-        for (let a = 0; a < Object.keys(data.data.health.state).length; ++a) {
-          let i = Object.keys(data.data.health.state)[a];
-          health[i] = data.data.health.state[i];
+      if ('health' in data.data && ('state' in data.data.health || 'dirty' in data.data.health)) {
+        if ('dirty' in data.data.health) {
+          for (let a = 0; a < Object.keys(data.data.health.dirty).length; ++a) {
+            let i = Object.keys(data.data.health.dirty)[a];
+            dirty[i] = data.data.health.dirty[i];
+          }
+        }
+
+        if ('state' in data.data.health) {
+          for (let a = 0; a < Object.keys(data.data.health.state).length; ++a) {
+            let i = Object.keys(data.data.health.state)[a];
+            health[i] = data.data.health.state[i];
+          }
         }
         data.data.talent = {};
       }
+
+      if (!yoma) {
+        for (let a = 0; a < Object.keys(dirty).length; ++a) {
+          let i = Object.keys(dirty)[a];
+          health[i] = dirty[i] ? dirty[i] : health[i];
+        }
+      } else
+        health = {0: false, 1: false, 2: false, 3: false, 4: false, 5: false}
+
       data.data.talent.table = this._getTalentTable(table, gap, health, overflowX, overflowY);
     }
 
@@ -71,7 +93,7 @@ export class ShinobigamiActor extends Actor {
     
     for (var i = 0; i < 6; ++i)
     for (var j = 0; j < 11; ++j) {
-      if (table[i][j].state == true && table[i][j].stop == false && health[i] == false) {
+      if (table[i][j].state == true && table[i][j].stop == false && (health[i] == false || table[i][j].expert == true)) {
         nodes.push({x: i, y: j});
         table[i][j].num = "5";
       } else

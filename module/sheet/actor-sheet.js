@@ -68,7 +68,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
         data.data.tables.push({line: [], number: i});
         for (var j = 0; j < 6; ++j) {
             var name = String.fromCharCode(65 + j);
-            data.data.tables[i - 2].line.push({ id: `col-${j}-${i-2}`, title: `Shinobigami.${name}${i}`, name: `data.talent.table.${j}.${i - 2}`, state: data.data.talent.table[j][i - 2].state, num: data.data.talent.table[j][i - 2].num, stop: data.data.talent.table[j][i - 2].stop, subTitle: (`col-${j}-${i-2}` == subTitle.id) ? true : false });
+            data.data.tables[i - 2].line.push({ id: `col-${j}-${i-2}`, title: `Shinobigami.${name}${i}`, name: `data.talent.table.${j}.${i - 2}`, state: data.data.talent.table[j][i - 2].state, num: data.data.talent.table[j][i - 2].num, stop: data.data.talent.table[j][i - 2].stop, expert: data.data.talent.table[j][i - 2].expert, subTitle: (`col-${j}-${i-2}` == subTitle.id) ? true : false });
         }
     }
 
@@ -118,6 +118,16 @@ export class ShinobigamiActorSheet extends ActorSheet {
     if (!this.options.editable) return;
 
     html.find(".talent-name").on('mousedown', this._onRouteTalent.bind(this));
+    html.find(".header-name").on('mousedown', async event => {
+      if (event.button == 2 || event.which == 3) {
+        let dataset = event.currentTarget.dataset;
+        let num = dataset.num;
+        let dirty = duplicate(this.actor.data.data.health.dirty);
+
+        dirty[num] = !dirty[num];
+        await this.actor.update({"data.health.dirty": dirty});
+      }
+    })
 
     // Owned Item management
     html.find('.item-create').click(this._onItemCreate.bind(this));
@@ -159,8 +169,13 @@ export class ShinobigamiActorSheet extends ActorSheet {
   /* -------------------------------------------- */
   
   async _onRouteTalent(event) {
+    console.log(event.button)
+    console.log(event.which)
+
     if (event.button == 2 || event.which == 3)
       this._setStopTalent(event);
+    else if (event.button == 1 || event.which == 2)
+      this._setExpertTalent(event);
     else
       this._onRollTalent(event);
   }
@@ -173,6 +188,20 @@ export class ShinobigamiActorSheet extends ActorSheet {
     let id = dataset.id.split("-");
     
     table[id[1]][id[2]].stop = !table[id[1]][id[2]].stop;
+    await this.actor.update({"data.talent.table": table});
+  }
+
+  async _setExpertTalent(event) {
+    event.preventDefault();
+    let table = duplicate(this.actor.data.data.talent.table);
+    
+    let dataset = event.currentTarget.dataset;
+    let id = dataset.id.split("-");
+    
+    table[id[1]][id[2]].expert = !table[id[1]][id[2]].expert;
+
+    console.log(table)
+
     await this.actor.update({"data.talent.table": table});
   }
   
