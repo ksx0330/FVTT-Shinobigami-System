@@ -45,9 +45,6 @@ export class ShinobigamiSettings {
 		});
 
 		Handlebars.registerHelper('checkVisible', function(arg1, arg2, options) {
-			console.log(arg1)
-			console.log(arg2)
-
 			return (arg1 instanceof Object && arg2 in arg1 && arg1[arg2]);
 		});
 

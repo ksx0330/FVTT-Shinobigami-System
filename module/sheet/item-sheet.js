@@ -75,8 +75,6 @@ export class ShinobigamiItemSheet extends ItemSheet {
       }
     }
 
-    console.log(data)
-
     return data;
   }
 

@@ -8,8 +8,6 @@ export class ShinobigamiActor extends Actor {
 
   /** @override */
   async _preUpdate(data, options, userId) {
-    console.log(data);
-
     if ('data' in data && ('talent' in data.data || 'health' in data.data) ) {
       let health = JSON.parse(JSON.stringify(this.data.data.health.state));
       let dirty = JSON.parse(JSON.stringify(this.data.data.health.dirty));
@@ -167,17 +165,19 @@ export class ShinobigamiActor extends Actor {
     // GM rolls.
     let chatData = {
         user: game.user.id,
+        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        sound: CONFIG.sounds.dice,
         flavor: "<h2><b>" + title + "</b></h2>"
     };
 
-    let rollMode = (secret) ? "gmroll" : game.settings.get("core", "rollMode");
-    if (["gmroll", "blindroll"].includes(rollMode)) chatData["whisper"] = await ChatMessage.getWhisperRecipients("GM");
-    if (rollMode === "selfroll") chatData["whisper"] = [game.user.id];
-    if (rollMode === "blindroll") {
-      chatData["blind"] = true;
-      chatData["type"] = CONST.CHAT_MESSAGE_TYPES.ROLL;
+    chatData.rollMode = (secret) ? "gmroll" : game.settings.get("core", "rollMode");
+    if ( ["gmroll", "blindroll"].includes(chatData.rollMode) ) {
+      chatData.whisper = ChatMessage.getWhisperRecipients("GM").map(u => u.id);
     }
+    else if ( chatData.rollMode === "selfroll" ) chatData.whisper = [game.user.id];
+    else if ( chatData.rollMode === "publicroll" ) chatData.whisper = [];
+    chatData.blind = chatData.rollMode === "blindroll";
 
     let formula = "2d6";
     if (add != null)
@@ -186,9 +186,6 @@ export class ShinobigamiActor extends Actor {
     await roll.roll({async: true});
     let d = roll.terms[0].total;
 
-    console.log(rollMode)
-    console.log(chatData["whisper"])
-    
     chatData.roll = roll;
     chatData.content = await renderTemplate("systems/shinobigami/templates/roll.html", {
       formula: roll.formula,
@@ -200,10 +197,6 @@ export class ShinobigamiActor extends Actor {
       fumble: d == 2,
       num: num
     });
-
-    chatData.sound = CONFIG.sounds.dice;
-
-    console.log(chatData)
 
     ChatMessage.create(chatData);
 

@@ -196,9 +196,6 @@ export class ShinobigamiActorSheet extends ActorSheet {
     let id = dataset.id.split("-");
     
     table[id[1]][id[2]].expert = !table[id[1]][id[2]].expert;
-
-    console.log(table)
-
     await this.actor.update({"data.talent.table": table});
   }
   

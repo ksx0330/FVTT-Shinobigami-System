@@ -29,3 +29,5 @@ Changelog
 1.1.8 - Add some feature
 
 1.1.9 - Bug fix
+
+1.1.10 - Bug fix
