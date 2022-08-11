@@ -31,3 +31,5 @@ Changelog
 1.1.9 - Bug fix
 
 1.1.10 - Bug fix
+
+1.1.11 - Bug fix
