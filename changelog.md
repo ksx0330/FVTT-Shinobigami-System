@@ -33,3 +33,5 @@ Changelog
 1.1.10 - Bug fix
 
 1.1.11 - Bug fix
+
+1.2.0 - Compatible version 10

@@ -20,13 +20,13 @@ export class ShinobigamiActorSheet extends ActorSheet {
   /** @override */
   get template() {
     const path = "systems/shinobigami/templates";
-    return `${path}/${this.actor.data.type}-sheet.html`;
+    return `${path}/${this.actor.type}-sheet.html`;
   }
 
   /* -------------------------------------------- */
 
   /** @override */
-  getData(options) {
+  async getData(options) {
     let isOwner = false;
     let isEditable = this.isEditable;
     let data = super.getData(options);
@@ -35,40 +35,48 @@ export class ShinobigamiActorSheet extends ActorSheet {
 
     isOwner = this.document.isOwner;
     isEditable = this.isEditable;
-    
+
     data.lang = game.i18n.lang;
     data.userId = game.user.id
+    data.isGM = game.user.isGM;
 
     // The Actor's data
-    actorData = this.actor.data.toObject(false);
+    actorData = this.actor.toObject(false);
     data.actor = actorData;
-    data.data = actorData.data;
-    data.data.isOwner = isOwner;
+    data.system = this.actor.system;
+    data.system.isOwner = isOwner;
 
-    // Owned Items
     data.items = Array.from(this.actor.items.values());
     data.items = data.items.map( i => {
-      i.data.id = i.id;
-      return i.data;
+      i.system.id = i.id;
+      return i;
     });
 
     data.items.sort((a, b) => (a.sort || 0) - (b.sort || 0));
-    
-    data.dtypes = ["String", "Number", "Boolean"];
-    data.isGM = game.user.isGM;
 
+  
     let subTitle = {state: false, id: ""}
-    if ("subTitle" in data.data.talent && data.data.talent.subTitle.state) {
-      subTitle.id = data.data.talent.subTitle.id;
+    if ("subTitle" in data.system.talent && data.system.talent.subTitle.state) {
+      subTitle.id = data.system.talent.subTitle.id;
       subTitle.state = true;
     }
 
-    data.data.tables = [];
+    data.system.tables = [];
     for (var i = 2; i <= 12; ++i) {
-        data.data.tables.push({line: [], number: i});
+        data.system.tables.push({line: [], number: i});
         for (var j = 0; j < 6; ++j) {
             var name = String.fromCharCode(65 + j);
-            data.data.tables[i - 2].line.push({ id: `col-${j}-${i-2}`, title: `Shinobigami.${name}${i}`, name: `data.talent.table.${j}.${i - 2}`, state: data.data.talent.table[j][i - 2].state, num: data.data.talent.table[j][i - 2].num, stop: data.data.talent.table[j][i - 2].stop, expert: data.data.talent.table[j][i - 2].expert, subTitle: (`col-${j}-${i-2}` == subTitle.id) ? true : false });
+            data.system.tables[i - 2].line.push({ id: `col-${j}-${i-2}`, title: `Shinobigami.${name}${i}`, name: `system.talent.table.${j}.${i - 2}`, state: data.system.talent.table[j][i - 2].state, num: data.system.talent.table[j][i - 2].num, stop: data.system.talent.table[j][i - 2].stop, expert: data.system.talent.table[j][i - 2].expert, subTitle: (`col-${j}-${i-2}` == subTitle.id) ? true : false });
+        }
+    }
+
+
+    data.system.tables = [];
+    for (var i = 2; i <= 12; ++i) {
+        data.system.tables.push({line: [], number: i});
+        for (var j = 0; j < 6; ++j) {
+            var name = String.fromCharCode(65 + j);
+            data.system.tables[i - 2].line.push({ id: `col-${j}-${i-2}`, title: `Shinobigami.${name}${i}`, name: `system.talent.table.${j}.${i - 2}`, state: data.system.talent.table[j][i - 2].state, num: data.system.talent.table[j][i - 2].num, stop: data.system.talent.table[j][i - 2].stop, expert: data.system.talent.table[j][i - 2].expert, subTitle: (`col-${j}-${i-2}` == subTitle.id) ? true : false });
         }
     }
 
@@ -93,6 +101,10 @@ export class ShinobigamiActorSheet extends ActorSheet {
         else if (i.type == 'handout')
             actorData.handoutList.push(i);
     }
+    
+    data.enrichedBiography = await TextEditor.enrichHTML(data.system.details.biography, {async: true});
+
+    console.log(data);
 
     return data;
   }
@@ -122,10 +134,10 @@ export class ShinobigamiActorSheet extends ActorSheet {
       if (event.button == 2 || event.which == 3) {
         let dataset = event.currentTarget.dataset;
         let num = dataset.num;
-        let dirty = duplicate(this.actor.data.data.health.dirty);
+        let dirty = duplicate(this.actor.system.health.dirty);
 
         dirty[num] = !dirty[num];
-        await this.actor.update({"data.health.dirty": dirty});
+        await this.actor.update({"system.health.dirty": dirty});
       }
     })
 
@@ -179,24 +191,24 @@ export class ShinobigamiActorSheet extends ActorSheet {
   
   async _setStopTalent(event) {
     event.preventDefault();
-    let table = duplicate(this.actor.data.data.talent.table);
+    let table = duplicate(this.actor.system.talent.table);
     
     let dataset = event.currentTarget.dataset;
     let id = dataset.id.split("-");
     
     table[id[1]][id[2]].stop = !table[id[1]][id[2]].stop;
-    await this.actor.update({"data.talent.table": table});
+    await this.actor.update({"system.talent.table": table});
   }
 
   async _setExpertTalent(event) {
     event.preventDefault();
-    let table = duplicate(this.actor.data.data.talent.table);
+    let table = duplicate(this.actor.system.talent.table);
     
     let dataset = event.currentTarget.dataset;
     let id = dataset.id.split("-");
     
     table[id[1]][id[2]].expert = !table[id[1]][id[2]].expert;
-    await this.actor.update({"data.talent.table": table});
+    await this.actor.update({"system.talent.table": table});
   }
   
   async _onRollTalent(event) {
@@ -214,17 +226,17 @@ export class ShinobigamiActorSheet extends ActorSheet {
       secret = true;
 
     if (event.shiftKey) {
-      let subTitle = this.actor.data.data.talent.subTitle;
+      let subTitle = this.actor.system.talent.subTitle;
 
       if (subTitle.state) {
-        this.actor.update({"data.talent.subTitle.id": "", "data.talent.subTitle.title": "", "data.talent.subTitle.state": false});
+        this.actor.update({"system.talent.subTitle.id": "", "system.talent.subTitle.title": "", "system.talent.subTitle.state": false});
         if (dataset.id != subTitle.id)
           title = subTitle.title + "->" + title;
         else
           return;
 
       } else {
-        this.actor.update({"data.talent.subTitle.id": dataset.id, "data.talent.subTitle.title": title, "data.talent.subTitle.state": true});
+        this.actor.update({"system.talent.subTitle.id": dataset.id, "system.talent.subTitle.title": title, "system.talent.subTitle.state": true});
         return;
       }
     }
@@ -248,10 +260,10 @@ export class ShinobigamiActorSheet extends ActorSheet {
     let itemData = {
       name: name,
       type: type,
-      data: {}
+      system: {}
     };
     if (type == "handout")
-      itemData.data.visible = {[game.user.id]: true};
+      itemData.system.visible = {[game.user.id]: true};
 
     await this.actor.createEmbeddedDocuments('Item', [itemData], {});
   }
@@ -273,12 +285,12 @@ export class ShinobigamiActorSheet extends ActorSheet {
     
     const item = this.actor.items.get(itemId);
 
-    let title = item.data.name;
-    let description = item.data.data.description;
+    let title = item.name;
+    let description = item.system.description;
 
-    if (item.data.type == 'ability') {
-      if (item.data.img != 'icons/svg/mystery-man.svg')
-        title = `<img src="${item.data.img}" width="40" height="40">&nbsp&nbsp<b>${title}</b>` 
+    if (item.type == 'ability') {
+      if (item.img != 'icons/svg/mystery-man.svg')
+        title = `<img src="${item.img}" width="40" height="40">&nbsp&nbsp<b>${title}</b>` 
 
       description = `<table style="text-align: center;">
                       <tr>
@@ -289,18 +301,18 @@ export class ShinobigamiActorSheet extends ActorSheet {
                       </tr>
 
                       <tr>
-                        <td>${item.data.data.type}</td>
-                        <td>${item.data.data.gap}</td>
-                        <td>${item.data.data.cost}</td>
-                        <td>${item.data.data.talent}</td>
+                        <td>${item.system.type}</td>
+                        <td>${item.system.gap}</td>
+                        <td>${item.system.cost}</td>
+                        <td>${item.system.talent}</td>
                       </tr>
                     </table>${description}
-                    <button type="button" class="roll-talent" data-talent="${item.data.data.talent}">${item.data.data.talent}</button>`
+                    <button type="button" class="roll-talent" data-talent="${item.system.talent}">${item.system.talent}</button>`
     }
 
-    else if (item.data.type == 'bond') {
-      if (item.data.img != 'icons/svg/mystery-man.svg')
-        title = `<img src="${item.data.img}" width="40" height="40">&nbsp&nbsp<b>${title}</b>` 
+    else if (item.type == 'bond') {
+      if (item.img != 'icons/svg/mystery-man.svg')
+        title = `<img src="${item.img}" width="40" height="40">&nbsp&nbsp<b>${title}</b>` 
 
       description = `<table style="text-align: center;">
                       <tr>
@@ -311,17 +323,17 @@ export class ShinobigamiActorSheet extends ActorSheet {
                       </tr>
 
                       <tr>
-                        <td>${(item.data.data.residence) ? "O" : "X"}</td>
-                        <td>${(item.data.data.secret) ? "O" : "X"}</td>
-                        <td>${(item.data.data.finish) ? "O" : "X"}</td>
-                        <td>${item.data.data.feeling}</td>
+                        <td>${(item.system.residence) ? "O" : "X"}</td>
+                        <td>${(item.system.secret) ? "O" : "X"}</td>
+                        <td>${(item.system.finish) ? "O" : "X"}</td>
+                        <td>${item.system.feeling}</td>
                       </tr>
                     </table>${description}`
     }
     
-    else if (item.data.type == 'background') {
-      if (item.data.img != 'icons/svg/mystery-man.svg')
-        title = `<img src="${item.data.img}" width="40" height="40">&nbsp&nbsp<b>${title}</b>` 
+    else if (item.type == 'background') {
+      if (item.img != 'icons/svg/mystery-man.svg')
+        title = `<img src="${item.img}" width="40" height="40">&nbsp&nbsp<b>${title}</b>` 
 
       description = `<table style="text-align: center;">
                       <tr>
@@ -330,15 +342,15 @@ export class ShinobigamiActorSheet extends ActorSheet {
                       </tr>
 
                       <tr>
-                        <td>${(item.data.data.type == "pros") ? '<i class="fas fa-grin-alt"></i>' : '<i class="fas fa-frown"></i>'}</td>
-                        <td>${item.data.data.exp}</td>
+                        <td>${(item.system.type == "pros") ? '<i class="fas fa-grin-alt"></i>' : '<i class="fas fa-frown"></i>'}</td>
+                        <td>${item.system.exp}</td>
                       </tr>
                     </table>${description}`
     }
     
-    else if (item.data.type == 'finish') {
-      if (item.data.img != 'icons/svg/mystery-man.svg')
-        title = `<img src="${item.data.img}" width="40" height="40">&nbsp&nbsp<b>${title}</b>` 
+    else if (item.type == 'finish') {
+      if (item.img != 'icons/svg/mystery-man.svg')
+        title = `<img src="${item.img}" width="40" height="40">&nbsp&nbsp<b>${title}</b>` 
 
       description = `<table style="text-align: center;">
                       <tr>
@@ -347,18 +359,18 @@ export class ShinobigamiActorSheet extends ActorSheet {
                       </tr>
 
                       <tr>
-                        <td>${item.data.data.type}</td>
-                        <td>${item.data.data.talent}</td>
+                        <td>${item.system.type}</td>
+                        <td>${item.system.talent}</td>
                       </tr>
                     </table>${description}
-                    <button type="button" class="roll-talent" data-talent="${item.data.data.talent}">${item.data.data.talent}</button>`
+                    <button type="button" class="roll-talent" data-talent="${item.system.talent}">${item.system.talent}</button>`
                     
       
     }
     
-    else if (item.data.type == "item") {
-      if (item.data.img != 'icons/svg/mystery-man.svg')
-        title = `<img src="${item.data.img}" width="40" height="40">&nbsp&nbsp<b>${title} X ${item.data.data.quantity}</b>` 
+    else if (item.type == "item") {
+      if (item.img != 'icons/svg/mystery-man.svg')
+        title = `<img src="${item.img}" width="40" height="40">&nbsp&nbsp<b>${title} X ${item.system.quantity}</b>` 
     }
     
     // GM rolls.
@@ -379,19 +391,19 @@ export class ShinobigamiActorSheet extends ActorSheet {
     const item = this.actor.items.get(chargeButton.parents('.item')[0].dataset.itemId);
 
     let add = Number(event.currentTarget.dataset.add);
-    let num = Number(item.data.data.quantity);
+    let num = Number(item.system.quantity);
 
     if (num + add < 0)
       return;
 
-    await item.update({"data.quantity": num + add});
+    await item.update({"system.quantity": num + add});
 
     add = (add > 0) ? "+" + add : add
 
     let chatData = {
       user: game.user._id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      content: "<h3>" + item.data.name + ": " + add + "</h3>"
+      content: "<h3>" + item.name + ": " + add + "</h3>"
     };
 
     ChatMessage.create(chatData);
@@ -402,14 +414,14 @@ export class ShinobigamiActorSheet extends ActorSheet {
     const useButton = $(event.currentTarget);
     const item = this.actor.items.get(useButton.parents('.item')[0].dataset.itemId);
 
-    if (item.data.data.quantity > 0) {
-      await item.update({'data.quantity': item.data.data.quantity - 1});
+    if (item.system.quantity > 0) {
+      await item.update({'system.quantity': item.system.quantity - 1});
   
       // GM rolls.
       let chatData = {
         user: game.user.id,
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        content: "<h3>" + game.i18n.localize("Shinobigami.UseItem") + ": " + item.data.name + "</h3>"
+        content: "<h3>" + game.i18n.localize("Shinobigami.UseItem") + ": " + item.name + "</h3>"
       };
   
       let rollMode = game.settings.get("core", "rollMode");

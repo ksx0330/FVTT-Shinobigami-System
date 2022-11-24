@@ -8,68 +8,68 @@ export class ShinobigamiActor extends Actor {
 
   /** @override */
   async _preUpdate(data, options, userId) {
-    if ('data' in data && ('talent' in data.data || 'health' in data.data) ) {
-      let health = JSON.parse(JSON.stringify(this.data.data.health.state));
-      let dirty = JSON.parse(JSON.stringify(this.data.data.health.dirty));
-      let table = JSON.parse(JSON.stringify(this.data.data.talent.table));
-      let gap = JSON.parse(JSON.stringify(this.data.data.talent.gap));
+    if ('system' in data && ('talent' in data.system || 'health' in data.system) ) {
+      let health = JSON.parse(JSON.stringify(this.system.health.state));
+      let dirty = JSON.parse(JSON.stringify(this.system.health.dirty));
+      let table = JSON.parse(JSON.stringify(this.system.talent.table));
+      let gap = JSON.parse(JSON.stringify(this.system.talent.gap));
 
-      let overflowX = this.data.data.talent.overflowX;
-      let overflowY = this.data.data.talent.overflowY;
-      let yoma = this.data.data.talent.yoma;
+      let overflowX = this.system.talent.overflowX;
+      let overflowY = this.system.talent.overflowY;
+      let yoma = this.system.talent.yoma;
 
-      if ('talent' in data.data) {
-        if ('table' in data.data.talent) {
-          for (let a = 0; a < Object.keys(data.data.talent.table).length; ++a) {
-            let i = Object.keys(data.data.talent.table)[a];
-            for (let b = 0; b < Object.keys(data.data.talent.table[i]).length; ++b) {
-              let j = Object.keys(data.data.talent.table[i])[b];
-              for (let c = 0; c < Object.keys(data.data.talent.table[i][j]).length; ++c) {
-                let key = Object.keys(data.data.talent.table[i][j])[c];
-                table[i][j][key] = data.data.talent.table[i][j][key];
+      if ('talent' in data.system) {
+        if ('table' in data.system.talent) {
+          for (let a = 0; a < Object.keys(data.system.talent.table).length; ++a) {
+            let i = Object.keys(data.system.talent.table)[a];
+            for (let b = 0; b < Object.keys(data.system.talent.table[i]).length; ++b) {
+              let j = Object.keys(data.system.talent.table[i])[b];
+              for (let c = 0; c < Object.keys(data.system.talent.table[i][j]).length; ++c) {
+                let key = Object.keys(data.system.talent.table[i][j])[c];
+                table[i][j][key] = data.system.talent.table[i][j][key];
               }
             }
           }
 
         }
 
-        if ('gap' in data.data.talent) {
-          for (let a = 0; a < Object.keys(data.data.talent.gap).length; ++a) {
-            let i = Object.keys(data.data.talent.gap)[a];
-            gap[i] = data.data.talent.gap[i];
+        if ('gap' in data.system.talent) {
+          for (let a = 0; a < Object.keys(data.system.talent.gap).length; ++a) {
+            let i = Object.keys(data.system.talent.gap)[a];
+            gap[i] = data.system.talent.gap[i];
           }
         }
 
-        if ('curiosity' in data.data.talent && data.data.talent.curiosity != 0) {
-          gap = data.data.talent.gap = {"0": false, "1": false, "2": false, "3": false, "4": false, "5": false};
+        if ('curiosity' in data.system.talent && data.system.talent.curiosity != 0) {
+          gap = data.system.talent.gap = {"0": false, "1": false, "2": false, "3": false, "4": false, "5": false};
 
-          data.data.talent.gap[data.data.talent.curiosity] = gap[data.data.talent.curiosity] = true;
-          data.data.talent.gap[data.data.talent.curiosity - 1] = gap[data.data.talent.curiosity - 1] = true;
+          data.system.talent.gap[data.system.talent.curiosity] = gap[data.system.talent.curiosity] = true;
+          data.system.talent.gap[data.system.talent.curiosity - 1] = gap[data.system.talent.curiosity - 1] = true;
         }
 
-        if ('overflowX' in data.data.talent)
-          overflowX = data.data.talent.overflowX;
-        if ('overflowY' in data.data.talent)
-          overflowY = data.data.talent.overflowY;
-        if ('yoma' in data.data.talent)
-          yoma = data.data.talent.yoma;
+        if ('overflowX' in data.system.talent)
+          overflowX = data.system.talent.overflowX;
+        if ('overflowY' in data.system.talent)
+          overflowY = data.system.talent.overflowY;
+        if ('yoma' in data.system.talent)
+          yoma = data.system.talent.yoma;
       }
 
-      if ('health' in data.data && ('state' in data.data.health || 'dirty' in data.data.health)) {
-        if ('dirty' in data.data.health) {
-          for (let a = 0; a < Object.keys(data.data.health.dirty).length; ++a) {
-            let i = Object.keys(data.data.health.dirty)[a];
-            dirty[i] = data.data.health.dirty[i];
+      if ('health' in data.system && ('state' in data.system.health || 'dirty' in data.system.health)) {
+        if ('dirty' in data.system.health) {
+          for (let a = 0; a < Object.keys(data.system.health.dirty).length; ++a) {
+            let i = Object.keys(data.system.health.dirty)[a];
+            dirty[i] = data.system.health.dirty[i];
           }
         }
 
-        if ('state' in data.data.health) {
-          for (let a = 0; a < Object.keys(data.data.health.state).length; ++a) {
-            let i = Object.keys(data.data.health.state)[a];
-            health[i] = data.data.health.state[i];
+        if ('state' in data.system.health) {
+          for (let a = 0; a < Object.keys(data.system.health.state).length; ++a) {
+            let i = Object.keys(data.system.health.state)[a];
+            health[i] = data.system.health.state[i];
           }
         }
-        data.data.talent = {};
+        data.system.talent = {};
       }
 
       if (!yoma) {
@@ -80,7 +80,7 @@ export class ShinobigamiActor extends Actor {
       } else
         health = {0: false, 1: false, 2: false, 3: false, 4: false, 5: false}
 
-      data.data.talent.table = this._getTalentTable(table, gap, health, overflowX, overflowY);
+      data.system.talent.table = this._getTalentTable(table, gap, health, overflowX, overflowY);
     }
 
     super._preUpdate(data, options, userId);

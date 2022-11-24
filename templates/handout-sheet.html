@@ -9,7 +9,7 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     <a class="item" data-tab="description">{{localize "Shinobigami.Description"}}</a>
-    {{#ifOR isGM (checkVisible data.sVisible userId)}} 
+    {{#ifOR isGM (checkVisible system.sVisible userId)}} 
     <a class="item" data-tab="secret">{{localize "Shinobigami.Secret"}}</a>
     {{/ifOR}}
     {{#if isGM}}
@@ -26,7 +26,7 @@
       <div class="sheet-item margin-top-10">
         <div class="sheet-wrapper">
           <div class="cell--bio">
-            {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+            {{editor enrichedBiography target="system.description" button=true editable=editable }}
           </div>
 
         </div>
@@ -39,7 +39,7 @@
       <div class="sheet-item margin-top-10">
         <div class="sheet-wrapper">
           <div class="cell--bio">
-            {{editor content=data.secret target="data.secret" button=true owner=owner editable=editable}}
+            {{editor enrichedSecret target="system.secret" button=true editable=editable }}
           </div>
 
         </div>
@@ -56,7 +56,7 @@
         {{#each users}}
         <tr>
           <td>{{name}}</td>
-          <td><input type="checkbox" name="data.visible.{{id}}" data-dtype="Boolean" {{#if (checkVisible ../data.visible id)}} checked {{/if}}/></td>
+          <td><input type="checkbox" name="system.visible.{{id}}" data-dtype="Boolean" {{#if (checkVisible ../system.visible id)}} checked {{/if}}/></td>
         </tr>
         {{/each}}
       </table>
@@ -72,7 +72,7 @@
         {{#each users}}
         <tr>
           <td>{{name}}</td>
-          <td><input type="checkbox" name="data.sVisible.{{id}}" data-dtype="Boolean" {{#if (checkVisible ../data.sVisible id)}} checked {{/if}}/></td>
+          <td><input type="checkbox" name="system.sVisible.{{id}}" data-dtype="Boolean" {{#if (checkVisible ../system.sVisible id)}} checked {{/if}}/></td>
         </tr>
         {{/each}}
       </table>

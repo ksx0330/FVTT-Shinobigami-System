@@ -119,7 +119,7 @@ export class PlotSettings {
                 let updates = [];
                 for (let l of game.shinobigami.plot) {
                     if (l.combatant != null)
-                        updates.push({_id: l.combatant, initiative: (game.actors.get(l.actorId).data.type == "commoner") ? 0 : l.dice[0]});
+                        updates.push({_id: l.combatant, initiative: (game.actors.get(l.actorId).type == "commoner") ? 0 : l.dice[0]});
                 }
                 if (updates.length != 0)
                     await game.combat.updateEmbeddedDocuments("Combatant", updates);

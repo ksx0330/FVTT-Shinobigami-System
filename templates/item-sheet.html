@@ -18,7 +18,7 @@
             </div>
 
             <div class="cell cell--11">
-              <input type="text" class="string-input" name="data.quantity" value="{{data.quantity}}" data-dtype="String"/>
+              <input type="text" class="string-input" name="system.quantity" value="{{system.quantity}}" data-dtype="String"/>
             </div>
           </section>
 
@@ -26,7 +26,7 @@
             <h3 class="cell--title"><b>{{localize "Shinobigami.Description"}}</b>
 
             </h3>
-            {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+            {{editor enrichedBiography target="system.description" button=true editable=editable }}
           </div>
 
         </div>

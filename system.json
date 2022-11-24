@@ -2,13 +2,27 @@
   "name": "shinobigami",
   "title": "Shinobigami System",
   "description": "Shinobigami system",
-  "version": "1.1.11",
-  "minimumCoreVersion": "0.8.6",
-  "compatibleCoreVersion": "9",
+  "version": "1.2.0",
+  "compatibility": {
+    "minimum": 10,
+    "verified": "10.288"
+  },
   "templateVersion": 7,
-  "author": "ltaeng",
+  "authors": [
+    {
+      "name": "ltaeng",
+      "email": "ksx0330@gmail.com",
+      "discord": "Ltaeng#2837"
+    }
+  ],
   "esmodules": ["module/init.js"],
   "styles": ["styles/style.css"],
+  "languages": [
+    { "lang": "en", "name": "English", "path": "lang/en.json" },
+    { "lang": "ko", "name": "한국어", "path": "lang/ko.json" }, 
+    { "lang": "ja", "name": "日本語", "path": "lang/ja.json" }, 
+    { "lang": "zh-tw", "name": "正體中文", "path": "lang/zh-tw.json" }
+  ],
   "packs": [
     {
       "label": "Chat Macro",
@@ -25,12 +39,6 @@
       "system": "shinobigami",
       "entity": "Macro"
     }
-  ],
-  "languages": [
-    { "lang": "en", "name": "English", "path": "lang/en.json" },
-    { "lang": "ko", "name": "한국어", "path": "lang/ko.json" }, 
-    { "lang": "ja", "name": "日本語", "path": "lang/ja.json" }, 
-    { "lang": "zh-tw", "name": "正體中文", "path": "lang/zh-tw.json" }
   ],
   "gridDistance": 5,
   "gridUnits": "ft",

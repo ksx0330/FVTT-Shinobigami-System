@@ -27,7 +27,7 @@
             </div>
 
             <div class="cell cell--4">
-              <input type="text" name="data.type" value="{{data.type}}"/>
+              <input type="text" name="system.type" value="{{system.type}}"/>
             </div>
 
             <div class="cell cell--4">
@@ -35,14 +35,14 @@
             </div>
 
             <div class="cell cell--4">
-              <input type="text" name="data.talent" value="{{data.talent}}" data-dtype="String"/>
+              <input type="text" name="system.talent" value="{{system.talent}}" data-dtype="String"/>
             </div>
 
           </section>
 
           <div class="cell--bio">
             <h3 class="cell--title"><b>{{localize "Shinobigami.Description"}}</b></h3>
-            {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+            {{editor enrichedBiography target="system.description" button=true editable=editable }}
           </div>
 
         </div>
@@ -59,7 +59,7 @@
         {{#each users}}
         <tr>
           <td>{{name}}</td>
-          <td><input type="checkbox" name="data.visible.{{id}}" data-dtype="Boolean" {{#if (checkVisible ../data.visible id)}} checked {{/if}}/></td>
+          <td><input type="checkbox" name="system.visible.{{id}}" data-dtype="Boolean" {{#if (checkVisible ../system.visible id)}} checked {{/if}}/></td>
         </tr>
         {{/each}}
       </table>

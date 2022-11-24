@@ -18,8 +18,8 @@
             </div>
 
             <div class="cell cell--4 cell--select">
-              <select name="data.type" class="">
-                {{#select data.type}}
+              <select name="system.type" class="">
+                {{#select system.type}}
                 <option value="pros">{{localize "Shinobigami.Pros"}}</option>
                 <option value="cons">{{localize "Shinobigami.Cons"}}</option>
                 {{/select}}
@@ -31,14 +31,14 @@
             </div>
 
             <div class="cell cell--4">
-              <input type="text" name="data.exp" value="{{data.exp}}" data-dtype="String"/>
+              <input type="text" name="system.exp" value="{{system.exp}}" data-dtype="String"/>
             </div>
 
           </section>
 
           <div class="cell--bio">
             <h3 class="cell--title"><b>{{localize "Shinobigami.Description"}}</b></h3>
-            {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+            {{editor enrichedBiography target="system.description" button=true editable=editable }}
           </div>
 
         </div>

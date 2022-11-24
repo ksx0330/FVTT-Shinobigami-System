@@ -15,8 +15,8 @@
           <section class="sheet-attributes">
             <div class="cell cell--4 cell--select">
               <label class="cell--title">{{localize "Shinobigami.Type"}}</label>
-              <select name="data.type" class="">
-                {{#select data.type}}
+              <select name="system.type" class="">
+                {{#select system.type}}
                 <option value="{{localize 'Shinobigami.Attack'}}">{{localize "Shinobigami.Attack"}}</option>
                 <option value="{{localize 'Shinobigami.Support'}}">{{localize "Shinobigami.Support"}}</option>
                 <option value="{{localize 'Shinobigami.Equipment'}}">{{localize "Shinobigami.Equipment"}}</option>
@@ -26,17 +26,17 @@
 
             <div class="cell cell--4">
               <label class="cell--title">{{localize "Shinobigami.Gap"}}</label>
-              <input type="text" name="data.gap" value="{{data.gap}}" data-dtype="String"/>
+              <input type="text" name="system.gap" value="{{system.gap}}" data-dtype="String"/>
             </div>
 
             <div class="cell cell--4">
               <label class="cell--title">{{localize "Shinobigami.Cost"}}</label>
-              <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="String"/>
+              <input type="text" name="system.cost" value="{{system.cost}}" data-dtype="String"/>
             </div>
 
             <div class="cell cell--4">
               <label class="cell--title">{{localize "Shinobigami.Talent"}}</label>
-              <input type="text" name="data.talent" value="{{data.talent}}" data-dtype="String"/>
+              <input type="text" name="system.talent" value="{{system.talent}}" data-dtype="String"/>
             </div>
 
           </section>
@@ -46,11 +46,11 @@
 
               <span class="side-box">
                 <label>{{localize "Shinobigami.Hidden"}}: </label>
-                <input type="checkbox" name="data.hidden" value="{{data.hidden}}" data-dtype="Boolean" {{#if data.hidden}} checked {{/if}} >
+                <input type="checkbox" name="system.hidden" value="{{system.hidden}}" data-dtype="Boolean" {{#if system.hidden}} checked {{/if}} >
               </span>
 
             </h3>
-            {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+            {{editor enrichedBiography target="system.description" button=true editable=editable }}
           </div>
 
         </div>

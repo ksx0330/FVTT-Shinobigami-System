@@ -26,14 +26,14 @@
 
             <div class="cell margin-left-10">
               <div class="cell--horizon cell--counter">
-                <input type="text" class="number-input" name="data.health.value" value="{{data.health.value}}" data-dtype="Number"/>
+                <input type="text" class="number-input" name="system.health.value" value="{{system.health.value}}" data-dtype="Number"/>
                 <span class="slash"> / </span>
-                <input type="text" class="number-input" name="data.health.max" value="{{data.health.max}}" data-dtype="Number"/>
+                <input type="text" class="number-input" name="system.health.max" value="{{system.health.max}}" data-dtype="Number"/>
               </div>
 
               <div class="cell--select">
-                <select name="data.talent.curiosity">
-                  {{#select data.talent.curiosity}}
+                <select name="system.talent.curiosity">
+                  {{#select system.talent.curiosity}}
                   <option value="0">-</option>
                   <option value="1">{{localize "Shinobigami.A1"}}</option>
                   <option value="2">{{localize "Shinobigami.B1"}}</option>
@@ -46,11 +46,11 @@
               </div>
 
               <div class="cell--grade">
-                <input type="text" name="data.details.grade" value="{{data.details.grade}}" data-dtype="String">
+                <input type="text" name="system.details.grade" value="{{system.details.grade}}" data-dtype="String">
               </div>
 
               <div class="cell--exp">
-                <input type="text" name="data.details.exp" value="{{data.details.exp}}" data-dtype="Number">
+                <input type="text" name="system.details.exp" value="{{system.details.exp}}" data-dtype="Number">
               </div>
             </div>
           </div>
@@ -59,7 +59,7 @@
         </div>
 
         <div class="cell cell--items">
-          {{#if data.isOwner}}
+          {{#if system.isOwner}}
           <label class="cell--title">{{localize "Shinobigami.ItemsList"}}
             <div class="item-controls">
               <button class="item-control item-create white-btn" data-type="item">
@@ -83,7 +83,7 @@
 
               <h4 class="item-addon">
                 <button type="button" class="icon-button quantity-change" data-add="-1">-</button>
-                <span>{{item.data.quantity}}</span>
+                <span>{{item.system.quantity}}</span>
                 <button type="button" class="icon-button quantity-change" data-add="1">+</button>
                 <button type="button" class="use-button use-word use-item">{{localize "Shinobigami.Use"}}</button>
               </h4>
@@ -93,7 +93,7 @@
                 <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
               </div>
               <div class="item-description">
-                <p>{{{item.data.description}}}</p>
+                <p>{{{item.system.description}}}</p>
               </div>
             </li>
           {{/each}}
@@ -150,56 +150,56 @@
               <tbody>
                   <tr>
                       <th></th>
-                      <td class="gap"><input class="talent-checkbox" type="checkbox" name="data.talent.gap.0"  {{#if data.talent.gap.[0]}} checked {{/if}}></td>
+                      <td class="gap"><input class="talent-checkbox" type="checkbox" name="system.talent.gap.0"  {{#if system.talent.gap.[0]}} checked {{/if}}></td>
 
                       <th class="talent-header">
-                        <div class="header-name {{#if data.health.dirty.[0]}} dirty {{/if}}" data-num="0">{{localTalent "Shinobigami.A1"}}</div>
-                        <input class="header-checkbox" type="checkbox" name="data.health.state.0"  {{#if data.health.state.[0]}} checked {{/if}}>
-                        <input type="hidden" name="data.health.dirty.0" value="{{data.health.dirty.[0]}}" data-dtype="Boolean">
+                        <div class="header-name {{#if system.health.dirty.[0]}} dirty {{/if}}" data-num="0">{{localTalent "Shinobigami.A1"}}</div>
+                        <input class="header-checkbox" type="checkbox" name="system.health.state.0"  {{#if system.health.state.[0]}} checked {{/if}}>
+                        <input type="hidden" name="system.health.dirty.0" value="{{system.health.dirty.[0]}}" data-dtype="Boolean">
                       </th>
 
-                      <td class="gap"><input class="talent-checkbox" type="checkbox" name="data.talent.gap.1"   {{#if data.talent.gap.[1]}} checked {{/if}}></td>
+                      <td class="gap"><input class="talent-checkbox" type="checkbox" name="system.talent.gap.1"   {{#if system.talent.gap.[1]}} checked {{/if}}></td>
 
                       <th class="talent-header">
-                        <div class="header-name {{#if data.health.dirty.[1]}} dirty {{/if}}" data-num="1">{{localTalent "Shinobigami.B1"}}</div>
-                        <input class="header-checkbox" type="checkbox" name="data.health.state.1"  {{#if data.health.state.[1]}} checked {{/if}}>
-                        <input type="hidden" name="data.health.dirty.1" value="{{data.health.dirty.[1]}}" data-dtype="Boolean">
+                        <div class="header-name {{#if system.health.dirty.[1]}} dirty {{/if}}" data-num="1">{{localTalent "Shinobigami.B1"}}</div>
+                        <input class="header-checkbox" type="checkbox" name="system.health.state.1"  {{#if system.health.state.[1]}} checked {{/if}}>
+                        <input type="hidden" name="system.health.dirty.1" value="{{system.health.dirty.[1]}}" data-dtype="Boolean">
                       </th>
 
-                      <td class="gap"><input class="talent-checkbox" type="checkbox" name="data.talent.gap.2"  {{#if data.talent.gap.[2]}} checked {{/if}}></td>
+                      <td class="gap"><input class="talent-checkbox" type="checkbox" name="system.talent.gap.2"  {{#if system.talent.gap.[2]}} checked {{/if}}></td>
                       <th class="talent-header">
-                        <div class="header-name {{#if data.health.dirty.[2]}} dirty {{/if}}" data-num="2">{{localTalent "Shinobigami.C1"}}</div>
-                        <input class="header-checkbox" type="checkbox" name="data.health.state.2"  {{#if data.health.state.[2]}} checked {{/if}}>
-                        <input type="hidden" name="data.health.dirty.2" value="{{data.health.dirty.[2]}}" data-dtype="Boolean">
+                        <div class="header-name {{#if system.health.dirty.[2]}} dirty {{/if}}" data-num="2">{{localTalent "Shinobigami.C1"}}</div>
+                        <input class="header-checkbox" type="checkbox" name="system.health.state.2"  {{#if system.health.state.[2]}} checked {{/if}}>
+                        <input type="hidden" name="system.health.dirty.2" value="{{system.health.dirty.[2]}}" data-dtype="Boolean">
                       </th>
 
-                      <td class="gap"><input class="talent-checkbox" type="checkbox" name="data.talent.gap.3"  {{#if data.talent.gap.[3]}} checked {{/if}}></td>
+                      <td class="gap"><input class="talent-checkbox" type="checkbox" name="system.talent.gap.3"  {{#if system.talent.gap.[3]}} checked {{/if}}></td>
                       <th class="talent-header">
-                        <div class="header-name {{#if data.health.dirty.[3]}} dirty {{/if}}" data-num="3">{{localTalent "Shinobigami.D1"}}</div>
-                        <input class="header-checkbox" type="checkbox" name="data.health.state.3"  {{#if data.health.state.[3]}} checked {{/if}}>
-                        <input type="hidden" name="data.health.dirty.3" value="{{data.health.dirty.[3]}}" data-dtype="Boolean">
+                        <div class="header-name {{#if system.health.dirty.[3]}} dirty {{/if}}" data-num="3">{{localTalent "Shinobigami.D1"}}</div>
+                        <input class="header-checkbox" type="checkbox" name="system.health.state.3"  {{#if system.health.state.[3]}} checked {{/if}}>
+                        <input type="hidden" name="system.health.dirty.3" value="{{system.health.dirty.[3]}}" data-dtype="Boolean">
                       </th>
 
-                      <td class="gap"><input class="talent-checkbox" type="checkbox" name="data.talent.gap.4" {{#if data.talent.gap.[4]}} checked {{/if}}></td>
+                      <td class="gap"><input class="talent-checkbox" type="checkbox" name="system.talent.gap.4" {{#if system.talent.gap.[4]}} checked {{/if}}></td>
                       <th class="talent-header">
-                        <div class="header-name {{#if data.health.dirty.[4]}} dirty {{/if}}" data-num="4">{{localTalent "Shinobigami.E1"}}</div>
-                        <input class="header-checkbox" type="checkbox" name="data.health.state.4" {{#if data.health.state.[4]}} checked {{/if}}>
-                        <input type="hidden" name="data.health.dirty.4" value="{{data.health.dirty.[4]}}" data-dtype="Boolean">
+                        <div class="header-name {{#if system.health.dirty.[4]}} dirty {{/if}}" data-num="4">{{localTalent "Shinobigami.E1"}}</div>
+                        <input class="header-checkbox" type="checkbox" name="system.health.state.4" {{#if system.health.state.[4]}} checked {{/if}}>
+                        <input type="hidden" name="system.health.dirty.4" value="{{system.health.dirty.[4]}}" data-dtype="Boolean">
                       </th>
 
-                      <td class="gap"><input class="talent-checkbox" type="checkbox" name="data.talent.gap.5" {{#if data.talent.gap.[5]}} checked {{/if}}></td>
+                      <td class="gap"><input class="talent-checkbox" type="checkbox" name="system.talent.gap.5" {{#if system.talent.gap.[5]}} checked {{/if}}></td>
                       <th class="talent-header">
-                        <div class="header-name {{#if data.health.dirty.[5]}} dirty {{/if}}" data-num="5">{{localTalent "Shinobigami.F1"}}</div>
-                        <input class="header-checkbox" type="checkbox" name="data.health.state.5" {{#if data.health.state.[5]}} checked {{/if}}>
-                        <input type="hidden" name="data.health.dirty.5" value="{{data.health.dirty.[5]}}" data-dtype="Boolean">
+                        <div class="header-name {{#if system.health.dirty.[5]}} dirty {{/if}}" data-num="5">{{localTalent "Shinobigami.F1"}}</div>
+                        <input class="header-checkbox" type="checkbox" name="system.health.state.5" {{#if system.health.state.[5]}} checked {{/if}}>
+                        <input type="hidden" name="system.health.dirty.5" value="{{system.health.dirty.[5]}}" data-dtype="Boolean">
                       </th>
 
                       <th></th>
                   </tr>
-                  {{#each data.tables}}  
+                  {{#each system.tables}}  
                   <tr>
                       <th>{{number}}</th>
-                      <td {{#if ../data.talent.gap.[0]}} class="active" {{/if}}></td>
+                      <td {{#if ../system.talent.gap.[0]}} class="active" {{/if}}></td>
                       <td class="{{#if line.[0].state}} checked {{/if}} {{#if line.[0].stop}} stop {{/if}} {{#if line.[0].expert}} expert {{/if}} {{#if line.[0].subTitle}} subTitle {{/if}}" >
                           <input class="talent-checkbox" type="checkbox" name="{{line.[0].name}}.state" {{#if line.[0].state}} checked {{/if}} >
                           <input type="hidden" name="{{line.[0].name}}.num" value="{{line.[0].num}}">
@@ -208,7 +208,7 @@
                           <div class="talent-name" data-title="{{localTalent line.[0].title}}" data-num="{{line.[0].num}}" data-id="{{line.[0].id}}" data-stop="{{line.[0].stop}}">{{localTalent line.[0].title}} / {{line.[0].num}}</div>
                       </td>
 
-                      <td {{#if ../data.talent.gap.[1]}} class="active" {{/if}}></td>
+                      <td {{#if ../system.talent.gap.[1]}} class="active" {{/if}}></td>
                       <td  class="{{#if line.[1].state}} checked {{/if}} {{#if line.[1].stop}} stop {{/if}} {{#if line.[1].expert}} expert {{/if}} {{#if line.[1].subTitle}} subTitle {{/if}}" >
                           <input class="talent-checkbox" type="checkbox" name="{{line.[1].name}}.state" {{#if line.[1].state}} checked {{/if}} >
                           <input type="hidden" name="{{line.[1].name}}.num" value="{{line.[1].num}}">
@@ -217,7 +217,7 @@
                           <div class="talent-name" data-title="{{localTalent line.[1].title}}" data-num="{{line.[1].num}}" data-id="{{line.[1].id}}" data-stop="{{line.[1].stop}}">{{localTalent line.[1].title}} / {{line.[1].num}}</div>
                       </td>
 
-                      <td {{#if ../data.talent.gap.[2]}} class="active" {{/if}}></td>
+                      <td {{#if ../system.talent.gap.[2]}} class="active" {{/if}}></td>
 
                       <td class="{{#if line.[2].state}} checked {{/if}} {{#if line.[2].stop}} stop {{/if}} {{#if line.[2].expert}} expert {{/if}} {{#if line.[2].subTitle}} subTitle {{/if}}" >
                           <input class="talent-checkbox" type="checkbox" name="{{line.[2].name}}.state" {{#if line.[2].state}} checked {{/if}} >
@@ -227,7 +227,7 @@
                           <div class="talent-name" data-title="{{localTalent line.[2].title}}" data-num="{{line.[2].num}}" data-id="{{line.[2].id}}" data-stop="{{line.[2].stop}}">{{localTalent line.[2].title}} / {{line.[2].num}}</div>
                       </td>
 
-                      <td {{#if ../data.talent.gap.[3]}} class="active" {{/if}}></td>
+                      <td {{#if ../system.talent.gap.[3]}} class="active" {{/if}}></td>
 
                       <td class="{{#if line.[3].state}} checked {{/if}} {{#if line.[3].stop}} stop {{/if}} {{#if line.[3].expert}} expert {{/if}} {{#if line.[3].subTitle}} subTitle {{/if}}" >
                           <input class="talent-checkbox" type="checkbox" name="{{line.[3].name}}.state" {{#if line.[3].state}} checked {{/if}} >
@@ -237,7 +237,7 @@
                           <div class="talent-name" data-title="{{localTalent line.[3].title}}" data-num="{{line.[3].num}}" data-id="{{line.[3].id}}" data-stop="{{line.[3].stop}}">{{localTalent line.[3].title}} / {{line.[3].num}}</div>
                       </td>
 
-                      <td {{#if ../data.talent.gap.[4]}} class="active" {{/if}}></td>
+                      <td {{#if ../system.talent.gap.[4]}} class="active" {{/if}}></td>
 
                       <td class="{{#if line.[4].state}} checked {{/if}} {{#if line.[4].stop}} stop {{/if}} {{#if line.[4].expert}} expert {{/if}} {{#if line.[4].subTitle}} subTitle {{/if}}" >
                           <input class="talent-checkbox" type="checkbox" name="{{line.[4].name}}.state" {{#if line.[4].state}} checked {{/if}} >
@@ -247,7 +247,7 @@
                           <div class="talent-name" data-title="{{localTalent line.[4].title}}" data-num="{{line.[4].num}}" data-id="{{line.[4].id}}" data-stop="{{line.[4].stop}}">{{localTalent line.[4].title}} / {{line.[4].num}}</div>
                       </td>
 
-                      <td {{#if ../data.talent.gap.[5]}} class="active" {{/if}}></td>
+                      <td {{#if ../system.talent.gap.[5]}} class="active" {{/if}}></td>
 
                       <td class="{{#if line.[5].state}} checked {{/if}} {{#if line.[5].stop}} stop {{/if}} {{#if line.[5].expert}} expert {{/if}} {{#if line.[5].subTitle}} subTitle {{/if}}" >
                           <input class="talent-checkbox" type="checkbox" name="{{line.[5].name}}.state" {{#if line.[5].state}} checked {{/if}} >
@@ -273,18 +273,18 @@
               </colgroup>
               <tr>
                   <th>{{localize "Shinobigami.OverflowX"}}</th>
-                  <td><input type="checkbox" name="data.talent.overflowX" data-dtype="Boolean" {{#if data.talent.overflowX}} checked {{/if}}></td>
+                  <td><input type="checkbox" name="system.talent.overflowX" data-dtype="Boolean" {{#if system.talent.overflowX}} checked {{/if}}></td>
                   <th>{{localize "Shinobigami.OverflowY"}}</th>
-                  <td><input type="checkbox" name="data.talent.overflowY" data-dtype="Boolean" {{#if data.talent.overflowY}} checked {{/if}}></td>
+                  <td><input type="checkbox" name="system.talent.overflowY" data-dtype="Boolean" {{#if system.talent.overflowY}} checked {{/if}}></td>
                   <th>{{localize "Shinobigami.Yoma"}}</th>
-                  <td><input type="checkbox" name="data.talent.yoma" data-dtype="Boolean" {{#if data.talent.yoma}} checked {{/if}}></td>
+                  <td><input type="checkbox" name="system.talent.yoma" data-dtype="Boolean" {{#if system.talent.yoma}} checked {{/if}}></td>
               </tr>
               
           </table>
 
-          <input type="hidden" name="data.talent.subTitle.id" value="{{data.talent.subTitle.id}}">
-          <input type="hidden" name="data.talent.subTitle.title" value="{{data.talent.subTitle.title}}">
-          <input type="hidden" name="data.talent.subTitle.state" value="{{data.talent.subTitle.state}}" data-dtype="Boolean">
+          <input type="hidden" name="system.talent.subTitle.id" value="{{system.talent.subTitle.id}}">
+          <input type="hidden" name="system.talent.subTitle.title" value="{{system.talent.subTitle.title}}">
+          <input type="hidden" name="system.talent.subTitle.state" value="{{system.talent.subTitle.state}}" data-dtype="Boolean">
 
           </div>
         </div>
@@ -297,25 +297,25 @@
             <table>
                 <tr>
                     <th>{{localize "Shinobigami.Age"}}</th>
-                    <td><input type="text" name="data.details.age" value="{{data.details.age}}"></td>
+                    <td><input type="text" name="system.details.age" value="{{system.details.age}}"></td>
                     <th>{{localize "Shinobigami.Gender"}}</th>
-                    <td><input type="text" name="data.details.sex" value="{{data.details.sex}}"></td>
+                    <td><input type="text" name="system.details.sex" value="{{system.details.sex}}"></td>
                 </tr>
                 <tr>
                     <th>{{localize "Shinobigami.Agency"}}</th>
-                    <td><input type="text" name="data.details.agency" value="{{data.details.agency}}"></td>
+                    <td><input type="text" name="system.details.agency" value="{{system.details.agency}}"></td>
                     <th>{{localize "Shinobigami.Grade"}}</th>
-                    <td>{{data.details.grade}}</td>
+                    <td>{{system.details.grade}}</td>
                 </tr>
                 <tr>
                     <th>{{localize "Shinobigami.Purpose"}}</th>
-                    <td colspan="3"><input type="text" name="data.details.purpose" value="{{data.details.purpose}}"></td>
+                    <td colspan="3"><input type="text" name="system.details.purpose" value="{{system.details.purpose}}"></td>
                 </tr>
                 <tr>
                     <th>{{localize "Shinobigami.Identify"}}</th>
-                    <td><input type="text" name="data.details.identify" value="{{data.details.identify}}"></td>
+                    <td><input type="text" name="system.details.identify" value="{{system.details.identify}}"></td>
                     <th>{{localize "Shinobigami.Belief"}}</th>
-                    <td><input type="text" name="data.details.belief" value="{{data.details.belief}}"></td>
+                    <td><input type="text" name="system.details.belief" value="{{system.details.belief}}"></td>
                 </tr>
 
             </table>
@@ -323,7 +323,8 @@
             <div class="cell">
               <h2 class="cell--title">{{localize "Shinobigami.Memo"}}</h2>
             </div>
-            {{editor content=data.details.biography target="data.details.biography" button=true owner=owner editable=editable}}
+            {{editor enrichedBiography target="system.details.biography" button=true editable=editable }}
+
         </div>
 
         {{!-- Owned Ability Tab --}}
@@ -340,7 +341,7 @@
             <ol class="items-list">
             {{#each actor.abilityList as |item id|}}
 
-            {{#ifOR ../data.isOwner (not item.data.hidden)}}
+            {{#ifOR ../system.isOwner (not item.system.hidden)}}
 
               <li class="item flexrow" data-item-id="{{item.id}}" draggable="true">
                 
@@ -350,10 +351,10 @@
                     </span> 
                     <span class="item-label">{{item.name}}<br>
                     <span style="color : gray; font-size : smaller;">
-                        <b>{{localize "Shinobigami.Type"}}</b> : {{item.data.type}} /
-                        <b>{{localize "Shinobigami.Gap"}}</b> : {{item.data.gap}} /
-                        <b>{{localize "Shinobigami.Cost"}}</b> : {{item.data.cost}} /
-                        <b>{{localize "Shinobigami.Talent"}}</b> : {{item.data.talent}}
+                        <b>{{localize "Shinobigami.Type"}}</b> : {{item.system.type}} /
+                        <b>{{localize "Shinobigami.Gap"}}</b> : {{item.system.gap}} /
+                        <b>{{localize "Shinobigami.Cost"}}</b> : {{item.system.cost}} /
+                        <b>{{localize "Shinobigami.Talent"}}</b> : {{item.system.talent}}
                         
                     <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span>
                     </span></span>
@@ -365,7 +366,7 @@
                   <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                 </div>
                 <div class="item-description">
-                  <p>{{{item.data.description}}}</p>
+                  <p>{{{item.system.description}}}</p>
                 </div>
               </li>
 
@@ -396,10 +397,10 @@
                     </span> 
                     <span class="item-label">{{item.name}}<br>
                     <span style="color : gray; font-size : smaller;">
-                        <b>{{localize "Shinobigami.Residence"}}</b> : {{#if item.data.residence}} O {{else}} X {{/if}} /
-                        <b>{{localize "Shinobigami.Secret"}}</b> : {{#if item.data.secret}} O {{else}} X {{/if}} /
-                        <b>{{localize "Shinobigami.Finish"}}</b> : {{#if item.data.finish}} O {{else}} X {{/if}} /
-                        <b>{{localize "Shinobigami.Feeling"}}</b> : {{item.data.feeling}}
+                        <b>{{localize "Shinobigami.Residence"}}</b> : {{#if item.system.residence}} O {{else}} X {{/if}} /
+                        <b>{{localize "Shinobigami.Secret"}}</b> : {{#if item.system.secret}} O {{else}} X {{/if}} /
+                        <b>{{localize "Shinobigami.Finish"}}</b> : {{#if item.system.finish}} O {{else}} X {{/if}} /
+                        <b>{{localize "Shinobigami.Feeling"}}</b> : {{item.system.feeling}}
                         
                     <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span>
                     </span></span>
@@ -410,7 +411,7 @@
                   <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                 </div>
                 <div class="item-description">
-                        <p>{{{item.data.description}}}</p>
+                        <p>{{{item.system.description}}}</p>
                 </div>
               </li>
             {{/each}}
@@ -422,7 +423,7 @@
         <div class="tab items" data-group="primary" data-tab="background">
           <div class="cell">
             <h2 class="cell--title">{{localize "Shinobigami.ExpContent"}}</b></h2>
-            <input type="text" name="data.details.expContent" value="{{data.details.expContent}}">
+            <input type="text" name="system.details.expContent" value="{{system.details.expContent}}">
           </div>
           <br>
 
@@ -445,8 +446,8 @@
                     </span> 
                     <span class="item-label">{{item.name}}<br>
                     <span style="color : gray; font-size : smaller;">
-                        <b>{{localize "Shinobigami.Type"}}</b> : {{#ifEquals item.data.type "pros"}} <i class="fas fa-grin-alt"></i> {{else}} <i class="fas fa-frown"></i> {{/ifEquals}} /
-                        <b>{{localize "Shinobigami.RequireEXP"}}</b> : {{item.data.exp}}
+                        <b>{{localize "Shinobigami.Type"}}</b> : {{#ifEquals item.system.type "pros"}} <i class="fas fa-grin-alt"></i> {{else}} <i class="fas fa-frown"></i> {{/ifEquals}} /
+                        <b>{{localize "Shinobigami.RequireEXP"}}</b> : {{item.system.exp}}
                         
                     <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span>
                     </span></span>
@@ -457,7 +458,7 @@
                   <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                 </div>
                 <div class="item-description">
-                  <p>{{{item.data.description}}}</p>
+                  <p>{{{item.system.description}}}</p>
                 </div>
               </li>
               
@@ -480,7 +481,7 @@
             <ol class="items-list">
             {{#each actor.handoutList as |item id|}}
 
-            {{#ifOR ../isGM (checkVisible item.data.visible ../userId)}} 
+            {{#ifOR ../isGM (checkVisible item.system.visible ../userId)}} 
               <li class="item flexrow" data-item-id="{{item.id}}" draggable="true">
 
                 <h4 class="item-name">
@@ -496,10 +497,10 @@
                   <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                 </div>
                 <div class="item-description" style="box-shadow: 4px 5px 12px; width: 98%; margin-top: 2px;">
-                  <p>{{{item.data.description}}}</p>
-                  {{#ifOR ../isGM (checkVisible item.data.sVisible ../userId)}} 
+                  <p>{{{item.system.description}}}</p>
+                  {{#ifOR ../isGM (checkVisible item.system.sVisible ../userId)}} 
                   <hr style="margin: 8px 0;">
-                  <p>{{{item.data.secret}}}</p>
+                  <p>{{{item.system.secret}}}</p>
                   {{/ifOR}}
                 </div>
               </li>
@@ -523,7 +524,7 @@
             <ol class="items-list">
             {{#each actor.finishList as |item id|}}
 
-            {{#ifOR ../data.isOwner (checkVisible item.data.visible ../userId)}} 
+            {{#ifOR ../system.isOwner (checkVisible item.system.visible ../userId)}} 
               <li class="item flexrow" data-item-id="{{item.id}}" draggable="true">
 
                 <h4 class="item-name">
@@ -532,8 +533,8 @@
                     </span> 
                     <span class="item-label">{{item.name}}<br>
                     <span style="color : gray; font-size : smaller;">
-                        <b>{{localize "Shinobigami.Type"}}</b> : {{item.data.type}} /
-                        <b>{{localize "Shinobigami.Talent"}}</b> : {{item.data.talent}}
+                        <b>{{localize "Shinobigami.Type"}}</b> : {{item.system.type}} /
+                        <b>{{localize "Shinobigami.Talent"}}</b> : {{item.system.talent}}
                         
                     <span class="item-details-toggle"><i class="fas fa-chevron-down"></i></span>
                     </span></span>
@@ -544,7 +545,7 @@
                   <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
                 </div>
                 <div class="item-description">
-                  <p>{{{item.data.description}}}</p>
+                  <p>{{{item.system.description}}}</p>
                 </div>
               </li>
             {{/ifOR}}

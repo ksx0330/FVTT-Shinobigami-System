@@ -8,7 +8,6 @@
 import { ShinobigamiItemSheet } from "./sheet/item-sheet.js";
 import { ShinobigamiActorSheet } from "./sheet/actor-sheet.js";
 import { ShinobigamiActor } from "./sheet/actor.js";
-import { SecretJournalSheet } from "./secret-journal.js";
 import { ShinobigamiSettings } from "./settings.js";
 import { PlotCombat } from "./combat.js";
 import { PlotSettings } from "./plot.js";
@@ -32,7 +31,6 @@ Hooks.once("init", async function() {
 
     CONFIG.Combat.documentClass = PlotCombat;
     CONFIG.Combat.initiative.formula = "1d6";
-    CONFIG.JournalEntry.sheetClass = SecretJournalSheet;
     ShinobigamiSettings.init();
     
     PlotSettings.initPlot();
@@ -125,7 +123,7 @@ async function chatListeners(html) {
             title = (title !== "") ? title : game.i18n.localize(`Shinobigami.${name}${i}`);
             
             if (title === data.talent) {
-                let num = actor.data.data.talent.table[j][i - 2].num;
+                let num = actor.system.talent.table[j][i - 2].num;
                 
                 return actor.rollTalent(title, num, add, secret);
             }
