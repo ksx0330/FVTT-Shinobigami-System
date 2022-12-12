@@ -13,12 +13,6 @@ import { PlotCombat } from "./combat.js";
 import { PlotSettings } from "./plot.js";
 import { PlotDialog } from "./dialog/plot-dialog.js";
 
-// Handout Canvas
-import { HandoutScene } from "./handout/canvas.js";
-import { Handout, HandoutDocument } from "./handout/Handout.js";
-import { HandoutsLayer } from "./handout/HandoutsLayer.js";
-import { HandoutConfig } from "./handout/HandoutConfig.js";
-
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
 /* -------------------------------------------- */
