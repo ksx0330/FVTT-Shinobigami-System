@@ -36,6 +36,20 @@ export class ShinobigamiItemSheet extends ItemSheet {
   /* -------------------------------------------- */
 
   /** @override */
+  _canUserView(user) {
+    if ( this.object.compendium ) return user.isGM || !this.object.compendium.private;
+    let can = this.object.testUserPermission(user, this.options.viewPermission);
+
+    if (this.item.type == "handout" && !can) {
+      const visible = this.item.system.visible;
+      can = visible instanceof Object && game.userId in visible && visible[game.userId];
+    }
+    return can;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
 	activateListeners(html) {
     super.activateListeners(html);
 

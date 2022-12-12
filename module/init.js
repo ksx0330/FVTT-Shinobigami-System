@@ -13,6 +13,8 @@ import { PlotCombat } from "./combat.js";
 import { PlotSettings } from "./plot.js";
 import { PlotDialog } from "./dialog/plot-dialog.js";
 
+import { ActorItemToken } from "./token.js";
+
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
 /* -------------------------------------------- */
@@ -20,8 +22,8 @@ import { PlotDialog } from "./dialog/plot-dialog.js";
 Hooks.once("init", async function() {
     console.log(`Initializing Simple Shinobigami System`);
 
-
     CONFIG.Actor.documentClass = ShinobigamiActor;
+    CONFIG.Token.objectClass = ActorItemToken;
 
     // Register sheet application classes
     Actors.unregisterSheet("core", ActorSheet);
@@ -34,6 +36,7 @@ Hooks.once("init", async function() {
     ShinobigamiSettings.init();
     
     PlotSettings.initPlot();
+
 });
 
 Hooks.once("ready", async function() {
@@ -44,11 +47,21 @@ Hooks.once("ready", async function() {
     basedoc[0].appendChild(hotbar);
 });
 
-// Hooks.on("dropCanvasData", (canvas, data) => {
-//   if (data.type == "Item")
-//     canvas.handouts._onDropData(event, data);
+Hooks.on("dropCanvasData", async (canvas, data) => {
+  if (data.type == "Item") {
+    let item = await Item.implementation.fromDropData(data);
+    if (item.type != "handout")
+      return;
 
-// });
+    const hw = canvas.grid.w / 2;
+    const hh = canvas.grid.h / 2;
+    const pos = canvas.grid.getSnappedPosition(data.x - hw, data.y - hh);
+
+    const token = (await canvas.scene.createEmbeddedDocuments("Token", [{name: item.name, img: item.img, x: pos.x, y: pos.y}], {}))[0];
+    await token.setFlag("shinobigami", "uuid", data.uuid);
+  }
+
+});
 
 
 Hooks.on("getSceneControlButtons", function(controls) {
