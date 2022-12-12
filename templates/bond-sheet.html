@@ -45,7 +45,17 @@
           </section>
 
           <div class="cell--bio">
-            <h3 class="cell--title"><b>{{localize "Shinobigami.Description"}}</b></h3>
+            <h3 class="cell--title">
+              <b>{{localize "Shinobigami.Description"}}</b>
+    
+              {{#if system.actor}}
+              <div class="checkbox-addon flexrow">
+                <button class="white-btn show-actor"><i class="fas fa-id-card"></i></button>
+              </div>
+              {{/if}}
+    
+            </h3>
+            {{!-- We're avoiding WYSIWYGs... for now... --}}
             {{editor enrichedBiography target="system.description" button=true editable=editable }}
           </div>
 

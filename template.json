@@ -63,7 +63,8 @@
         "secret": false,
         "finish": false,
         "feeling": "",
-        "description": ""
+        "description": "",
+        "actor": null
     },
     "ability": {
         "type": "",

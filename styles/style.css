@@ -246,7 +246,8 @@
   flex: 0 0 40px;
 }
 
-.shinobigami .item-controls .white-btn {
+.shinobigami .white-btn {
+  background-color: white;
   border: none;
 }
 
@@ -379,7 +380,6 @@
 
 
 
-
 .shinobigami .talent-table table, th, td {
   border: 1px solid black;
 }
@@ -460,7 +460,6 @@
 .shinobigami .talent-name {
   margin: 3px 0;
 }
-
 
 
 .shinobigami .plot-header {

@@ -13,6 +13,12 @@ import { PlotCombat } from "./combat.js";
 import { PlotSettings } from "./plot.js";
 import { PlotDialog } from "./dialog/plot-dialog.js";
 
+// Handout Canvas
+import { HandoutScene } from "./handout/canvas.js";
+import { Handout, HandoutDocument } from "./handout/Handout.js";
+import { HandoutsLayer } from "./handout/HandoutsLayer.js";
+import { HandoutConfig } from "./handout/HandoutConfig.js";
+
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
 /* -------------------------------------------- */
@@ -34,7 +40,6 @@ Hooks.once("init", async function() {
     ShinobigamiSettings.init();
     
     PlotSettings.initPlot();
-    
 });
 
 Hooks.once("ready", async function() {
@@ -45,9 +50,12 @@ Hooks.once("ready", async function() {
     basedoc[0].appendChild(hotbar);
 });
 
-Hooks.on("renderChatLog", (app, html, data) => chatListeners(html));
-Hooks.on("renderChatPopout", (app, html, data) => chatListeners(html));
-Hooks.on("updatePlotBar", (html) => chatListeners(html));
+// Hooks.on("dropCanvasData", (canvas, data) => {
+//   if (data.type == "Item")
+//     canvas.handouts._onDropData(event, data);
+
+// });
+
 
 Hooks.on("getSceneControlButtons", function(controls) {
     controls[0].tools.push({
@@ -87,6 +95,11 @@ Hooks.on("getSceneControlButtons", function(controls) {
     });
 
 });
+
+
+Hooks.on("renderChatLog", (app, html, data) => chatListeners(html));
+Hooks.on("renderChatPopout", (app, html, data) => chatListeners(html));
+Hooks.on("updatePlotBar", (html) => chatListeners(html));
 
 async function chatListeners(html) {
     html.on('click', '.roll-talent', async ev => {

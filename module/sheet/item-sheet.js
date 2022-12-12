@@ -39,6 +39,8 @@ export class ShinobigamiItemSheet extends ItemSheet {
 	activateListeners(html) {
     super.activateListeners(html);
 
+    html.find(".show-actor").click(this._onShowActor.bind(this));
+
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
@@ -81,6 +83,14 @@ export class ShinobigamiItemSheet extends ItemSheet {
     }
 
     return data;
+  }
+
+  async _onShowActor(event) {
+    event.preventDefault();
+
+    let actorId = this.object.system.actor;
+    let actor = game.actors.get(actorId);
+  	actor.sheet.render(true);
   }
 
 
