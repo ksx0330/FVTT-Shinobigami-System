@@ -37,3 +37,5 @@ Changelog
 1.2.0 - Compatible version 10
 
 1.3.0 - Add drag-related features
+
+1.3.1 - Add some feature

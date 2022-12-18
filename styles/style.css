@@ -549,3 +549,11 @@
 .plot-bar .remove-bar .remove-btn {
   float: right;
 }
+
+.share-dialog {
+  font-size: 16px;
+}
+
+.share-dialog .user-item {
+  margin-bottom: 4px;
+}

@@ -36,11 +36,12 @@ export class PlotDialog extends Dialog {
     html.find(".select").click(this._swapDice.bind(this));
     html.find(".add-dice").click(this._addDice.bind(this));
     html.find(".remove-dice").click(this._removeDice.bind(this));
+    html.find(".share-plot").click(this._sharePlot.bind(this));
     html.find("#ready").click(this._ready.bind(this));
   }
 
   _getContent() {
-    var content = `
+    let content = `
     <h2 class="plot-header">${this.name}
       <div class="dice-controls" style="float: right">
         <button type="button" class="add-dice">
@@ -48,8 +49,15 @@ export class PlotDialog extends Dialog {
         </button>
         <button type="button" class="remove-dice">
           <i class="fas fa-minus"></i>
-        </button>
-      </div></h2><div id="plot-dices" class="dice-lists dice-lists-md">`
+        </button>`;
+
+    if (game.user.isGM)
+      content += `
+      <button type="button" class="share-plot">
+        <i class="fas fa-share"></i>
+      </button>`;
+
+    content += `</div></h2><div id="plot-dices" class="dice-lists dice-lists-md">`;
 
     content += `<div class="plot" data-index="0">?</div> `;
     content += `</div><hr><div id="select-dices" class="dice-lists dice-lists-md">`
@@ -76,6 +84,63 @@ export class PlotDialog extends Dialog {
     event.preventDefault();
     this.plot.pop();
     $(event.currentTarget.closest(".dialog-content")).find(".plot").last().remove();
+  }
+
+  _sharePlot(event) {
+    event.preventDefault();
+
+    let userList = game.users.reduce((acc, user) => {
+        if (user.active && user.id != game.user.id)
+            acc.push(user);
+        return acc;
+    }, []);
+
+    let content = `
+      <div class="share-dialog">
+    `;
+
+    for (let user of userList) {
+      content += `
+      <div class="user-item">
+        <label>
+          <input type="radio" name="share_user" value="${user.id}" />
+          ${user.name}
+        </label>
+      </div>
+      `;
+    }
+    content += `</div>`;
+
+    let onClick = () => {
+      let share = $(".share-dialog input[name=share_user]:checked").val();
+      console.log(share);
+
+      game.socket.emit("system.shinobigami", {
+        id: "req", 
+        sender: this.receiver, 
+        receiver: share, 
+        data: { 
+          actorId: this.actorId, 
+          combatantId: this.combatantId, 
+          name: this.name 
+        } 
+      });
+      this.close();
+    }
+
+    const myDialog = new Dialog({
+      title: "Select User",
+      content: content,
+      buttons: {
+        one: {
+          icon: '<i class="fas fa-share"></i>',
+          label: "Share",
+          callback: () => onClick()
+        }
+      }
+    }).render(true);
+
+
   }
 
   _selectDice(event) {

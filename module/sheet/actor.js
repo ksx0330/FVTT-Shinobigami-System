@@ -18,6 +18,9 @@ export class ShinobigamiActor extends Actor {
       let overflowY = this.system.talent.overflowY;
       let yoma = this.system.talent.yoma;
 
+
+      console.log(data);
+
       if ('talent' in data.system) {
         if ('table' in data.system.talent) {
           for (let a = 0; a < Object.keys(data.system.talent.table).length; ++a) {
@@ -53,13 +56,21 @@ export class ShinobigamiActor extends Actor {
           overflowY = data.system.talent.overflowY;
         if ('yoma' in data.system.talent)
           yoma = data.system.talent.yoma;
-      }
+
+      } else
+        data.system.talent = {};
 
       if ('health' in data.system && ('state' in data.system.health || 'dirty' in data.system.health)) {
+        let count = 0;
         if ('dirty' in data.system.health) {
           for (let a = 0; a < Object.keys(data.system.health.dirty).length; ++a) {
             let i = Object.keys(data.system.health.dirty)[a];
             dirty[i] = data.system.health.dirty[i];
+
+            if (data.system.health.dirty[i])
+              count -= 1;
+            else
+              count += 1;
           }
         }
 
@@ -67,9 +78,15 @@ export class ShinobigamiActor extends Actor {
           for (let a = 0; a < Object.keys(data.system.health.state).length; ++a) {
             let i = Object.keys(data.system.health.state)[a];
             health[i] = data.system.health.state[i];
+
+            if (data.system.health.state[i])
+              count -= 1;
+            else
+              count += 1;
           }
         }
-        data.system.talent = {};
+
+        data.system.health.value = ('value' in data.system.health) ? data.system.health.value + count : this.system.health.value + count;
       }
 
       if (!yoma) {

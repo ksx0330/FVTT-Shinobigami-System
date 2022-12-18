@@ -103,6 +103,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
     }
     
     data.enrichedBiography = await TextEditor.enrichHTML(data.system.details.biography, {async: true});
+    data.enrichedExpContent = await TextEditor.enrichHTML(data.system.details.expContent, {async: true});
 
     console.log(data);
 

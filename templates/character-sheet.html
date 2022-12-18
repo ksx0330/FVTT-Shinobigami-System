@@ -421,12 +421,6 @@
         
         {{!-- Owned Background Tab --}}
         <div class="tab items" data-group="primary" data-tab="background">
-          <div class="cell">
-            <h2 class="cell--title">{{localize "Shinobigami.ExpContent"}}</b></h2>
-            <input type="text" name="system.details.expContent" value="{{system.details.expContent}}">
-          </div>
-          <br>
-
           <div class="cell cell--common-talent">
             <h2 class="cell--title">
               <label>{{localize "Shinobigami.Background"}}</label>
@@ -465,6 +459,13 @@
             {{/each}}
             </ol>
           </div>
+
+          <br>
+          <div class="cell">
+            <h2 class="cell--title">{{localize "Shinobigami.ExpContent"}}</b></h2>
+            {{editor enrichedExpContent target="system.details.expContent" button=true editable=editable }}
+          </div>
+
         </div>
 
         {{!-- Owned Finish Tab --}}
