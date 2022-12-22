@@ -2,6 +2,9 @@
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {ItemSheet}
  */
+
+import { TalentSelectDialog } from "../dialog/talent-select-dialog.js";
+
 export class ShinobigamiItemSheet extends ItemSheet {
 
   /** @override */
@@ -54,6 +57,7 @@ export class ShinobigamiItemSheet extends ItemSheet {
     super.activateListeners(html);
 
     html.find(".show-actor").click(this._onShowActor.bind(this));
+    html.find(".select-talent").click(this._onSelectTalent.bind(this));
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
@@ -105,6 +109,13 @@ export class ShinobigamiItemSheet extends ItemSheet {
     let actorId = this.object.system.actor;
     let actor = game.actors.get(actorId);
   	actor.sheet.render(true);
+  }
+
+  async _onSelectTalent(event) {
+    event.preventDefault();
+
+    let dialog = new TalentSelectDialog(this.object.actor, async (text) => await this.object.update({"system.talent": text}));
+    dialog.render(true);
   }
 
 

@@ -271,6 +271,7 @@
   text-align: right;
   font-size: 17px;
   font-weight: bold;
+  flex: 0 0 130px;
 }
 
 .shinobigami .icon-button {
@@ -340,14 +341,6 @@
   padding: 10px 0;
 }
 
-.shinobigami .item-description {
-  display: none;
-  -webkit-box-flex: 0;
-  -ms-flex: none;
-  flex: none;
-  width: 100%;
-}
-
 .shinobigami .item-name {
   font-size: 18px;
   font-weight: bold;
@@ -355,13 +348,17 @@
   -ms-flex: 2;
   flex: 2;
   margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
-.shinobigami .item-label:hover::after {
+.shinobigami .item-name:hover::after {
   width: 100%;
 }
 
-.shinobigami .item-label::after {
+.shinobigami .item-name::after {
   display: block;
   content: '';
   width: 0;
@@ -373,9 +370,26 @@
   transition: all ease-in-out 0.25s;
 }
 
+.shinobigami .echo-item {
+  flex: 0 0 48px;
+}
+
+.shinobigami .item-label {
+  flex: 1;
+  flex-basis: calc(100% - 48px);
+}
+
+.shinobigami .item-addon-list .item-label {
+  flex-basis: calc(100% - 48px - 130px);
+}
+
 .shinobigami .side-box {
   text-align: right;
   font-weight: bold;
+}
+
+.shinobigami .select-talent {
+  cursor: pointer;
 }
 
 
@@ -556,4 +570,10 @@
 
 .share-dialog .user-item {
   margin-bottom: 4px;
+}
+
+.shinobigami .talent-select {
+  background-color: #3c3a3a;
+  color: white;
+  font-weight: bold;
 }

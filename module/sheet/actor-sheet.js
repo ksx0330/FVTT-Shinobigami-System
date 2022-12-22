@@ -117,12 +117,12 @@ export class ShinobigamiActorSheet extends ActorSheet {
     super.activateListeners(html);
 
     // Talent
-    html.find('.item-label').click(this._showItemDetails.bind(this));
     html.find(".echo-item").click(this._echoItemDescription.bind(this));
+    html.find('.item-label').click(ev => {
+      console.log(ev.currentTarget);
+      const target = $(ev.currentTarget);
 
-    // Update Inventory Item
-    html.find('.item-edit').click(ev => {
-      const li = $(ev.currentTarget).parents(".item");
+      const li = target.parents(".item");
       const item = this.actor.items.get(li.data("itemId"));
       item.sheet.render(true);
     });
@@ -290,6 +290,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
     let itemData = {
       name: name,
       type: type,
+      img: `icons/svg/${header.dataset.img}.svg`,
       system: {}
     };
     if (type == "handout")
@@ -319,9 +320,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
     let description = item.system.description;
 
     if (item.type == 'ability') {
-      if (item.img != 'icons/svg/mystery-man.svg')
-        title = `<img src="${item.img}" width="40" height="40">&nbsp&nbsp<b>${title}</b>` 
-
+      title = `<img src="${item.img}" width="28" height="28">&nbsp&nbsp<b>${title}</b>` 
       description = `<table style="text-align: center;">
                       <tr>
                         <th>${game.i18n.localize("Shinobigami.Type")}</th>
@@ -336,14 +335,14 @@ export class ShinobigamiActorSheet extends ActorSheet {
                         <td>${item.system.cost}</td>
                         <td>${item.system.talent}</td>
                       </tr>
-                    </table>${description}
-                    <button type="button" class="roll-talent" data-talent="${item.system.talent}">${item.system.talent}</button>`
+                      </table>${description}`;
+  
+        if (item.system.talent != "")
+          description += `<button type="button" class="roll-talent" data-talent="${item.system.talent}">${item.system.talent}</button>`;
     }
 
     else if (item.type == 'bond') {
-      if (item.img != 'icons/svg/mystery-man.svg')
-        title = `<img src="${item.img}" width="40" height="40">&nbsp&nbsp<b>${title}</b>` 
-
+      title = `<img src="${item.img}" width="28" height="28">&nbsp&nbsp<b>${title}</b>` 
       description = `<table style="text-align: center;">
                       <tr>
                         <th>${game.i18n.localize("Shinobigami.Residence")}</th>
@@ -362,9 +361,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
     }
     
     else if (item.type == 'background') {
-      if (item.img != 'icons/svg/mystery-man.svg')
-        title = `<img src="${item.img}" width="40" height="40">&nbsp&nbsp<b>${title}</b>` 
-
+      title = `<img src="${item.img}" width="28" height="28">&nbsp&nbsp<b>${title}</b>` 
       description = `<table style="text-align: center;">
                       <tr>
                         <th>${game.i18n.localize("Shinobigami.Type")}</th>
@@ -379,9 +376,7 @@ export class ShinobigamiActorSheet extends ActorSheet {
     }
     
     else if (item.type == 'finish') {
-      if (item.img != 'icons/svg/mystery-man.svg')
-        title = `<img src="${item.img}" width="40" height="40">&nbsp&nbsp<b>${title}</b>` 
-
+      title = `<img src="${item.img}" width="28" height="28">&nbsp&nbsp<b>${title}</b>` 
       description = `<table style="text-align: center;">
                       <tr>
                         <th>${game.i18n.localize("Shinobigami.Type")}</th>
@@ -392,22 +387,22 @@ export class ShinobigamiActorSheet extends ActorSheet {
                         <td>${item.system.type}</td>
                         <td>${item.system.talent}</td>
                       </tr>
-                    </table>${description}
-                    <button type="button" class="roll-talent" data-talent="${item.system.talent}">${item.system.talent}</button>`
-                    
+                    </table>${description}`;
+
+      if (item.system.talent != "")
+        description += `<button type="button" class="roll-talent" data-talent="${item.system.talent}">${item.system.talent}</button>`;
       
     }
     
     else if (item.type == "item") {
-      if (item.img != 'icons/svg/mystery-man.svg')
-        title = `<img src="${item.img}" width="40" height="40">&nbsp&nbsp<b>${title} X ${item.system.quantity}</b>` 
+      title = `<img src="${item.img}" width="28" height="28">&nbsp&nbsp<b>${title} X ${item.system.quantity}</b>` 
     }
     
     // GM rolls.
     let chatData = {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      content: `<div class="" data-actor-id=${this.actor.id} data-item-id=${itemId}>` + "<h2>" + title + "</h2>" + description + "</div>"
+      content: `<div class="" data-actor-id=${this.actor.id} data-item-id=${itemId}>` + "<h2 style='display: flex; padding-bottom: 2px;'>" + title + "</h2>" + description + "</div>"
     };
 
     ChatMessage.create(chatData);
