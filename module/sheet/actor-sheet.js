@@ -118,11 +118,11 @@ export class ShinobigamiActorSheet extends ActorSheet {
 
     // Talent
     html.find(".echo-item").click(this._echoItemDescription.bind(this));
-    html.find('.item-label').click(ev => {
-      console.log(ev.currentTarget);
-      const target = $(ev.currentTarget);
+    html.find('.item-label').click(this._showItemDetails.bind(this));
 
-      const li = target.parents(".item");
+    // Update Inventory Item
+    html.find('.item-edit').click(ev => {
+      const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));
       item.sheet.render(true);
     });

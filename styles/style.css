@@ -17,7 +17,7 @@
 .shinobigami .logo-box {
   width: 100%;
   text-align: center;
-  background: #444444;
+  background: #6c6c6c;
 }
 
 .shinobigami .logo-box img {
@@ -377,6 +377,7 @@
 .shinobigami .item-label {
   flex: 1;
   flex-basis: calc(100% - 48px);
+  cursor: pointer;
 }
 
 .shinobigami .item-addon-list .item-label {
@@ -576,4 +577,12 @@
   background-color: #3c3a3a;
   color: white;
   font-weight: bold;
+}
+
+.shinobigami .item-description {
+  display: none;
+  -webkit-box-flex: 0;
+  -ms-flex: none;
+  flex: none;
+  width: 100%;
 }

@@ -41,3 +41,5 @@ Changelog
 1.3.1 - Add some feature
 
 1.3.2 - Add some feature
+
+1.3.3 - Replace logo
