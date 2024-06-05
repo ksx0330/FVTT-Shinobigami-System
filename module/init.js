@@ -115,6 +115,9 @@ async function chatListeners(html) {
         const speaker = ChatMessage.getSpeaker();
         let actor = null;
         
+        if (data.talent == game.i18n.localize("Shinobigami.Tmp"))
+          return;
+
         if (speaker.token != null)
             actor = canvas.tokens.objects.children.find(e => e.id == speaker.token).actor;
         else if (speaker.actor != null)

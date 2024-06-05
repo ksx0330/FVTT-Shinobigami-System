@@ -338,7 +338,7 @@
 
             {{#ifOR ../system.isOwner (not item.system.hidden)}}
 
-              <li class="item flexrow" data-item-id="{{item.id}}" draggable="true">
+              <li class="item flexrow" {{#if item.system.curse}} style="background:black; color: white;" {{/if}} data-item-id="{{item.id}}" draggable="true">
                 
                 <h4 class="item-name">
                     <span class="echo-item" style="float:left;">

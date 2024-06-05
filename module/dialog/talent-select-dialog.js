@@ -18,6 +18,14 @@ export class TalentSelectDialog extends Dialog {
                         let name = $(this.select).text().split("/")[0];
                         callback(name);
                     }
+                },
+                "Tmp": {
+                    icon: '<i class="fas fa-dice"></i>',
+                    label: game.i18n.localize(`Shinobigami.Tmp`),
+                    callback: () => {
+                        let name = game.i18n.localize(`Shinobigami.Tmp`);
+                        callback(name);
+                    }
                 }
             },
             default: "confirm"
