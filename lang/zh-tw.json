@@ -130,14 +130,14 @@
     "SETTINGS.TalentTableDesc": "特技清單變更",
     "SETTINGS.RollAddon": "預設需要輸入修正值",
     "SETTINGS.RollAddonDesc": "擲骰時，首先會生成一個可輪入修正值的對話框，而無需按Ctrl。",
-    
-    "ACTOR.TypeCharacter": "忍者",
-    "ACTOR.TypeCommoner": "一般人",
 
-    "ITEM.TypeBond": "人物",
-    "ITEM.TypeAbility": "忍法",
-    "ITEM.TypeItem": "忍具",
-    "ITEM.TypeFinish": "奥義",
-    "ITEM.TypeBackground": "背景",
-    "ITEM.TypeHandout": "Handout"
+    "TYPES.Actor.character": "忍者",
+    "TYPES.Actor.commoner": "一般人",
+
+    "TYPES.Item.bond": "人物",
+    "TYPES.Item.ability": "忍法",
+    "TYPES.Item.item": "忍具",
+    "TYPES.Item.finish": "奥義",
+    "TYPES.Item.background": "背景",
+    "TYPES.Item.handout": "Handout"
 }

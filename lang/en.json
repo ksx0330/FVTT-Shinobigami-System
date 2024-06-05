@@ -133,13 +133,13 @@
     "SETTINGS.RollAddon": "Always Add Modifier",
     "SETTINGS.RollAddonDesc": "When you roll, Even if you don't press Ctrl, a dialog box appears where you can enter additional modifiers.",
     
-    "ACTOR.TypeCharacter": "Ninja",
-    "ACTOR.TypeCommoner": "Commoner",
+    "TYPES.Actor.character": "Ninja",
+    "TYPES.Actor.commoner": "Commoner",
 
-    "ITEM.TypeBond": "People",
-    "ITEM.TypeAbility": "Ninpo",
-    "ITEM.TypeItem": "Ninja Gear",
-    "ITEM.TypeFinish": "Ohgi",
-    "Item.TypeBackground": "Background",
-    "ITEM.TypeHandout": "Handout"
+    "TYPES.Item.bond": "People",
+    "TYPES.Item.ability": "Ninpo",
+    "TYPES.Item.item": "Ninja Gear",
+    "TYPES.Item.finish": "Ohgi",
+    "TYPES.Item.background": "Background",
+    "TYPES.Item.handout": "Handout"
 }

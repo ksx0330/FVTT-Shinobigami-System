@@ -132,13 +132,13 @@
     "SETTINGS.RollAddon": "수정치 추가",
     "SETTINGS.RollAddonDesc": "롤을 할 때 Ctrl을 누르지 않아도 항상 추가 수정치를 입력할 수 있는 다이얼로그가 나옵니다.",
     
-    "ACTOR.TypeCharacter": "닌자",
-    "ACTOR.TypeCommoner": "일반인",
+    "TYPES.Actor.character": "닌자",
+    "TYPES.Actor.commoner": "일반인",
 
-    "ITEM.TypeBond": "인물",
-    "ITEM.TypeAbility": "인법",
-    "ITEM.TypeItem": "닌자 도구",
-    "ITEM.TypeFinish": "오의",
-    "ITEM.TypeBackground": "배경",
-    "ITEM.TypeHandout": "핸드아웃"
+    "TYPES.Item.bond": "인물",
+    "TYPES.Item.ability": "인법",
+    "TYPES.Item.item": "닌자 도구",
+    "TYPES.Item.finish": "오의",
+    "TYPES.Item.background": "배경",
+    "TYPES.Item.handout": "핸드아웃"
 }

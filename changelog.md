@@ -43,3 +43,5 @@ Changelog
 1.3.2 - Add some feature
 
 1.3.3 - Replace logo
+
+1.3.4 - Compatible version 11

@@ -131,14 +131,14 @@
     "SETTINGS.TalentTableDesc": "特技一覧変更",
     "SETTINGS.RollAddon": "デフォルトで修正値を入力する",
     "SETTINGS.RollAddonDesc": "ロールをする際、Ctrlキーを押さずに常に修正値を入力できるダイアログを生成する。",
-    
-    "ACTOR.TypeCharacter": "忍者",
-    "ACTOR.TypeCommoner": "一般人",
 
-    "ITEM.TypeBond": "人物",
-    "ITEM.TypeAbility": "忍法",
-    "ITEM.TypeItem": "忍具",
-    "ITEM.TypeFinish": "奥義",
-    "ITEM.TypeBackground": "背景",
-    "ITEM.TypeHandout": "ハンドアウト"
+    "TYPES.Actor.character": "忍者",
+    "TYPES.Actor.commoner": "一般人",
+
+    "TYPES.Item.bond": "人物",
+    "TYPES.Item.ability": "忍法",
+    "TYPES.Item.item": "忍具",
+    "TYPES.Item.finish": "奥義",
+    "TYPES.Item.background": "背景",
+    "TYPES.Item.handout": "ハンドアウト"
 }
