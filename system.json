@@ -28,14 +28,14 @@
       "label": "Chat Macro",
       "entity": "Macro",
       "name": "chat-macro",
-      "path": "./packs/chat-macro.db",
+      "path": "./packs/chat-macro",
       "system": "shinobigami"
     },
     {
       "label": "Create Macro",
       "type": "Macro",
       "name": "create-macro",
-      "path": "packs/create-macro.db",
+      "path": "packs/create-macro",
       "system": "shinobigami",
       "entity": "Macro"
     }
