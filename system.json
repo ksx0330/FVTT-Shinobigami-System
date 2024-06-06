@@ -24,6 +24,24 @@
     { "lang": "zh-tw", "name": "正體中文", "path": "lang/zh-tw.json" }
   ],
   "packs": [
+    {
+      "label": "Chat Macro",
+      "name": "chat-macro",
+      "path": "packs/chat-macro.db",
+      "system": "shinobigami",
+      "type": "Macro",
+      "private": false,
+      "flags": {}
+    },
+    {
+      "label": "Create Macro",
+      "type": "Macro",
+      "name": "create-macro",
+      "path": "packs/create-macro.db",
+      "system": "shinobigami",
+      "private": false,
+      "flags": {}
+    }
   ],
   "gridDistance": 5,
   "gridUnits": "ft",
