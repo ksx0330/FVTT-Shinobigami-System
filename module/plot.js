@@ -153,7 +153,7 @@ export class PlotSettings {
                 icon: "fas fa-dice",
                 visible: game.user.isGM,
                 onClick: () => {
-                    var actors = game.data.actors.filter(element => (element.permission['default'] == 3 || element.permission[game.user.id] == 3) );
+                    var actors = game.data.actors.filter(element => (element.ownership['default'] == 3 || element.ownership[game.user.id] == 3) );
 
                     let dialog = new ActorListDialog(actors)
                     dialog.render(true);
