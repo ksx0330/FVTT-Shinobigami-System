@@ -46,8 +46,10 @@ Changelog
 
 1.3.4 - Compatible version 11
 
-1.3.5 - Add some feature
+1.3.5 - Add some features
 
 1.3.6 - Bug fix
 
 1.3.7 - Bug fix
+
+1.3.8 - Add some features

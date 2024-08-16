@@ -12,6 +12,7 @@ import { ShinobigamiSettings } from "./settings.js";
 import { PlotCombat } from "./combat.js";
 import { PlotSettings } from "./plot.js";
 import { PlotDialog } from "./dialog/plot-dialog.js";
+import { TalentSelectDialog } from "./dialog/talent-select-dialog.js";
 
 import { ActorItemToken } from "./token.js";
 
@@ -71,32 +72,20 @@ Hooks.on("getSceneControlButtons", function(controls) {
         icon: "fas fa-dice-d6",
         visible: game.user.isGM,
         onClick: () => {
-            Dialog.prompt({
-              title: "Roll Talent",
-              content: `
-                <h2>
-                  ${game.i18n.localize("Shinobigami.Talent")}
-                </h2>
-                <p><input type="text" id="talent" /></p>
-              `,
-              render: () => $("#talent").focus(),
-              callback: async () => {
-                const talent = $("#talent").val().trim();
+            new TalentSelectDialog(null, name => {
                 let context = `
-                  <h2>${game.i18n.localize("Shinobigami.Talent")}: ${talent}</h2>
-                  <button type="button" class="roll-talent" data-talent="${talent}">${talent}</button>
-                `
-
+                    <h2>${game.i18n.localize("Shinobigami.Talent")}: ${name}</h2>
+                    <button type="button" class="roll-talent" data-talent="${name}">${name}</button>
+                `;
                 // GM rolls.
                 let chatData = {
-                  user: game.user.id,
-                  speaker: ChatMessage.getSpeaker({ alias: "GM" }),
-                  content: context
+                    user: game.user.id,
+                    speaker: ChatMessage.getSpeaker({ alias: "GM" }),
+                    content: context
                 };
 
                 ChatMessage.create(chatData);
-              }
-            });
+            }).render(true);
         },
         button: true
     });
@@ -109,14 +98,11 @@ Hooks.on("renderChatPopout", (app, html, data) => chatListeners(html));
 Hooks.on("updatePlotBar", (html) => chatListeners(html));
 
 async function chatListeners(html) {
-    html.on('click', '.roll-talent', async ev => {
+    html.on('click', '.roll-talent', async event => {
         event.preventDefault();
-        const data = ev.currentTarget.dataset;
+        const data = event.currentTarget.dataset;
         const speaker = ChatMessage.getSpeaker();
         let actor = null;
-        
-        if (data.talent == game.i18n.localize("Shinobigami.Tmp"))
-          return;
 
         if (speaker.token != null)
             actor = canvas.tokens.objects.children.find(e => e.id == speaker.token).actor;
@@ -133,22 +119,43 @@ async function chatListeners(html) {
         
         let add = true;
         if (!event.ctrlKey && !game.settings.get("shinobigami", "rollAddon"))
-          add = false;
+            add = false;
 
         let secret = false;
         if (event.altKey)
-          secret = true;
-        
-        for (var i = 2; i <= 12; ++i)
-        for (var j = 0; j < 6; ++j) {
-            let name = String.fromCharCode(65 + j);
-            let title = game.settings.get("shinobigami", `Shinobigami.${name}${i}`);
-            title = (title !== "") ? title : game.i18n.localize(`Shinobigami.${name}${i}`);
-            
-            if (title === data.talent) {
-                let num = actor.system.talent.table[j][i - 2].num;
+            secret = true;
+
+        let tmpTitle = data.talent.split(game.i18n.localize("Shinobigami.Tmp"));
+        if (tmpTitle.length == 2) {
+            let name_id = (tmpTitle[0].trim() == '') ? Math.floor(Math.random() * 6) : null;
+            if (name_id == null) {
+                for (let i = 0; i < 6; ++i) {
+                    let name = String.fromCharCode(65 + i);
+                    let title = game.settings.get("shinobigami", `Shinobigami.${name}1`);
+                    title = (title !== "") ? title : game.i18n.localize(`Shinobigami.${name}1`);
+                    if (title == tmpTitle[0].trim())
+                        name_id = i;
+                }
+            }
+            let id = Math.floor(Math.random() * 11) + 2;
+
+            let name = String.fromCharCode(65 + name_id);
+            let title = game.settings.get("shinobigami", `Shinobigami.${name}${id}`);
+            title = (title !== "") ? title : game.i18n.localize(`Shinobigami.${name}${id}`);
+            let num = actor.system.talent.table[name_id][id - 2].num;
+            return actor.rollTalent(title, num, add, secret);
+
+        } else {
+            for (var i = 2; i <= 12; ++i)
+            for (var j = 0; j < 6; ++j) {
+                let name = String.fromCharCode(65 + j);
+                let title = game.settings.get("shinobigami", `Shinobigami.${name}${i}`);
+                title = (title !== "") ? title : game.i18n.localize(`Shinobigami.${name}${i}`);
                 
-                return actor.rollTalent(title, num, add, secret);
+                if (title === data.talent) {
+                    let num = actor.system.talent.table[j][i - 2].num;
+                    return actor.rollTalent(title, num, add, secret);
+                }
             }
         }
         
@@ -161,9 +168,9 @@ async function chatListeners(html) {
     });
 
 
-    html.on('click', '.plot-dialog', async ev => {
+    html.on('click', '.plot-dialog', async event => {
         event.preventDefault();
-        const data = ev.currentTarget.dataset;
+        const data = event.currentTarget.dataset;
 
         let d = new PlotDialog(data.actorId, data.combatantId, data.name, data.sender).render(true);
         game.shinobigami.plotDialogs.push(d);

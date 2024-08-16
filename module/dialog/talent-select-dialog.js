@@ -56,7 +56,7 @@ export class TalentSelectDialog extends Dialog {
             for (let j = 0; j < 6; ++j) {
                 let name = String.fromCharCode(65 + j);
                 table[0].push({
-                    title: game.i18n.localize(`Shinobigami.${name}1`),
+                    title: game.i18n.localize(`Shinobigami.${name}1`) + " " + game.i18n.localize("Shinobigami.Tmp"),
                     num: 0
                 });
             }
@@ -72,7 +72,15 @@ export class TalentSelectDialog extends Dialog {
 
 
         } else {
-            for (let i = 1; i <= 12; ++i)
+            for (let j = 0; j < 6; ++j) {
+                let name = String.fromCharCode(65 + j);
+                table[0].push({
+                    title: game.i18n.localize(`Shinobigami.${name}1`) + " " + game.i18n.localize("Shinobigami.Tmp"),
+                    num: 0
+                });
+            }
+
+            for (let i = 2; i <= 12; ++i)
             for (let j = 0; j < 6; ++j) {
                 let name = String.fromCharCode(65 + j);
                 table[i-1].push({
@@ -80,13 +88,12 @@ export class TalentSelectDialog extends Dialog {
                     num: 0
                 });
             }
-
         }
 
         let content = `<table>`;
         content += `<tr>`;
         for (let block of table[0])
-            content += `<th>${block.title}</th>`;
+            content += `<th class="select">${block.title}</th>`;
         content += `</tr>`;
 
         for (let i = 1; i < 12; ++i) {
