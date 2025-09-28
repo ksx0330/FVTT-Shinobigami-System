@@ -62,31 +62,37 @@ export class ShinobigamiActor extends Actor {
 
       if ('health' in data.system && ('state' in data.system.health || 'dirty' in data.system.health)) {
         let count = 0;
+        // fix fvtt v11 -> v12
         if ('dirty' in data.system.health) {
           for (let a = 0; a < Object.keys(data.system.health.dirty).length; ++a) {
-            let i = Object.keys(data.system.health.dirty)[a];
-            dirty[i] = data.system.health.dirty[i];
-
-            if (data.system.health.dirty[i])
-              count -= 1;
-            else
-              count += 1;
+            const i = Object.keys(data.system.health.dirty)[a];
+            const prev = !!(this.system.health.dirty?.[i]);
+            const next = !!data.system.health.dirty[i];
+            dirty[i] = next;
+            if (prev !== next) count += (next ? -1 : +1);
           }
         }
 
+        // fix fvtt v11 -> v12
         if ('state' in data.system.health) {
           for (let a = 0; a < Object.keys(data.system.health.state).length; ++a) {
-            let i = Object.keys(data.system.health.state)[a];
-            health[i] = data.system.health.state[i];
-
-            if (data.system.health.state[i])
-              count -= 1;
-            else
-              count += 1;
+            const i = Object.keys(data.system.health.state)[a];
+            const prev = !!(this.system.health.state?.[i]);
+            const next = !!data.system.health.state[i];
+            health[i] = next;
+            if (prev !== next) count += (next ? -1 : +1);
           }
         }
 
-        data.system.health.value = ('value' in data.system.health) ? data.system.health.value + count : this.system.health.value + count;
+        // fix fvtt v11 -> v12
+        {
+          const base = ('value' in data.system.health)
+            ? Number(data.system.health.value ?? this.system.health.value)
+            : this.system.health.value;
+          const minV = this.system.health.min;
+          const maxV = this.system.health.max;
+          data.system.health.value = Math.max(minV, Math.min(maxV, base + count));
+        }
       }
 
       if (!yoma) {
